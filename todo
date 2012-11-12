@@ -1,0 +1,32 @@
+TODO
+----
+
+[.] Chargement des réglages depuis conf.json
+[ ] Une HUD
+[.] Gérer la mort du perso - respawn en option, nombre de vies...
+[.] Éclairage dynamique? - utiliser les PostFX
+[ ] Packs de maps
+[ ] Menu
+[ ] Effets de particules (eau, arbres, lave?, torches)
+[ ] Sons
+[ ] Musique
+
+----
+
+[ ] Un meilleur mécanisme pour les exceptions - remplacer les assertions qui ne servent pas au debug
+[.] Échelles: Centrer le personnage quand il monte - interdire le déplacement horizontal?
+[ ] Échelles: Ajouter un type "laddertop" pour pouvoir marcher sur une plateforme d'échelle?
+	-> voir la proposition de TILE_CLOUD
+[ ] Arranger le code: Tileset.cpp:306, Tile.cpp:130
+[x] Tuiles: Les tuiles de premier plan ne réagissent pas aux collisions - souhaitable?
+	Les collisions affectent tous les plans, remplacé getType() par hasType(TileType)
+	Attention, hasType(TILE_VOID) ne veut pas dire que la tuile est traversable (seulement un plan au moin l'est)
+[ ] Tuiles: Les tuiles automatiques ne fusionnent pas si elles sont sur des plans différents - souhaitable?
+[x] Nage: Gérer la noyade
+	OK, mais la mort reste assez moche.
+[ ] Tuiles: Revoir la propagation aux couches supérieures dans les différentes fonctions
+[ ] Persos: Une mort plus digne...
+[ ] Tuiles: Un type TILE_CLOUD, qui est traversable par le bas, mais qui arrête le perso quand il tombe dessus.
+[x] Map: La map peut surcharger *n'importe quelle* clé
+	OK, "g-overloadable-keys-map" indique les suffixes des clés surchargeables par la map
+

@@ -1,0 +1,42 @@
+{
+	"name" : "Floating Temple",
+	"author" : "hu9o",
+
+	"tileset" : "spelunky",
+	"background" : "spelunky.png",
+
+	"tilemap" :
+	[
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". ( Z ) . . . . . . . . B B . . . . . . . . . . . ",
+		". . & . . . . . . . . . . . . . . . . . . ( Z ) . ",
+		". . & . . . j j . . . t . . t . . . j j . . & . . ",
+		". . & . . . . . i . . t . j t j . i . . . . & n@. ",
+		". n@& . . . . . l . j t j j t j . l . . . j j j . ",
+		". j j j . . . . t E t t t t t t E t . . . . j . . ",
+		". j j . . . . j t H t . . . . t H t . . . . s . . ",
+		". s . . . . j j . H t . . . . t H j j . . . s . . ",
+		". s . . T . . . . H t . B B . t H . . . T . . . . ",
+		". . . . K . i j .@H t . . . . t H .@i . K . . . . ",
+		". . . t t t j j t t t t . . t t t j j t t t . . . ",
+		"~ ~ ~ ~ t j j t t t j j ~ ~ t t j j t t t ~ ~ ~ ~ ",
+		"- - - - - j - j j - j j - - j j - j j - -s- - - - ",
+		"- - - - - s-- - -s- j - - - -sj - -s- - -s- - - - ",
+		"j - - - - s-- - -s- - - - - - - - -s- - - - - - - ",
+		"j j - - -n- - - - - - - -nj - - - - - j - - - - - ",
+		"j j j - j j j j - - j - j j - j - j j j j -nj j j ",
+		"j j j j j j j j j j j j j j j j j j j j j j j j j "
+	],
+
+	"entities" :
+	{
+
+	},
+
+	"keys" :
+	{
+
+	}
+
+}

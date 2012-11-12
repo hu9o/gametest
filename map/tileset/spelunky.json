@@ -1,0 +1,195 @@
+{
+	"texture" : "spelunky.png",
+
+	"tilesize" : 16,
+
+	"chars" :
+	[
+		{"char" : ".", "tile" : "void"},
+		{"char" : "B", "tile" : "block"},
+		{"char" : "E", "tile" : "ladder-top"},
+		{"char" : "H", "tile" : "ladder"},
+		{"char" : "~", "tile" : "water"},
+		{"char" : "-", "tile" : "water-mid"},
+		{"char" : "^", "tile" : "spikes"},
+		{"char" : "=", "tile" : "dirt-platform"},
+		{"char" : "l", "tile" : "torch-support"},
+		{"char" : "i", "tile" : "torch"},
+		{"char" : "n", "tile" : "lantern"},
+		{"char" : "b", "tile" : "lantern-red"},
+		{"char" : "N", "tile" : "tomb"},
+		{"char" : "M", "tile" : "tomb-dark"},
+		{"char" : "&", "tile" : "tree-trunk"},
+		{"char" : "(", "tile" : "tree-left"},
+		{"char" : "Z", "tile" : "tree-mid"},
+		{"char" : ")", "tile" : "tree-right"},
+		{"char" : "[", "tile" : "tree-left-dead"},
+		{"char" : "Y", "tile" : "tree-mid-dead"},
+		{"char" : "]", "tile" : "tree-right-dead"},
+		{"char" : "g", "tile" : "gold"},
+		{"char" : "T", "tile" : "totem-top"},
+		{"char" : "K", "tile" : "totem-bot"},
+		{"char" : "s", "tile" : "vine"},
+		{"char" : "d", "tile" : "dirt"},
+		{"char" : "t", "tile" : "temple"},
+		{"char" : "j", "tile" : "jungle"}
+	],
+
+	"normaltiles" : 
+	[
+		{"type":"void", "name": "void",  "x": 2, "y": 0},
+		{"type":"solid", "name": "block", "x": 8, "y": 1},
+		{"type":"ladder", "name": "ladder-top", "x": 2, "y": 2},
+		{"type":"ladder", "name": "ladder", "x": 2, "y": 3},
+		{"type":"water", "name": "water-top", "x": 3, "y": 2,
+			"nbframes": 2, "delay": 200},
+		{"type":"water", "name": "water-mid", "x": 4, "y": 3},
+		{"type":"spike", "name": "spikes", "x": 7, "y": 6},
+
+		{"type":"solid", "name": "dirt-top", "x": 0, "y": 2},
+		{"type":"solid", "name": "dirt-bot", "x": 0, "y": 4},
+		{"type":"solid", "name": "dirt-mid-1", "x": 0, "y": 3},
+		{"type":"solid", "name": "dirt-mid-2", "x": 1, "y": 3},
+		{"type":"solid", "name": "dirt-one", "x": 0, "y": 1},
+		{"type":"void", "name": "dirt-over-1", "x": 0, "y": 0},
+		{"type":"void", "name": "dirt-over-2", "x": 1, "y": 0},
+
+		{"type":"solid", "name": "tmpl-top", "x": 5, "y": 2},
+		{"type":"solid", "name": "tmpl-bot", "x": 5, "y": 4},
+		{"type":"solid", "name": "tmpl-mid-1", "x": 5, "y": 3},
+		{"type":"solid", "name": "tmpl-one", "x": 5, "y": 1},
+		{"type":"void", "name": "tmpl-over-1", "x": 5, "y": 0},
+		{"type":"void", "name": "tmpl-over-2", "x": 6, "y": 0},
+
+		{"type":"solid", "name": "jngl-top", "x": 7, "y": 2},
+		{"type":"solid", "name": "jngl-bot", "x": 7, "y": 4},
+		{"type":"solid", "name": "jngl-mid-1", "x": 7, "y": 3},
+		{"type":"solid", "name": "jngl-one", "x": 7, "y": 1},
+		{"type":"void", "name": "jngl-over-1", "x": 7, "y": 0},
+		{"type":"void", "name": "jngl-over-2", "x": 8, "y": 0},
+		{"type":"void", "name": "jngl-under-1", "x": 8, "y": 2},
+
+		{"type":"solid", "name": "gold-1", "x": 1, "y": 1},
+		{"type":"solid", "name": "gold-2", "x": 1, "y": 2},
+
+		{"type":"solid", "name": "tomb-1", "x": 3, "y": 7},
+		{"type":"solid", "name": "tomb-2", "x": 4, "y": 7},
+		{"type":"solid", "name": "tomb-3", "x": 5, "y": 7},
+		{"type":"solid", "name": "tomb-dark-1", "x": 6, "y": 7},
+		{"type":"solid", "name": "tomb-dark-2", "x": 7, "y": 7},
+		{"type":"solid", "name": "tomb-dark-3", "x": 8, "y": 7},
+		{"type":"solid", "name": "tomb-dark-4", "x": 9, "y": 7},
+
+		{"type":"ladder", "name": "tree-trunk", "x": 3, "y": 8},
+		{"type":"solid", "name": "tree-left", "x": 0, "y": 7},
+		{"type":"ladder", "name": "tree-mid", "x": 1, "y": 7},
+		{"type":"solid", "name": "tree-right", "x": 2, "y": 7},
+		{"type":"solid", "name": "tree-left-dead", "x": 0, "y": 8},
+		{"type":"ladder", "name": "tree-mid-dead", "x": 1, "y": 8},
+		{"type":"solid", "name": "tree-right-dead", "x": 2, "y": 8},
+
+		{"type":"solid", "name": "dirt-platform", "x": 2, "y": 1},
+		{"type":"solid", "name": "totem-top", "x": 8, "y": 3},
+		{"type":"solid", "name": "totem-bot", "x": 8, "y": 4},
+		{"type":"void", "name": "torch-support", "x": 4, "y": 5},
+		{"type":"ladder", "name": "vine-top", "x": 9, "y": 0},
+		{"type":"ladder", "name": "vine-mid", "x": 9, "y": 1},
+		{"type":"ladder", "name": "vine-bot", "x": 9, "y": 2},
+
+		{"type":"void", "name": "lantern", "x": 0, "y": 5, "nbframes": 4, "delay": 300, "light": 192},
+		{"type":"void", "name": "lantern-red", "x": 0, "y": 6, "nbframes": 4, "delay": 300, "light": 192},
+		{"type":"void", "name": "torch", "x": 5, "y": 5, "nbframes": 4, "delay": 100, "light": 255}
+
+	],
+
+	"randomtiles" : 
+	[
+		{"name": "dirt-mid", "tiles": ["dirt-mid-1", "dirt-mid-2"], "probas": [3, 1]},
+		{"name":"dirt-over", "tiles":["dirt-over-1", "dirt-over-2"], "probas": [7, 1]},
+		{"name":"tmpl-over", "tiles":["void", "tmpl-over-1", "tmpl-over-2"], "probas": [4, 1, 1]},
+
+		{"name":"jngl-over", "tiles":["jngl-over-1", "jngl-over-2"], "probas": [1, 1]},
+		{"name":"jngl-under", "tiles":["void", "jngl-under-1"], "probas": [6, 1]},
+
+		{"name":"tomb", "tiles":["tomb-1", "tomb-2", "tomb-3"], "probas": [1, 1, 1]},
+		{"name":"tomb-dark", "tiles":["tomb-dark-1", "tomb-dark-2", "tomb-dark-3", "tomb-dark-4"],
+			"probas": [2, 2, 1, 4]},
+
+		{"name": "gold", "tiles":["gold-1", "gold-2"]}
+	],
+
+	"autotiles" :
+	[
+		{"name": "dirt",
+			"top": "dirt-top",
+			"bot": "dirt-bot",
+			"mid": "dirt-mid",
+			"one": "dirt-one",
+			"over": "dirt-over"},
+
+		{"name": "temple",
+			"top": "tmpl-top",
+			"bot": "tmpl-bot",
+			"mid": "tmpl-mid-1",
+			"one": "tmpl-one",
+			"over": "tmpl-over",
+			"under": "jngl-under"},
+
+		{"name": "jungle",
+			"top": "jngl-top",
+			"bot": "jngl-bot",
+			"mid": "jngl-mid-1",
+			"one": "jngl-one",
+			"over": "jngl-over",
+			"under": "jngl-under"},
+
+		{"name": "water",
+			"top": "water-top",
+			"mid": "water-mid",
+			"one": "water-top"},
+
+		{"name": "totem",
+			"top": "totem-top",
+			"bot": "totem-bot"},
+
+		{"name": "vine",
+			"top": "vine-top",
+			"mid": "vine-mid",
+			"bot": "vine-bot",
+			"one": "vine-bot"}
+	],
+    
+    
+    "images" :
+    [
+        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0},
+        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0},
+        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0}
+    ],
+    
+    "objects" :
+    [
+        {"type":"collectable", "x":0, "y":0, "w":0, "h":0},
+        {"type":"weapon", "x":0, "y":0, "w":0, "h":0},
+        {"type":"collectable", "x":0, "y":0, "w":0, "h":0}
+    ],
+    
+    "weapons" :
+    [
+        {"name":"rifle1", "type":"rifle", "image":"", "angle": "12", "knockback":8,
+            "damage":5, "nbbullets":4},
+            
+        {"name":"mg1", "type":"machinegun", "image":"", "angle": "8", "knockback":2,
+            "delay":150, "damage":5},
+            
+        {"name":"zooka1", "type":"launcher", "image":"", "angle": "5", "knockback":12,
+            "projectile":"grenade", "force":10}
+    ],
+    
+    "projectiles" :
+    [
+        {"name":"grenade", "image":"", "movement":"bounce", "explosion":4},
+        {"name":"rocket", "image":"", "movement":"linear", "explosion":3},
+        {"name":"headhunter", "image":"", "movement":"homing", "damage":200}
+    ]
+}

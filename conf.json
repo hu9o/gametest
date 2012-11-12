@@ -1,0 +1,60 @@
+{
+	"output" :
+	{
+		"fullscreen" : false,
+		"smooth-tex" : false,
+		"throttle" : 0,
+		"sound-vol" : 100,
+		"music-vol" : 100
+	},
+
+	"players" :
+	[
+		{"name": "hugo", "skin": "sprite", "keys": "arrows"},
+		{"name": "toto", "skin": "sprite2", "keys": "wasd"}
+	],
+
+	"keylayouts" :
+	[
+		{"name": "arrows", "up": 26}
+	],
+
+	"keys" :
+	{
+		"g-framerate-limit" : 30,
+		"g-framerate-adjust" : true,
+		"g-debug" : false,
+		"g-default-map" : "floatingtemple.json",
+		"g-overloadable-keys-map" : "mp",
+		"d-skins" : "gfx/skin/",
+		"d-backgrounds" : "gfx/background/",
+		"d-maps" : "map/",
+		"d-tilesets" : "map/tileset/",
+		"d-graphics" : "gfx/",
+		"d-post-fx" : "sfx/",
+		"d-sounds" : "",
+		"d-music" : "",
+		"p-size-w" : 12,
+		"p-size-h" : 16,
+		"p-life" : 100,
+		"p-oxygen" : 12,
+		"p-drown-damage" : 15,
+		"p-can-stomp" : true,
+		"p-can-swim" : true,
+		"p-can-hang" : true,
+		"p-speed-x" : 8.0,
+		"p-speed-y" : 12.0,
+		"p-speed-water-coeff" : 0.4,
+		"p-accel-x" : 0.8,
+		"p-accel-y" : 1,
+		"p-jump-str" : 7,
+		"p-jump-str-water" : 0.8,
+		"p-jump-str-leave-water" : 5,
+		"m-light-enabled" : true,
+		"m-light-min" : 96,
+		"m-light-disp-void" : 24,
+		"m-light-disp-solid" : 64,
+		"m-light-disp-water" : 48
+	}
+
+}

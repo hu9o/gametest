@@ -1,0 +1,309 @@
+# depslib dependency file v1.0
+1340485243 source:/home/hugo/c/game/main.cpp
+	<SFML/Graphics.hpp>
+	"Game.h"
+
+1340485294 /home/hugo/c/game/include/Game.h
+	<SFML/Graphics.hpp>
+	"TileMap.h"
+
+1340482575 source:/home/hugo/c/game/src/Game.cpp
+	"Game.h"
+
+1340483907 /home/hugo/c/game/include/TileMap.h
+
+1340483872 source:/home/hugo/c/game/src/TileMap.cpp
+	"TileMap.h"
+
+1345294415 source:/home/hugo/prog/game/main.cpp
+	<time.h>
+	<SFML/Graphics.hpp>
+	"GameMenu.h"
+
+1345294475 /home/hugo/prog/game/include/Game.h
+	"common.h"
+	"TileMap.h"
+	"Player.h"
+	<list>
+
+1345124956 /home/hugo/prog/game/include/TileMap.h
+	"common.h"
+	"Tileset.h"
+	<list>
+
+1345296668 source:/home/hugo/prog/game/src/Game.cpp
+	"Game.h"
+	"ResourceManager.h"
+	"Player.h"
+
+1345246745 source:/home/hugo/prog/game/src/TileMap.cpp
+	"TileMap.h"
+	"ResourceManager.h"
+	<math.h>
+
+1344767695 /home/hugo/prog/game/include/common.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<SFML/Graphics.hpp>
+	"rapidjson/document.h"
+	"rapidjson/filestream.h"
+
+1345050304 source:/home/hugo/prog/game/src/Entity.cpp
+	"Entity.h"
+	"Game.h"
+
+1345050155 /home/hugo/prog/game/include/Entity.h
+	"common.h"
+
+1344779120 source:/home/hugo/prog/game/src/Player.cpp
+	"Player.h"
+
+1344764968 /home/hugo/prog/game/include/Player.h
+	"common.h"
+	"Human.h"
+	"Controls.h"
+
+1344766784 source:/home/hugo/prog/game/src/Human.cpp
+	"Human.h"
+
+1344766673 /home/hugo/prog/game/include/Human.h
+	"Mob.h"
+
+1345297173 /home/hugo/prog/game/include/Mob.h
+	"Entity.h"
+	"Controllable.h"
+
+1345297172 source:/home/hugo/prog/game/src/Mob.cpp
+	"Mob.h"
+	"ResourceManager.h"
+	"Game.h"
+
+1344982087 /home/hugo/prog/game/include/Controllable.h
+	"Controls.h"
+
+1344982159 source:/home/hugo/prog/game/src/Controllable.cpp
+	"Controllable.h"
+
+1344765628 /home/hugo/prog/game/include/Controls.h
+	"common.h"
+
+1344765628 source:/home/hugo/prog/game/src/Controls.cpp
+	"Controls.h"
+
+1345297011 source:/home/hugo/prog/game/src/Tile.cpp
+	"Tile.h"
+	"TileMap.h"
+	"ResourceManager.h"
+
+1345246968 /home/hugo/prog/game/include/Tile.h
+	"common.h"
+
+1341159027 /home/hugo/prog/game/include/rapidjson/rapidjson.h
+	<cstdlib>
+	<cstring>
+	<inttypes.h>
+	<cassert>
+
+1341928396 /home/hugo/prog/game/include/rapidjson/document.h
+	"reader.h"
+	"internal/strfunc.h"
+
+1344973842 /home/hugo/prog/game/include/rapidjson/reader.h
+	"rapidjson.h"
+	"internal/pow10.h"
+	"internal/stack.h"
+	<csetjmp>
+	<nmmintrin.h>
+	<emmintrin.h>
+
+1341159027 /home/hugo/prog/game/include/rapidjson/internal/pow10.h
+
+1341159027 /home/hugo/prog/game/include/rapidjson/internal/stack.h
+
+1341159027 /home/hugo/prog/game/include/rapidjson/internal/strfunc.h
+
+1341159027 /home/hugo/prog/game/include/rapidjson/filestream.h
+	<cstdio>
+
+1345116072 /home/hugo/prog/game/include/Tileset.h
+	"common.h"
+	"AutoTile.h"
+
+1345295677 source:/home/hugo/prog/game/src/Tileset.cpp
+	"Tileset.h"
+	"ResourceManager.h"
+
+1345296177 source:/home/hugo/prog/game/src/ResourceManager.cpp
+	"ResourceManager.h"
+
+1345296077 /home/hugo/prog/game/include/ResourceManager.h
+	"common.h"
+	"Tileset.h"
+
+1345124912 /home/hugo/prog/game/include/AutoTile.h
+	"Tile.h"
+
+1345247596 source:/home/hugo/prog/game/src/AutoTile.cpp
+	"AutoTile.h"
+	"TileMap.h"
+
+1344981014 source:/home/hugo/prog/game/src/Settings.cpp
+	"Settings.h"
+
+1344981011 /home/hugo/prog/game/include/Settings.h
+	"common.h"
+
+1345294557 /home/hugo/prog/game/include/GameMenu.h
+	"common.h"
+
+1345294546 source:/home/hugo/prog/game/src/GameMenu.cpp
+	"GameMenu.h"
+	"Game.h"
+
+1345294415 source:d:\prog\codeblocks\game\main.cpp
+	<time.h>
+	<SFML/Graphics.hpp>
+	"GameMenu.h"
+
+1345294557 d:\prog\codeblocks\game\include\gamemenu.h
+	"common.h"
+
+1344767695 d:\prog\codeblocks\game\include\common.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<SFML/Graphics.hpp>
+	"rapidjson/document.h"
+	"rapidjson/filestream.h"
+
+1341928396 d:\prog\codeblocks\game\include\rapidjson\document.h
+	"reader.h"
+	"internal/strfunc.h"
+
+1344973842 d:\prog\codeblocks\game\include\rapidjson\reader.h
+	"rapidjson.h"
+	"internal/pow10.h"
+	"internal/stack.h"
+	<csetjmp>
+	<nmmintrin.h>
+	<emmintrin.h>
+
+1341159027 d:\prog\codeblocks\game\include\rapidjson\rapidjson.h
+	<cstdlib>
+	<cstring>
+	<inttypes.h>
+	<cassert>
+
+1341159027 d:\prog\codeblocks\game\include\rapidjson\internal\pow10.h
+
+1341159027 d:\prog\codeblocks\game\include\rapidjson\internal\stack.h
+
+1341159027 d:\prog\codeblocks\game\include\rapidjson\internal\strfunc.h
+
+1341159027 d:\prog\codeblocks\game\include\rapidjson\filestream.h
+	<cstdio>
+
+1345247596 source:d:\prog\codeblocks\game\src\autotile.cpp
+	"AutoTile.h"
+	"TileMap.h"
+
+1345124912 d:\prog\codeblocks\game\include\autotile.h
+	"Tile.h"
+
+1345246968 d:\prog\codeblocks\game\include\tile.h
+	"common.h"
+
+1345124956 d:\prog\codeblocks\game\include\tilemap.h
+	"common.h"
+	"Tileset.h"
+	<list>
+
+1345116072 d:\prog\codeblocks\game\include\tileset.h
+	"common.h"
+	"AutoTile.h"
+
+1344982159 source:d:\prog\codeblocks\game\src\controllable.cpp
+	"Controllable.h"
+
+1344982087 d:\prog\codeblocks\game\include\controllable.h
+	"Controls.h"
+
+1344765628 d:\prog\codeblocks\game\include\controls.h
+	"common.h"
+
+1344765628 source:d:\prog\codeblocks\game\src\controls.cpp
+	"Controls.h"
+
+1345050304 source:d:\prog\codeblocks\game\src\entity.cpp
+	"Entity.h"
+	"Game.h"
+
+1345050155 d:\prog\codeblocks\game\include\entity.h
+	"common.h"
+
+1345294475 d:\prog\codeblocks\game\include\game.h
+	"common.h"
+	"TileMap.h"
+	"Player.h"
+	<list>
+
+1344764968 d:\prog\codeblocks\game\include\player.h
+	"common.h"
+	"Human.h"
+	"Controls.h"
+
+1344766673 d:\prog\codeblocks\game\include\human.h
+	"Mob.h"
+
+1345297173 d:\prog\codeblocks\game\include\mob.h
+	"Entity.h"
+	"Controllable.h"
+
+1345296668 source:d:\prog\codeblocks\game\src\game.cpp
+	"Game.h"
+	"ResourceManager.h"
+	"Player.h"
+
+1345296077 d:\prog\codeblocks\game\include\resourcemanager.h
+	"common.h"
+	"Tileset.h"
+
+1345294546 source:d:\prog\codeblocks\game\src\gamemenu.cpp
+	"GameMenu.h"
+	"Game.h"
+
+1344766784 source:d:\prog\codeblocks\game\src\human.cpp
+	"Human.h"
+
+1345297172 source:d:\prog\codeblocks\game\src\mob.cpp
+	"Mob.h"
+	"ResourceManager.h"
+	"Game.h"
+
+1344779120 source:d:\prog\codeblocks\game\src\player.cpp
+	"Player.h"
+
+1345296177 source:d:\prog\codeblocks\game\src\resourcemanager.cpp
+	"ResourceManager.h"
+
+1344981014 source:d:\prog\codeblocks\game\src\settings.cpp
+	"Settings.h"
+
+1344981011 d:\prog\codeblocks\game\include\settings.h
+	"common.h"
+
+1345297011 source:d:\prog\codeblocks\game\src\tile.cpp
+	"Tile.h"
+	"TileMap.h"
+	"ResourceManager.h"
+
+1345246745 source:d:\prog\codeblocks\game\src\tilemap.cpp
+	"TileMap.h"
+	"ResourceManager.h"
+	<math.h>
+
+1345295677 source:d:\prog\codeblocks\game\src\tileset.cpp
+	"Tileset.h"
+	"ResourceManager.h"
+

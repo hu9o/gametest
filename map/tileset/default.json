@@ -1,0 +1,15 @@
+{
+	"texture" : "default.png",
+
+	"tilesize" : 24,
+
+	"tiles" : 
+	[
+		{"char": ".", "name": "void",  "x": 1, "y": 6},
+		{"char": "M", "name": "wall",  "x": 9, "y": 4},
+
+		{"char": "d", "name": "dirt",  "x": 1, "y": 2},
+		{"char": "s", "name": "stone", "x": 7, "y": 2},
+		{"char": "g", "name": "grass", "x": 1, "y": 6}
+	]
+}

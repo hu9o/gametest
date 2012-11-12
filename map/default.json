@@ -1,0 +1,35 @@
+{
+	"name" : "Default map",
+	"author" : "hu9o",
+	"tileset" : "spelunky",
+	"background" : "spelunky.png",
+
+	"tilemap" :
+	[
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . i . . . . . . . . . . . . . . . i . . . i . ",
+		"d .i. l . . . . . . . . . . . = = E = l . .i. l . ",
+		"d .l. l . . . . . ( Z ) . . . . . H . l . .l. l d ",
+		"d d . l . . . . . n & n . . . . . E d d d d E d d ",
+		"dgd d d . . . . . . & . .@. . . . H d dgd d H d d ",
+		"d t .@. . . . . . . & . d . . . . H . . d d H d d ",
+		"d t t . t . . . B . & . . . T . . . . . . .@H . d ",
+		"d t t t t t E j j j j j j j K . . . . . d d d d d ",
+		"d d t d d . H jgj b@s j jgj j . . . . . . . d d d ",
+		"d tgt t . . H . j j s j jgj j = = E = d d d d d d ",
+		"t t tg. . . H . . . s . . s . . . H . d . . .b. d ",
+		"t t . . . . H . . . s . . s . . . H . . . . . . d ",
+		"t t . n . . t t t . . . . . . . B H . d . N . N d ",
+		"d t t t ~ ~ t t t ~ ~ d . . . = = = = d d d d dgd ",
+		"d d t t ~ ~ - - - ~ ~ d ^ ^ ^ dgd d d d dgd d d d ",
+		"d d d d d d dgdgd d d d d d d d d d d d d d d d d "
+	],
+
+	"entities" :
+	{
+
+	}
+
+}

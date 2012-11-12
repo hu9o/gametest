@@ -1,0 +1,43 @@
+{
+	"name" : "Map 3",
+	"author" : "hu9o",
+
+	"tileset" : "spelunky",
+	"background" : "spelunky.png",
+
+	"tilemap" :
+	[
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . d d d d d . . . . . . . . . ",
+		"d . . . . . . . d d d d d d d d d d . . . . d d d ",
+		"d d d . . . d d d d d . . s . d d d d . . d d d d ",
+		"d d d . . d d d . . s . . s . . . . . . d d d d d ",
+		"d d . . . d d d . n . . . . . . . . . . d d d d d ",
+		". . . . . . d d = = . . . . . . n = = . . s d . . ",
+		". . . . d . . d d . . = = = = = = d d d d s . . . ",
+		"t . t . t t . . . . d d d d d d d d d d d s . . d ",
+		"t . t t t t t t E d d d d d . b . d d d d . . d d ",
+		". . s . . . d t H d d d d . . . . . d d d . . d d ",
+		". . . . i . . . H d d . . . . . . . d d d . . . . ",
+		"t . i . l . . . H d . . . j ~ ~ ~ d d d d ~ ~ j j ",
+		"t . t . l . i . H . . . j j - - - d d d - - - j j ",
+		"t ^ t t l^^ t . . . j ^ j j - - - - - - - - j j j ",
+		"t t t t t t t t t t j j j j j j j j j j j j j j j "
+	],
+
+	"entities" :
+	{
+
+	},
+
+	"keys" :
+	{
+		"m-light-min" : 16,
+		"m-light-disp-void" : 16,
+		"m-light-disp-solid" : 96
+	}
+
+}
