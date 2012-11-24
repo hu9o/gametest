@@ -27,12 +27,15 @@ class TileMap
 
     protected:
         Tile*** m_tilemap;
+        Tileset& m_tileset;
         vec2i m_tilemapSize;
         int m_tileSize;
         std::list<Tile*> m_lightSources;
 
         std::vector<vec2i> m_startPositions;
         void test_displayShadow(sf::RenderWindow& win);
+
+        void deleteTile(Tile* t);
 
     private:
 };

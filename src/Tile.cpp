@@ -37,6 +37,7 @@ void Tile::init()
     m_enableLighting = rm.getKeyValueBool("m-light-enabled") && m_minBrightness < 255;
 
     m_brightness = 0;
+    m_transparent = false; // TODO: gérer transparence
     m_shadowShape.setOutlineThickness(0);
 }
 
@@ -141,19 +142,20 @@ void Tile::updateSprite()
     if (m_enableLighting)
     {
         int b = getLightEmitted();
+        const int NB_NEIGH = 8;
 
         // Liste les voisins
-        Tile* neighbours[8] = {m_map.getTileAt(m_pos.x-1, m_pos.y),
-                                m_map.getTileAt(m_pos.x+1, m_pos.y),
+        Tile* neighbours[NB_NEIGH] = {m_map.getTileAt(m_pos.x-1, m_pos.y),
                                 m_map.getTileAt(m_pos.x, m_pos.y-1),
+                                m_map.getTileAt(m_pos.x+1, m_pos.y),
                                 m_map.getTileAt(m_pos.x, m_pos.y+1),
-                                m_map.getTileAt(m_pos.x+1, m_pos.y+1),
-                                m_map.getTileAt(m_pos.x-1, m_pos.y-1),
-                                m_map.getTileAt(m_pos.x-1, m_pos.y+1),
-                                m_map.getTileAt(m_pos.x+1, m_pos.y-1)};
+                                m_map.getTileAt(m_pos.x-1, m_pos.y-1), // 0 0
+                                m_map.getTileAt(m_pos.x-1, m_pos.y+1), // 0 1
+                                m_map.getTileAt(m_pos.x+1, m_pos.y-1), // 1 0
+                                m_map.getTileAt(m_pos.x+1, m_pos.y+1)}; // 1 1
 
         // Prend la luminosité d'un voisin, qu'on diminue selon le type et la distance
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < NB_NEIGH; i++)
         {
             if (neighbours[i] != NULL)
             {
@@ -166,10 +168,23 @@ void Tile::updateSprite()
                 }
                 else
                 {
-                    if (neighbours[i]->hasType(TILE_WATER) && neighbours[i]->getBrightness() - m_waterLightDisp*dist > b)
-                        b = neighbours[i]->getBrightness() - m_waterLightDisp*dist;
-                    else if (neighbours[i]->getBrightness() - m_voidLightDisp*dist > b)
-                        b = neighbours[i]->getBrightness() - m_voidLightDisp*dist;
+                    bool diagonaleLibre = true;
+
+                    if (i >= 4) // pour que la lumière le passe en diagonale que si les blocs "droits" ne la bloquent pas.
+                    {
+                        Tile* ta = neighbours[((i-4) & 0b10)];
+                        Tile* tb = neighbours[((i-4) & 0b01)*2 + 1];
+
+                        diagonaleLibre = !(tb && tb->hasType(TILE_SOLID)) || !(tb && tb->hasType(TILE_SOLID));
+                    }
+
+                    if (diagonaleLibre)
+                    {
+                        if (neighbours[i]->hasType(TILE_WATER) && neighbours[i]->getBrightness() - m_waterLightDisp*dist > b)
+                            b = neighbours[i]->getBrightness() - m_waterLightDisp*dist;
+                        else if (neighbours[i]->getBrightness() - m_voidLightDisp*dist > b)
+                            b = neighbours[i]->getBrightness() - m_voidLightDisp*dist;
+                    }
                 }
             }
         }
@@ -184,7 +199,7 @@ void Tile::updateSprite()
         // Ainsi on ne risque pas d'actualiser la tuile qui a demandé à actualiser celle-ci (ce serait une boucle infinie)
         int dispersion = hasType(TILE_SOLID)? m_solidLightDisp : (hasType(TILE_WATER)? m_waterLightDisp:m_voidLightDisp);
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < NB_NEIGH; i++)
         {
             float dist = (i < 4)? 1.0 : 1.4;
 
@@ -268,7 +283,10 @@ void Tile::setLightEmitted(int light)
 int Tile::getLightEmitted()
 {
     if (m_nextTile)
-        return m_nextTile->getLightEmitted();
+        if (m_nextTile->m_transparent)
+            return max(m_lightEmitted, m_nextTile->getLightEmitted());
+        else
+            return m_nextTile->getLightEmitted();
     else
         return m_lightEmitted;
 }

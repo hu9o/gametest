@@ -23,7 +23,7 @@
 	{
 		"g-framerate-limit" : 30,
 		"g-framerate-adjust" : true,
-		"g-debug" : false,
+		"g-debug" : true,
 		"g-default-map" : "floatingtemple.json",
 		"g-overloadable-keys-map" : "mp",
 		"d-skins" : "gfx/skin/",

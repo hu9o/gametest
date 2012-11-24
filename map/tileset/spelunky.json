@@ -162,9 +162,7 @@
     
     "images" :
     [
-        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0},
-        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0},
-        {"name":"", "x":0, "y":0, "w":0, "h":0, "centerx":0, "centery":0}
+        {"name":"ruby", "x":112, "y":128, "w":8, "h":8, "centerx":4, "centery":4}
     ],
     
     "objects" :

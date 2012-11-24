@@ -63,6 +63,7 @@ class Tile
         int m_lightEmitted; // 0 à part pour la dernière
         int m_brightness; // 0 à part pour la dernière
         bool m_enableLighting;
+        bool m_transparent;
 
         int m_minBrightness;
         int m_voidLightDisp;

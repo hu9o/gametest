@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TileMap::TileMap()
+TileMap::TileMap() : m_tileset(ResourceManager::getInstance().getTileset())
 {
     //m_tileset.loadFromFile("map/tiles.json");
 }
@@ -33,9 +33,7 @@ void TileMap::loadFromJson(const js::Value& map)
     m_tilemapSize.x = mapWidth;
     m_tilemapSize.y = map.Size();
 
-    Tileset& tileset = ResourceManager::getInstance().getTileset();
-
-    m_tileSize = tileset.getTileSize();
+    m_tileSize = m_tileset.getTileSize();
 
     // boucle sur tout le tableau
     for (i = 0; i < map.Size(); i++)
@@ -70,13 +68,13 @@ void TileMap::loadFromJson(const js::Value& map)
         // boucle sur les caractères de la ligne
         for (uint j = 0; j < mapWidth; j++)
         {
-            m_tilemap[i][j] = tileset.makeTileFromChar(*this, line[j*2]);
+            m_tilemap[i][j] = m_tileset.makeTileFromChar(*this, line[j*2]);
             assert(m_tilemap[i][j] != NULL);
 
             Tile* t = m_tilemap[i][j];
 
             t->setPosition(j, i);
-            t->setMapInfo(tileset.getTexture(), m_tileSize);
+            t->setMapInfo(m_tileset.getTexture(), m_tileSize);
             t->setLayer(LAYER_BACK);
 
             if (t->getLightEmitted() > 0)
@@ -93,16 +91,16 @@ void TileMap::loadFromJson(const js::Value& map)
         for (uint j = 0; j < mapWidth; j++)
         {
             char c = line[j*2+1];
-            //tileset.addDecorationFromChar(*m_tilemap[i][j], line[j*2 + 1]);
+            //m_tileset.addDecorationFromChar(*m_tilemap[i][j], line[j*2 + 1]);
             assert(m_tilemap[i][j] != NULL);
 
 
-            Tile* t = (c != '@')? tileset.makeTileFromChar(*this, c) : NULL;
+            Tile* t = (c != '@')? m_tileset.makeTileFromChar(*this, c) : NULL;
 
             if (t != NULL)
             {
                 t->setPosition(j, i);
-                t->setMapInfo(tileset.getTexture(), m_tileSize);
+                t->setMapInfo(m_tileset.getTexture(), m_tileSize);
                 t->setLayer(LAYER_FRONT);
 
                 if (t->getLightEmitted() > 0)
@@ -256,25 +254,47 @@ void TileMap::destroyTileAt(int x, int y)
 
     if (withinBounds(x, y))
     {
-        delete m_tilemap[y][x];
-        m_tilemap[y][x] = ResourceManager::getInstance().getTileset().makeTileFromChar(*this, '.');
-        m_tilemap[y][x]->setBrightness(0);
+        Tile*& t = m_tilemap[y][x];
 
-        // TODO: Sûr d'updater toute la map?
+        deleteTile(t);
+        t = ResourceManager::getInstance().getTileset().makeTileFromChar(*this, '.');
+
+        t->setBrightness(0);
+        t->setPosition(x, y);
+        t->setMapInfo(m_tileset.getTexture(), m_tileSize);
+        t->setLayer(LAYER_BACK);
+
         update();
     }
+}
+void TileMap::deleteTile(Tile* t)
+{
+    list<Tile*>::iterator it = m_lightSources.begin();
+
+    while (it != m_lightSources.end())
+    {
+        if (*it == t)
+            m_lightSources.erase(it);
+
+        it++;
+    }
+
+    delete t;
 }
 
 void TileMap::update()
 {
+    cout << "update" << endl;
+
     for (int i = 0; i < m_tilemapSize.y; i++)
     {
         // boucle sur les caractères de la ligne
         for (int j = 0; j < m_tilemapSize.x; j++)
         {
-            m_tilemap[i][j]->setBrightness(0);
+            m_tilemap[i][j]->setBrightness(ResourceManager::getInstance().getKeyValueInt("m-light-min"));
         }
     }
+
     for (int i = 0; i < m_tilemapSize.y; i++)
     {
         // boucle sur les caractères de la ligne
