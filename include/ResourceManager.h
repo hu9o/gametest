@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "Tileset.h"
+#include "Controls.h"
 
 
 struct GenericKeyValue
@@ -57,11 +58,14 @@ class ResourceManager
         float getKeyValueFloat(std::string key);
         std::string getKeyValueString(std::string key);
 
+        Controls& getControlsByName(std::string name);
+
     protected:
     private:
         static ResourceManager* s_instance;
         std::map<std::string, sf::Texture*> m_textures;
         std::map<std::string, js::Value*> m_keys;
+        std::map<std::string, Controls*> m_controls;
         std::string m_theme;
         Tileset m_tileset;
         js::Document m_settings;

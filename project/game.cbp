@@ -62,6 +62,7 @@
 		<Unit filename="..\include\Human.h" />
 		<Unit filename="..\include\Mob.h" />
 		<Unit filename="..\include\Player.h" />
+		<Unit filename="..\include\PlayerHUD.h" />
 		<Unit filename="..\include\ResourceManager.h" />
 		<Unit filename="..\include\Settings.h" />
 		<Unit filename="..\include\Tile.h" />
@@ -87,6 +88,7 @@
 		<Unit filename="..\src\Human.cpp" />
 		<Unit filename="..\src\Mob.cpp" />
 		<Unit filename="..\src\Player.cpp" />
+		<Unit filename="..\src\PlayerHUD.cpp" />
 		<Unit filename="..\src\ResourceManager.cpp" />
 		<Unit filename="..\src\Settings.cpp" />
 		<Unit filename="..\src\Tile.cpp" />

@@ -136,33 +136,17 @@ void Game::mainLoop()
     list<Player*>::iterator it = m_players.begin();
 
     Human* h = new Human(*this);
-    KeySet keyset = {sf::Keyboard::Up,
-                     sf::Keyboard::Down,
-                     sf::Keyboard::Left,
-                     sf::Keyboard::Right,
-                     sf::Keyboard::Space,
-                     sf::Keyboard::LControl,
-                     sf::Keyboard::LShift};
-    Controls keys(keyset);
 
     (*it)->setHuman(h);
-    (*it)->setControls(keys);
+    (*it)->setControls(m_resman.getControlsByName("arrows"));
     h->setSkin("michel");
     h->setPosition(m_tilemap.getStartPosition());
     it++;
 
     Human* h2 = new Human(*this);
-    KeySet keyset2 = {sf::Keyboard::Z,
-                     sf::Keyboard::S,
-                     sf::Keyboard::Q,
-                     sf::Keyboard::D,
-                     sf::Keyboard::Tab,
-                     sf::Keyboard::A,
-                     sf::Keyboard::E};
-    Controls keys2(keyset2);
 
     (*it)->setHuman(h2);
-    (*it)->setControls(keys2);
+    (*it)->setControls(m_resman.getControlsByName("wasd"));
     h2->setSkin("bernard");
     h2->setPosition(m_tilemap.getStartPosition());
 

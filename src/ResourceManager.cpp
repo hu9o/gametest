@@ -168,6 +168,30 @@ void ResourceManager::loadSettings()
         setKeyValue(itr->name.GetString(), itr->value);
         ++itr;
     }
+
+    // Touches
+    assert(m_settings.HasMember("keylayouts") && m_settings["keylayouts"].IsObject());
+//	assert(m_settings.HasMember("keylayouts") && m_settings["keylayouts"].IsArray());
+
+//	js::Value keylayouts;
+//	keylayouts = m_settings["keylayouts"];
+//
+//    for (js::SizeType i = 0; i < keylayouts.Size(); i++)
+//    {
+//        KeySet keyset = {keylayouts[i]["up"].GetInt(),
+//                         keylayouts[i]["down"].GetInt(),
+//                         keylayouts[i]["left"].GetInt(),
+//                         keylayouts[i]["right"].GetInt(),
+//                         keylayouts[i]["jump"].GetInt(),
+//                         keylayouts[i]["act1"].GetInt(),
+//                         keylayouts[i]["act2"].GetInt()};
+//
+//        m_keylayouts[] = keyset;
+//
+//        ++itr;
+//
+//    }
+
 }
 
 //string ResourceManager::getDirectory(string name)
@@ -202,4 +226,32 @@ std::string ResourceManager::getKeyValueString(std::string key)  { return getKey
 void ResourceManager::setKeyValue(string key, js::Value& val)
 {
     m_keys[key] = &val;
+}
+
+Controls& ResourceManager::getControlsByName(std::string name)
+{
+    const js::Value& layouts = m_settings["keylayouts"];
+
+    assert(layouts.HasMember(name.c_str()));
+    const js::Value& layout = layouts[name.c_str()];
+
+    assert(layout.HasMember("up") && layout["up"].IsInt());
+    assert(layout.HasMember("down") && layout["down"].IsInt());
+    assert(layout.HasMember("left") && layout["left"].IsInt());
+    assert(layout.HasMember("right") && layout["right"].IsInt());
+    assert(layout.HasMember("jump") && layout["jump"].IsInt());
+    assert(layout.HasMember("act1") && layout["act1"].IsInt());
+    assert(layout.HasMember("act2") && layout["act2"].IsInt());
+
+    KeySet keyset = {static_cast<key>(layout["up"].GetInt()),
+                     static_cast<key>(layout["down"].GetInt()),
+                     static_cast<key>(layout["left"].GetInt()),
+                     static_cast<key>(layout["right"].GetInt()),
+                     static_cast<key>(layout["jump"].GetInt()),
+                     static_cast<key>(layout["act1"].GetInt()),
+                     static_cast<key>(layout["act2"].GetInt())};
+
+    m_controls[name] = new Controls(keyset);
+
+    return *(m_controls[name]);
 }

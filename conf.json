@@ -10,14 +10,15 @@
 
 	"players" :
 	[
-		{"name": "hugo", "skin": "sprite", "keys": "arrows"},
-		{"name": "toto", "skin": "sprite2", "keys": "wasd"}
+		{"name": "hugo", "skin": "michel", "keys": "arrows"},
+		{"name": "toto", "skin": "bernard", "keys": "wasd"}
 	],
 
 	"keylayouts" :
-	[
-		{"name": "arrows", "up": 26}
-	],
+	{
+		"arrows" : {"up": 73, "down": 74, "left": 71, "right": 72, "jump": 57, "act1": 37, "act2": 38},
+		"wasd" : {"up": 25, "down": 18, "left": 16, "right": 3, "jump": 60, "act1": 0, "act2": 4}
+	},
 
 	"keys" :
 	{

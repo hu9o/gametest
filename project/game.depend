@@ -90,14 +90,15 @@
 	"Entity.h"
 	"Controllable.h"
 
-1345296668 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1353828432 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.h"
 	"ResourceManager.h"
 	"Player.h"
 
-1345296077 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
+1353826805 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
 	"common.h"
 	"Tileset.h"
+	"Controls.h"
 
 1345294546 source:c:\users\hugo\documents\github\gametest\src\gamemenu.cpp
 	"GameMenu.h"
@@ -117,7 +118,7 @@
 1344779120 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.h"
 
-1345296177 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1353828072 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.h"
 
 1344981014 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
@@ -131,7 +132,7 @@
 	"TileMap.h"
 	"ResourceManager.h"
 
-1353719278 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1353824375 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.h"
 	"ResourceManager.h"
 	<math.h>
@@ -144,4 +145,9 @@
 	<time.h>
 	<SFML/Graphics.hpp>
 	"GameMenu.h"
+
+1353825427 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
+	"PlayerHUD.h"
+
+1353825427 c:\users\hugo\documents\github\gametest\include\playerhud.h
 

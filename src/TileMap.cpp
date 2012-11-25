@@ -252,12 +252,15 @@ void TileMap::destroyTileAt(int x, int y)
     x /= m_tileSize;
     y /= m_tileSize;
 
+    char c = '.';
+    std::cin >> c;
+
     if (withinBounds(x, y))
     {
         Tile*& t = m_tilemap[y][x];
 
         deleteTile(t);
-        t = ResourceManager::getInstance().getTileset().makeTileFromChar(*this, '.');
+        t = ResourceManager::getInstance().getTileset().makeTileFromChar(*this, c);
 
         t->setBrightness(0);
         t->setPosition(x, y);
