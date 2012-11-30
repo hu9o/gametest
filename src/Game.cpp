@@ -150,6 +150,15 @@ void Game::mainLoop()
     h2->setSkin("bernard");
     h2->setPosition(m_tilemap.getStartPosition());
 
+    // Shader
+    sf::Shader shader;
+    shader.loadFromFile(m_resman.getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
+    shader.setParameter("texture", sf::Shader::CurrentTexture);
+    shader.setParameter("blur_radius", 0.01);
+
+
+    sf::RenderTexture shadowTex;
+    shadowTex.create(m_win.getSize().x, m_win.getSize().y, 32);
 
     // Boucle
     int timeElapsed = clock.getElapsedTime().asMilliseconds();
@@ -204,7 +213,13 @@ void Game::mainLoop()
         m_tilemap.drawLayer(m_win, LAYER_FRONT, timeElapsed);
         m_tilemap.drawLayer(m_win, LAYER_OVERLAY, timeElapsed);
         m_tilemap.drawLayer(m_win, LAYER_WATER, timeElapsed);
-        m_tilemap.drawLayer(m_win, LAYER_SHADOW, timeElapsed);
+
+        sf::RenderStates states;
+        states.shader = &shader;
+        shadowTex.clear(sf::Color::Transparent);
+        m_tilemap.drawLayer(shadowTex, LAYER_SHADOW, timeElapsed);
+        shadowTex.display();
+        m_win.draw(sf::Sprite(shadowTex.getTexture()), states);
 
 
         //screen.copyScreen(m_win);

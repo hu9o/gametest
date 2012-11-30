@@ -35,7 +35,7 @@ void Entity::setPosition(vec2f pos)
     //m_sprite.setPosition(m_pos);
 }
 
-void Entity::drawSprite(sf::RenderWindow& win)
+void Entity::drawSprite(sf::RenderTarget& win)
 {
     // Dessine le sprite
     win.draw(m_sprite);

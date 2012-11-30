@@ -61,7 +61,7 @@ void AutoTile::updateSprite()
     Tile::updateSprite();
 }
 
-void AutoTile::drawLayer(sf::RenderWindow& win, int layer, int elapsedTime)
+void AutoTile::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
 {
     Tile::drawLayer(win, layer, elapsedTime);
 

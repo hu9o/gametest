@@ -149,7 +149,7 @@ void TileMap::loadFromJson(const js::Value& map)
     cout << "Chargement de la carte terminé" << endl;
 }
 
-void TileMap::drawLayer(sf::RenderWindow& win, int layer, int elapsedTime)
+void TileMap::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
 {
     int i, j;
 
@@ -228,7 +228,7 @@ bool TileMap::isCollision(sf::IntRect rect, TileType t)
             || isCollision(rect.left + rect.width, rect.top + rect.height, t);
 }
 
-void TileMap::test_displayShadow(sf::RenderWindow& win)
+void TileMap::test_displayShadow(sf::RenderTarget& win)
 {
     return;
 

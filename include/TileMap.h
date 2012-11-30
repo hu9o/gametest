@@ -13,7 +13,7 @@ class TileMap
         virtual ~TileMap();
 
         void loadFromJson(const js::Value&);
-        void drawLayer(sf::RenderWindow& win, int layer, int elapsedTime);
+        void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
         void update();
 
         bool withinBounds(int x, int y);
@@ -33,7 +33,7 @@ class TileMap
         std::list<Tile*> m_lightSources;
 
         std::vector<vec2i> m_startPositions;
-        void test_displayShadow(sf::RenderWindow& win);
+        void test_displayShadow(sf::RenderTarget& win);
 
         void deleteTile(Tile* t);
 

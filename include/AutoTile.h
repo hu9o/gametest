@@ -22,7 +22,7 @@ class AutoTile : public Tile
         void loadFromAutoTileInfo(AutoTileInfo tileInfo);
         virtual void setMapInfo(sf::Texture& tex, int size);
 
-        virtual void drawLayer(sf::RenderWindow& win, int layer, int elapsedTime);
+        virtual void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
 
         virtual std::string getName();
         virtual TileType getType();

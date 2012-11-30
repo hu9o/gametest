@@ -11,7 +11,7 @@ class Entity
         Entity(Game& game);
         virtual ~Entity();
 
-        virtual void draw(sf::RenderWindow& win, int elapsedTime) = 0;
+        virtual void draw(sf::RenderTarget& win, int elapsedTime) = 0;
         virtual void update(float frameTime);
 
         void setPosition(vec2i pos);
@@ -22,7 +22,7 @@ class Entity
         sf::Sprite m_sprite;
         vec2f m_pos;
 
-        void drawSprite(sf::RenderWindow& win);
+        void drawSprite(sf::RenderTarget& win);
 
     private:
 };

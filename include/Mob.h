@@ -12,7 +12,7 @@ class Mob : public Entity, public Controllable
         Mob(Game& game);
         virtual ~Mob();
 
-        virtual void draw(sf::RenderWindow& win, int elapsedTime);
+        virtual void draw(sf::RenderTarget& win, int elapsedTime);
         virtual void update(float frameTime);
 
         void setSkin(std::string name);

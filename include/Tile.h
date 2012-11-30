@@ -45,7 +45,7 @@ class Tile
         int getLightEmitted();
         vec2i getPosition();
 
-        virtual void drawLayer(sf::RenderWindow& win, int layer, int elapsedTime);
+        virtual void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
         virtual void update();
 
         virtual std::string getName();

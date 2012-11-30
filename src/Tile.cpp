@@ -94,7 +94,7 @@ void Tile::appendTile(Tile& t)
     }
 }
 
-void Tile::drawLayer(sf::RenderWindow& win, int layer, int elapsedTime)
+void Tile::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
 {
     if (m_enableLighting && layer == LAYER_SHADOW && m_nextTile == NULL)
         win.draw(m_shadowShape);

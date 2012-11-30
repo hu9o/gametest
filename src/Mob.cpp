@@ -45,7 +45,7 @@ Mob::~Mob()
     //dtor
 }
 
-void Mob::draw(sf::RenderWindow& win, int elapsedTime)
+void Mob::draw(sf::RenderTarget& win, int elapsedTime)
 {
     int image = 0;
     int t = (elapsedTime % 400) / 200;
@@ -339,7 +339,28 @@ void Mob::actionPressed(Action act, bool pressed)
             state = ST_JUMP;
 
         if (m_debug && act == ACT_1)
-            m_game.destroyTileAt(m_pos.x, m_pos.y + 8);
+        {
+            int pos[2] = {0, 0};
+
+            if (isActionPressed(ACT_LEFT) && !isActionPressed(ACT_RIGHT))
+            {
+                pos[0] = -1;
+            }
+            else if (isActionPressed(ACT_RIGHT) && !isActionPressed(ACT_LEFT))
+            {
+                pos[0] = 1;
+            }
+            else if (isActionPressed(ACT_UP) && !isActionPressed(ACT_DOWN))
+            {
+                pos[1] = -1;
+            }
+            else if (isActionPressed(ACT_DOWN) && !isActionPressed(ACT_UP))
+            {
+                pos[1] = 1;
+            }
+
+            m_game.destroyTileAt(m_pos.x + pos[0]*16, m_pos.y-8 + pos[1]*16);
+        }
     }
 }
 

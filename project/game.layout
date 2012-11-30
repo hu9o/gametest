@@ -31,14 +31,14 @@
 	<File name="..\src\Entity.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\src\Game.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="3971" topLine="120" />
+	<File name="..\src\Game.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="3706" topLine="117" />
 	</File>
 	<File name="..\src\Human.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\src\Mob.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="10064" topLine="319" />
+	<File name="..\src\Mob.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="10668" topLine="326" />
 	</File>
 	<File name="..\src\ResourceManager.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="7004" topLine="219" />
