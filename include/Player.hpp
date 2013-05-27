@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "common.h"
-#include "Human.h"
-#include "Controls.h"
+#include "common.hpp"
+#include "Human.hpp"
+#include "Controls.hpp"
 
 class Player
 {

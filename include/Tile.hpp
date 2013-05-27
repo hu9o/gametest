@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include "common.h"
+#include "common.hpp"
 
 
 enum Layer { LAYER_BACK, LAYER_FRONT, LAYER_WATER, LAYER_OVERLAY, LAYER_SHADOW };

@@ -1,5 +1,5 @@
-#include "GameMenu.h"
-#include "Game.h"
+#include "GameMenu.hpp"
+#include "Game.hpp"
 
 GameMenu::GameMenu(sf::RenderWindow& win) : m_win(win)
 {

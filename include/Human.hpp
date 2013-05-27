@@ -1,7 +1,7 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 
-#include "Mob.h"
+#include "Mob.hpp"
 
 
 class Human : public Mob

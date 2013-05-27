@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "common.h"
-#include "TileMap.h"
-#include "Player.h"
+#include "common.hpp"
+#include "TileMap.hpp"
+#include "Player.hpp"
 #include <list>
 
 class Tilemap;

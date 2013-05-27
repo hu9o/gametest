@@ -1,8 +1,8 @@
 #ifndef TILESET_H
 #define TILESET_H
 
-#include "common.h"
-#include "AutoTile.h"
+#include "common.hpp"
+#include "AutoTile.hpp"
 
 
 struct RandomTileData

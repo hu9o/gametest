@@ -1,9 +1,9 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include "common.h"
-#include "Tileset.h"
-#include "Controls.h"
+#include "common.hpp"
+#include "Tileset.hpp"
+#include "Controls.hpp"
 
 
 struct GenericKeyValue

@@ -1,4 +1,4 @@
-#include "ResourceManager.h"
+#include "ResourceManager.hpp"
 
 using namespace std;
 

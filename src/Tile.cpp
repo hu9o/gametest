@@ -1,6 +1,6 @@
-#include "Tile.h"
-#include "TileMap.h"
-#include "ResourceManager.h"
+#include "Tile.hpp"
+#include "TileMap.hpp"
+#include "ResourceManager.hpp"
 
 using namespace std;
 

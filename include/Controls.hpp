@@ -1,7 +1,7 @@
 #ifndef CONTROLS_H
 #define CONTROLS_H
 
-#include "common.h"
+#include "common.hpp"
 
 typedef sf::Keyboard::Key key;
 

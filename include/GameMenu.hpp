@@ -1,7 +1,7 @@
 #ifndef GAMEMENU_H
 #define GAMEMENU_H
 
-#include "common.h"
+#include "common.hpp"
 
 class GameMenu
 {

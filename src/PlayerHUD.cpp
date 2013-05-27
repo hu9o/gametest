@@ -1,4 +1,4 @@
-#include "PlayerHUD.h"
+#include "PlayerHUD.hpp"
 
 PlayerHUD::PlayerHUD()
 {

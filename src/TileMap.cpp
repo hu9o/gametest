@@ -1,5 +1,5 @@
-#include "TileMap.h"
-#include "ResourceManager.h"
+#include "TileMap.hpp"
+#include "ResourceManager.hpp"
 #include <math.h>
 
 using namespace std;

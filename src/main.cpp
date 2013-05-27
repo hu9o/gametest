@@ -1,7 +1,7 @@
 #include <time.h>
 #include <SFML/Graphics.hpp>
 
-#include "GameMenu.h"
+#include "GameMenu.hpp"
 
 int main()
 {

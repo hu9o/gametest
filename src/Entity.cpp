@@ -1,5 +1,5 @@
-#include "Entity.h"
-#include "Game.h"
+#include "Entity.hpp"
+#include "Game.hpp"
 
 using namespace std;
 

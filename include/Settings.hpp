@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "common.h"
+#include "common.hpp"
 
 class Settings
 {

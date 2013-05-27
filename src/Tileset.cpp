@@ -1,5 +1,5 @@
-#include "Tileset.h"
-#include "ResourceManager.h"
+#include "Tileset.hpp"
+#include "ResourceManager.hpp"
 
 using namespace std;
 

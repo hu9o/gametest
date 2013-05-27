@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1369668211 source:c:\users\hugo\documents\github\gametest\src\autotile.cpp
-	"AutoTile.h"
-	"TileMap.h"
+1369676997 source:c:\users\hugo\documents\github\gametest\src\autotile.cpp
+	"AutoTile.hpp"
+	"TileMap.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\autotile.h
 	"Tile.h"
@@ -53,8 +53,8 @@
 	"common.h"
 	"AutoTile.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\controllable.cpp
-	"Controllable.h"
+1369677054 source:c:\users\hugo\documents\github\gametest\src\controllable.cpp
+	"Controllable.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\controllable.h
 	"Controls.h"
@@ -62,12 +62,12 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\controls.h
 	"common.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
-	"Controls.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
+	"Controls.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
-	"Entity.h"
-	"Game.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
+	"Entity.hpp"
+	"Game.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\entity.h
 	"common.h"
@@ -90,64 +90,127 @@
 	"Entity.h"
 	"Controllable.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\game.cpp
-	"Game.h"
-	"ResourceManager.h"
-	"Player.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+	"Game.hpp"
+	"ResourceManager.hpp"
+	"Player.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
 	"common.h"
 	"Tileset.h"
 	"Controls.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\gamemenu.cpp
-	"GameMenu.h"
-	"Game.h"
+1369677053 source:c:\users\hugo\documents\github\gametest\src\gamemenu.cpp
+	"GameMenu.hpp"
+	"Game.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\gamemenu.h
 	"common.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\human.cpp
-	"Human.h"
+1369677049 source:c:\users\hugo\documents\github\gametest\src\human.cpp
+	"Human.hpp"
 
-1369669130 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
-	"Mob.h"
-	"ResourceManager.h"
-	"Game.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+	"Mob.hpp"
+	"ResourceManager.hpp"
+	"Game.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\player.cpp
-	"Player.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\player.cpp
+	"Player.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
-	"ResourceManager.h"
+1369677014 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+	"ResourceManager.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
-	"Settings.h"
+1369677016 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
+	"Settings.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\settings.h
 	"common.h"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
-	"Tile.h"
-	"TileMap.h"
-	"ResourceManager.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
+	"Tile.hpp"
+	"TileMap.hpp"
+	"ResourceManager.hpp"
 
-1369673995 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
-	"TileMap.h"
-	"ResourceManager.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+	"TileMap.hpp"
+	"ResourceManager.hpp"
 	<math.h>
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
-	"Tileset.h"
-	"ResourceManager.h"
+1369677071 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
+	"Tileset.hpp"
+	"ResourceManager.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\main.cpp
+1369677038 source:c:\users\hugo\documents\github\gametest\src\main.cpp
 	<time.h>
 	<SFML/Graphics.hpp>
-	"GameMenu.h"
+	"GameMenu.hpp"
 
-1369668211 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
-	"PlayerHUD.h"
+1369677010 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
+	"PlayerHUD.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\playerhud.h
+
+1369677048 c:\users\hugo\documents\github\gametest\include\autotile.hpp
+	"Tile.hpp"
+
+1369677015 c:\users\hugo\documents\github\gametest\include\tile.hpp
+	"common.hpp"
+
+1369668211 c:\users\hugo\documents\github\gametest\include\common.hpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<SFML/Graphics.hpp>
+	"rapidjson/document.h"
+	"rapidjson/filestream.h"
+
+1369677017 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
+	"common.hpp"
+	"Tileset.hpp"
+	<list>
+
+1369676987 c:\users\hugo\documents\github\gametest\include\tileset.hpp
+	"common.hpp"
+	"AutoTile.hpp"
+
+1369677050 c:\users\hugo\documents\github\gametest\include\controllable.hpp
+	"Controls.hpp"
+
+1369677052 c:\users\hugo\documents\github\gametest\include\controls.hpp
+	"common.hpp"
+
+1369677061 c:\users\hugo\documents\github\gametest\include\entity.hpp
+	"common.hpp"
+
+1369677071 c:\users\hugo\documents\github\gametest\include\game.hpp
+	"common.hpp"
+	"TileMap.hpp"
+	"Player.hpp"
+	<list>
+
+1369677047 c:\users\hugo\documents\github\gametest\include\player.hpp
+	"common.hpp"
+	"Human.hpp"
+	"Controls.hpp"
+
+1369677055 c:\users\hugo\documents\github\gametest\include\human.hpp
+	"Mob.hpp"
+
+1369677051 c:\users\hugo\documents\github\gametest\include\mob.hpp
+	"Entity.hpp"
+	"Controllable.hpp"
+
+1369677012 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+	"common.hpp"
+	"Tileset.hpp"
+	"Controls.hpp"
+
+1369677071 c:\users\hugo\documents\github\gametest\include\gamemenu.hpp
+	"common.hpp"
+
+1369668211 c:\users\hugo\documents\github\gametest\include\playerhud.hpp
+
+1369677009 c:\users\hugo\documents\github\gametest\include\settings.hpp
+	"common.hpp"
 

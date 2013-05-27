@@ -1,6 +1,6 @@
-#include "Mob.h"
-#include "ResourceManager.h"
-#include "Game.h"
+#include "Mob.hpp"
+#include "ResourceManager.hpp"
+#include "Game.hpp"
 
 using namespace std;
 

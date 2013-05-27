@@ -1,4 +1,4 @@
-#include "Settings.h"
+#include "Settings.hpp"
 
 using namespace std;
 

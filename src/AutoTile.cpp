@@ -1,5 +1,5 @@
-#include "AutoTile.h"
-#include "TileMap.h"
+#include "AutoTile.hpp"
+#include "TileMap.hpp"
 
 AutoTile::AutoTile(TileMap& map) : Tile(map)
 {

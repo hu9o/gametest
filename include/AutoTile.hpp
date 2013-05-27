@@ -1,7 +1,7 @@
 #ifndef AUTOTILE_H
 #define AUTOTILE_H
 
-#include "Tile.h"
+#include "Tile.hpp"
 
 
 struct AutoTileInfo

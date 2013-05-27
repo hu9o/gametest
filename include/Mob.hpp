@@ -1,8 +1,8 @@
 #ifndef MOB_H
 #define MOB_H
 
-#include "Entity.h"
-#include "Controllable.h"
+#include "Entity.hpp"
+#include "Controllable.hpp"
 
 class Mob : public Entity, public Controllable
 {

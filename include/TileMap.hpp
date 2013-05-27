@@ -1,8 +1,8 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
-#include "common.h"
-#include "Tileset.h"
+#include "common.hpp"
+#include "Tileset.hpp"
 #include <list>
 
 
