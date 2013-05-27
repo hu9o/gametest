@@ -4,6 +4,8 @@
 #include "common.hpp"
 #include "Tileset.hpp"
 #include "Controls.hpp"
+#include "Player.hpp"
+#include <list>
 
 
 struct GenericKeyValue
@@ -59,6 +61,7 @@ class ResourceManager
         std::string getKeyValueString(std::string key);
 
         Controls& getControlsByName(std::string name);
+        void createPlayers(Game& game, TileMap& tilemap, std::list<Player*>& players);
 
     protected:
     private:

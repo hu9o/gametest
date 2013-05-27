@@ -130,25 +130,7 @@ void Game::mainLoop()
     loadFromFile(m_resman.getKeyValueString("g-default-map"));
 
     // Joueurs et persos
-    m_players.push_back(new Player());
-    m_players.push_back(new Player());
-
-    list<Player*>::iterator it = m_players.begin();
-
-    Human* h = new Human(*this);
-
-    (*it)->setHuman(h);
-    (*it)->setControls(m_resman.getControlsByName("arrows"));
-    h->setSkin("michel");
-    h->setPosition(m_tilemap.getStartPosition());
-    it++;
-
-    Human* h2 = new Human(*this);
-
-    (*it)->setHuman(h2);
-    (*it)->setControls(m_resman.getControlsByName("wasd"));
-    h2->setSkin("bernard");
-    h2->setPosition(m_tilemap.getStartPosition());
+    m_resman.createPlayers(*this, m_tilemap, m_players);
 
     // Shader
     sf::Shader shader;
@@ -182,7 +164,7 @@ void Game::mainLoop()
 
             if (evt.type == sf::Event::KeyPressed || evt.type == sf::Event::KeyReleased)
             {
-                for (it = m_players.begin(); it != m_players.end(); it++)
+                for (list<Player*>::iterator it = m_players.begin(); it != m_players.end(); ++it)
                 {
                     (*it)->pressKey(evt.key.code, evt.type == sf::Event::KeyPressed);
                 }

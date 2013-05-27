@@ -90,7 +90,7 @@
 	"Entity.h"
 	"Controllable.h"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1369687442 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Player.hpp"
@@ -107,19 +107,20 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\gamemenu.h
 	"common.h"
 
-1369677049 source:c:\users\hugo\documents\github\gametest\src\human.cpp
+1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
 	"Human.hpp"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1369686313 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\player.cpp
+1369687355 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.hpp"
 
-1369677014 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1369687572 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
+	"TileMap.hpp"
 
 1369677016 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
 	"Settings.hpp"
@@ -194,17 +195,19 @@
 	"Human.hpp"
 	"Controls.hpp"
 
-1369677055 c:\users\hugo\documents\github\gametest\include\human.hpp
+1369686322 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
 
-1369677051 c:\users\hugo\documents\github\gametest\include\mob.hpp
+1369686315 c:\users\hugo\documents\github\gametest\include\mob.hpp
 	"Entity.hpp"
 	"Controllable.hpp"
 
-1369677012 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+1369687452 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	"Controls.hpp"
+	"Player.hpp"
+	<list>
 
 1369677071 c:\users\hugo\documents\github\gametest\include\gamemenu.hpp
 	"common.hpp"

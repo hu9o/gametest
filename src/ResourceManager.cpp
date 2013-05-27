@@ -1,4 +1,5 @@
 #include "ResourceManager.hpp"
+#include "TileMap.hpp"
 
 using namespace std;
 
@@ -254,4 +255,33 @@ Controls& ResourceManager::getControlsByName(std::string name)
     m_controls[name] = new Controls(keyset);
 
     return *(m_controls[name]);
+}
+
+void ResourceManager::createPlayers(Game& game, TileMap& tilemap, std::list<Player*>& players)
+{
+    const js::Value& pls = m_settings["players"];
+
+    cout << "Il y a " << pls.Size() << " joueurs :" << endl;
+
+    for (js::SizeType i=0; i<pls.Size(); ++i)
+    {
+        const js::Value& pl = pls[i];
+        bool enabled = pl["enabled"].GetBool();
+
+        cout << ' ' << pl["name"].GetString() << " : " << (enabled? "enabled" : "disabled") << endl;
+
+        if (!enabled)
+            continue;
+
+        Player* p = new Player();
+        Human* h = new Human(game);
+
+        h->setSkin(pl["skin"].GetString());
+        h->setPosition(tilemap.getStartPosition());
+
+        p->setHuman(h);
+        p->setControls(getControlsByName(pl["keys"].GetString()));
+
+        players.push_back(p);
+    }
 }
