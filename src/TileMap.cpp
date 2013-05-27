@@ -277,7 +277,7 @@ void TileMap::deleteTile(Tile* t)
     while (it != m_lightSources.end())
     {
         if (*it == t)
-            m_lightSources.erase(it);
+            it = m_lightSources.erase(it);
 
         it++;
     }
