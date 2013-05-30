@@ -31,9 +31,9 @@ namespace rm
     struct KeyValue : GenericKeyValue
     {
         T value;
-        KeyValue(T val) { value = val; };
-        void setValue(T val) { value = val; };
-        T getValue() { return value; };
+        KeyValue(T val) { value = val; }
+        void setValue(T val) { value = val; }
+        T getValue() { return value; }
     };
     */
 

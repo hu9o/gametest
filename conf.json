@@ -12,7 +12,7 @@
 	[
 		{"name": "hugo", "control": "keyboard", "skin": "michel", "keys": "arrows"},
 		{"name": "toto", "control": "keyboard", "skin": "bernard", "keys": "wasd"},
-		{"name": "loule", "control": "disabled", "skin": "zombie", "keys": "null"}
+		{"name": "loule", "control": "disabled", "skin": "oh", "keys": "null"}
 	],
 
 	"keylayouts" :
@@ -30,12 +30,14 @@
 		"g-debug" : true,
 		"g-smooth-shadows" : true,
 		"g-default-map" : "floatingtemple.json",
+		"g-default-mode" : "defaultmode.json",
 		"g-overloadable-keys-map" : "mp",
 		
 		"d-resources" : "resources/",
 		"d-skins" : "resources/skin/",
 		"d-backgrounds" : "resources/background/",
 		"d-maps" : "resources/map/",
+		"d-modes" : "resources/mode/",
 		"d-tilesets" : "resources/tileset/",
 		"d-graphics" : "resources/gfx/",
 		"d-post-fx" : "resources/sfx/",
@@ -60,7 +62,7 @@
 		"p-jump-str-leave-water" : 5,
 		
 		"m-light-enabled" : true,
-		"m-light-min" : 96,
+		"m-light-min" : 16,
 		"m-light-disp-void" : 24,
 		"m-light-disp-solid" : 64,
 		"m-light-disp-water" : 48,

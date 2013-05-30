@@ -49,10 +49,13 @@ void Zombie::update(float frameTime)
             const TileMap& map = m_game.getTileMap();
 
             // saute si sur une échelle et but hors de l'échelle
-            if (map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) && !map.tileAtHasType(nextPos.x, nextPos.y, TILE_LADDER))
+            if (false && map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) && !map.tileAtHasType(nextPos.x, nextPos.y, TILE_LADDER))
             {
                 actJump = true;
             }
+            // saute si s'accroche
+            if (m_state == ST_HANG)
+                actJump = true;
 
             if (nextPos == currPos)
             {
@@ -80,15 +83,18 @@ void Zombie::update(float frameTime)
                     }
                 }
 
-                if (nextPos.y == currPos.y-1)
+                if (map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) || m_state == ST_CLIMB)
                 {
-                    if (nextPos.x == currPos.x && map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) && !map.tileAtHasType(currPos.x, currPos.y, TILE_SOLID))
+                    if (nextPos.y*16+17 < m_pos.y+1)
                         actUp = true;
-                    else
-                        actJump = true;
+                    else if (nextPos.y*16+17 > m_pos.y+1)
+                        actDown = true;
                 }
-
-                if (nextPos.y == currPos.y+1)
+                else if (nextPos.y == currPos.y-1)
+                {
+                    actJump = true;
+                }
+                else if (nextPos.y == currPos.y+1)
                     actDown = true;
             }
 
@@ -100,8 +106,9 @@ void Zombie::update(float frameTime)
                     m_pos.x -= 2;
             }
 
-
-
+            // empêche de grimper sous l'eau
+            if (map.tileAtHasType(currPos.x, currPos.y, TILE_WATER))
+                actUp = actDown = false;
         }
 
         pressAction(ACT_LEFT, actLeft);
@@ -216,18 +223,21 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
 
                 bool ok = false;
 
-                if ((i || j) && notInClosed && !currentCase->hasType(TILE_SOLID))
+                if ((i || j) && notInClosed && !currentCase->hasType(TILE_SOLID) && !currentCase->hasType(TILE_SPIKE))
                 {
                     // nage
-                    if (currentCase->hasType(TILE_WATER) && ( (!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
-                                                                          && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID))))
+                    if (currentCase->hasType(TILE_WATER))
                     {
-                        ok = true;
+                        if ((!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
+                                        && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)))
+                            ok = true;
                     }
                     // tombe
                     else if (!map.tileAtHasType(current->x, current->y+1, TILE_SOLID)
                      && !map.tileAtHasType(current->x-1, current->y, TILE_SOLID)
-                     && !map.tileAtHasType(current->x+1, current->y, TILE_SOLID))
+                     && !map.tileAtHasType(current->x+1, current->y, TILE_SOLID)
+
+                     && !map.tileAtHasType(current->x, current->y+1, TILE_LADDER))
                     {
                         if (i==0 && j==1)
                             ok = true;
@@ -235,19 +245,23 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
                     else
                     {
                         // saute à gauche ou à droite
-                        if (j==-1 && i!=0 && !map.tileAtHasType(current->x, current->y-1, TILE_SOLID)
+                        if (j==-1 && i!=0 && !map.tileAtHasType(current->x, current->y, TILE_LADDER)
+                                        && !map.tileAtHasType(current->x, current->y-1, TILE_SOLID)
                                         && !map.tileAtHasType(current->x+i, current->y-1, TILE_SOLID)
                                         && map.tileAtHasType(current->x+i, current->y, TILE_SOLID))
                             ok = true;
 
                         // gauche ou droite
-                        if (j==0 && i!=0 && (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
-                                         && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)) )
+                        if (j==0 && i!=0 && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID) &&
+                                            (map.tileAtHasType(current->x, current->y+1, TILE_SOLID)
+                                          || (map.tileAtHasType(current->x, current->y+1, TILE_LADDER)
+                                           && !map.tileAtHasType(current->x, current->y, TILE_SOLID)
+                                           && !map.tileAtHasType(current->x, current->y, TILE_LADDER)
+                                           && !map.tileAtHasType(current->x, current->y, TILE_LADDER))) )
                             ok = true;
 
                         // échelle
-                        if (i==0 && j!=0 && currentCase->hasType(TILE_LADDER) && !currentCase->hasType(TILE_SOLID)
-                         && map.tileAtHasType(current->x, current->y+j, TILE_LADDER) && !map.tileAtHasType(current->x, current->y+j, TILE_SOLID))
+                        if (i==0 && j!=0 && currentCase->hasType(TILE_LADDER))
                             ok = true;
 
                         // saut simple
@@ -255,7 +269,7 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
                             ok = true;
 
                         // tombe
-                        if (!map.tileAtHasType(current->x, current->y+1, TILE_SOLID))
+                        if (i==0 && j==1 && !map.tileAtHasType(current->x, current->y+1, TILE_SOLID))
                             ok = true;
 
                     }

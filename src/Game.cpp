@@ -42,41 +42,42 @@ void Game::loadFromFile(string path)
     cout << "La carte s'appelle \"" << json["name"].GetString() << "\"" << endl;
 
     // Clés avant le reste!
-	assert(json.HasMember("keys"));// member iterator
-
-	js::Value keys;
-	keys = json["keys"];
-	string overloadable = rm::getKeyValueString("g-overloadable-keys-map");
-
-    js::Value::MemberIterator itr = keys.MemberBegin();
-    while(itr != keys.MemberEnd())
+	if(json.HasMember("keys"))
     {
-        string name = itr->name.GetString();
-        bool authorized = false;
+        js::Value keys;
+        keys = json["keys"];
+        string overloadable = rm::getKeyValueString("g-overloadable-keys-map");
 
-        for (uint i=0; i<overloadable.length(); i++)
+        js::Value::MemberIterator itr = keys.MemberBegin();
+        while(itr != keys.MemberEnd())
         {
-            if (overloadable[i] == name[0])
+            string name = itr->name.GetString();
+            bool authorized = false;
+
+            for (uint i=0; i<overloadable.length(); i++)
             {
-                authorized = true;
-                break;
+                if (overloadable[i] == name[0])
+                {
+                    authorized = true;
+                    break;
+                }
             }
-        }
 
-        if (authorized && name[1] == '-')
-        {
-            if (rm::hasKeyValue(name))
+            if (authorized && name[1] == '-')
             {
-                rm::setKeyValue(name, itr->value);
-                cout << " Clé: " << name << endl;
+                if (rm::hasKeyValue(name))
+                {
+                    rm::setKeyValue(name, itr->value);
+                    cout << " Clé: " << name << endl;
+                }
+                else
+                    cout << " Clé ignorée: " << name << " (inexistante dans conf.json)" << endl;
             }
             else
-                cout << " Clé ignorée: " << name << " (inexistante dans conf.json)" << endl;
-        }
-        else
-            cout << " Clé ignorée: " << name << " (surcharge illégale)" << endl;
+                cout << " Clé ignorée: " << name << " (surcharge illégale)" << endl;
 
-        ++itr;
+            ++itr;
+        }
     }
     // fin clés
 

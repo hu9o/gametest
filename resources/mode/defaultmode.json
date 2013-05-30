@@ -1,0 +1,27 @@
+{
+    "objects" :
+    [
+        {"type":"collectable", "x":0, "y":0, "w":0, "h":0},
+        {"type":"weapon", "x":0, "y":0, "w":0, "h":0},
+        {"type":"collectable", "x":0, "y":0, "w":0, "h":0}
+    ],
+    
+    "weapons" :
+    [
+        {"name":"rifle1", "type":"rifle", "image":"", "angle": "12", "knockback":8,
+            "damage":5, "nbbullets":4},
+            
+        {"name":"mg1", "type":"machinegun", "image":"", "angle": "8", "knockback":2,
+            "delay":150, "damage":5},
+            
+        {"name":"zooka1", "type":"launcher", "image":"", "angle": "5", "knockback":12,
+            "projectile":"grenade", "force":10}
+    ],
+    
+    "projectiles" :
+    [
+        {"name":"grenade", "image":"", "movement":"bounce", "explosion":4},
+        {"name":"rocket", "image":"", "movement":"linear", "explosion":3},
+        {"name":"headhunter", "image":"", "movement":"homing", "damage":200}
+    ]
+}
