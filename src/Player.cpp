@@ -12,9 +12,9 @@ Player::~Player()
     //dtor
 }
 
-void Player::setControls(Controls& keys)
+void Player::setControls(Controls& ctrls)
 {
-    m_keys = keys;
+    m_ctrls = ctrls;
 }
 
 void Player::setHuman(Human* h)
@@ -31,8 +31,9 @@ bool Player::pressKey(sf::Keyboard::Key k, bool pressed)
 {
     assert(m_perso);
 
-    Action act = m_keys.getActionFromKey(k);
+    Action act = m_ctrls.getActionFromKey(k);
     m_perso->pressAction(act, pressed);
 
     return act != ACT_NULL;
 }
+

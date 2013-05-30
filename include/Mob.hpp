@@ -6,9 +6,9 @@
 
 class Mob : public Entity, public Controllable
 {
-    enum State {ST_STAND, ST_JUMP, ST_CLIMB, ST_HANG, ST_DEAD};
-
     public:
+        enum State {ST_STAND, ST_JUMP, ST_CLIMB, ST_HANG, ST_DEAD};
+
         Mob(Game& game);
         virtual ~Mob();
 
@@ -47,7 +47,7 @@ class Mob : public Entity, public Controllable
         int m_time;
 
         // STANDING / FLYING / CLIMBING / SWIMMING / HANGING
-        State state;
+        State m_state;
         //bool m_onTheGround;
         //bool m_ladderState;
         bool m_inWater;

@@ -162,11 +162,15 @@ void TileMap::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
         }
     }
 
-    if (layer == LAYER_SHADOW)
-        test_displayShadow(win);
+    if (layer == LAYER_TEST)
+        test_displayGraph(win);
 }
 
-Tile* TileMap::getTileAt(int x, int y)
+Tile* TileMap::getTileAt(vec2i v) const
+{
+    getTileAt(v.x, v.y);
+}
+Tile* TileMap::getTileAt(int x, int y) const
 {
     if (!withinBounds(x, y))
         return NULL;
@@ -174,7 +178,7 @@ Tile* TileMap::getTileAt(int x, int y)
     return m_tilemap[y][x];
 }
 
-bool TileMap::withinBounds(int x, int y)
+bool TileMap::withinBounds(int x, int y) const
 {
     return x >= 0 && y >= 0 && x < m_tilemapSize.x && y < m_tilemapSize.y;
 }
@@ -201,7 +205,7 @@ vec2i TileMap::getStartPosition()
     return pos;
 }
 
-bool TileMap::isCollision(int x, int y, TileType t)
+bool TileMap::isCollision(int x, int y, TileType t) const
 {
     // warp
     if (x >= 400)
@@ -220,7 +224,7 @@ bool TileMap::isCollision(int x, int y, TileType t)
     return tile->hasType(t);
 }
 
-bool TileMap::isCollision(sf::IntRect rect, TileType t)
+bool TileMap::isCollision(sf::IntRect rect, TileType t) const
 {
     return    isCollision(rect.left, rect.top, t)
             || isCollision(rect.left + rect.width, rect.top, t)
@@ -228,7 +232,7 @@ bool TileMap::isCollision(sf::IntRect rect, TileType t)
             || isCollision(rect.left + rect.width, rect.top + rect.height, t);
 }
 
-void TileMap::test_displayShadow(sf::RenderTarget& win)
+/*void TileMap::test_displayShadow(sf::RenderTarget& win)
 {
     return;
 
@@ -244,6 +248,21 @@ void TileMap::test_displayShadow(sf::RenderTarget& win)
             shadow.setPosition(((int)(cos(a)*d) % m_tileSize) + 12, ((int)(sin(a)*d) % m_tileSize) + 12);
             win.draw(shadow);
         }
+    }
+}*/
+
+void TileMap::test_displayGraph(sf::RenderTarget& win)
+{
+    sf::Sprite mark(ResourceManager::getInstance().getTileset().getTexture());
+    mark.setTextureRect(sf::IntRect(102, 142, 10, 10));
+    int i, j;
+
+
+    for (vector<vec2i>::const_iterator it = test_graph.begin(); it != test_graph.end(); ++it)
+    {
+        mark.setPosition(it->x*m_tileSize + m_tileSize/2 - 5,
+                         it->y*m_tileSize + m_tileSize/2 - 5);
+        win.draw(mark);
     }
 }
 
@@ -307,4 +326,13 @@ void TileMap::update()
         }
     }
 }
+
+bool TileMap::tileAtHasType(int x, int y, TileType type) const
+{
+    Tile* t = getTileAt(x % m_tilemapSize.x, y);
+
+    return t? t->hasType(type) : false;
+}
+
+
 

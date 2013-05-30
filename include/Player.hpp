@@ -11,7 +11,7 @@ class Player
         Player();
         virtual ~Player();
 
-        void setControls(Controls& keys);
+        void setControls(Controls& ctrls);
         void setHuman(Human* h);
         Human* getHuman();
 
@@ -24,7 +24,7 @@ class Player
         int team; //enum?
         int money;
         Human* m_perso;
-        Controls m_keys;
+        Controls m_ctrls;
 
     private:
 };

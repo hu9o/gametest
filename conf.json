@@ -10,15 +10,17 @@
 
 	"players" :
 	[
-		{"name": "hugo", "skin": "michel", "keys": "arrows", "enabled": true},
-		{"name": "toto", "skin": "bernard", "keys": "wasd", "enabled": true}
+		{"name": "hugo", "control": "keyboard", "skin": "michel", "keys": "arrows"},
+		{"name": "toto", "control": "keyboard", "skin": "bernard", "keys": "wasd"},
+		{"name": "loule", "control": "disabled", "skin": "zombie", "keys": "null"}
 	],
 
 	"keylayouts" :
 	{
 		"solo" : {"up": 73, "down": 74, "left": 71, "right": 72, "jump": 57, "act1": 37, "act2": 38},
 		"arrows" : {"up": 73, "down": 74, "left": 71, "right": 72, "jump": 42, "act1": 41, "act2": -1},
-		"wasd" : {"up": 25, "down": 18, "left": 16, "right": 3, "jump": 60, "act1": 0, "act2": 4}
+		"wasd" : {"up": 25, "down": 18, "left": 16, "right": 3, "jump": 60, "act1": 0, "act2": 4},
+		"null" : {"up": -1, "down": -1, "left": -1, "right": -1, "jump": -1, "act1": -1, "act2": -1}
 	},
 
 	"keys" :
@@ -60,7 +62,8 @@
 		"m-light-min" : 96,
 		"m-light-disp-void" : 24,
 		"m-light-disp-solid" : 64,
-		"m-light-disp-water" : 48
+		"m-light-disp-water" : 48,
+		"m-nb-zombies" : 1
 	}
 
 }

@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "ResourceManager.hpp"
 #include "Player.hpp"
+#include "Zombie.hpp"
 
 using namespace std;
 
@@ -132,6 +133,15 @@ void Game::mainLoop()
     // Joueurs et persos
     m_resman.createPlayers(*this, m_tilemap, m_players);
 
+    // Zombies
+    for (int i=m_resman.getKeyValueInt("m-nb-zombies"); i>0; i--)
+    {
+        Zombie* z = new Zombie(*this);
+        z->setSkin("zombie");
+        z->setPosition(m_tilemap.getStartPosition());
+        z->setTarget(*m_players.front()->getHuman());
+    }
+
     // Shader
     sf::Shader shader;
     shader.loadFromFile(m_resman.getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
@@ -145,6 +155,8 @@ void Game::mainLoop()
     // Boucle
     int timeElapsed = clock.getElapsedTime().asMilliseconds();
     float frameTime;
+    sf::Clock zombieClock;
+
     while (m_win.isOpen())
     {
         sf::Event evt;
@@ -168,6 +180,11 @@ void Game::mainLoop()
                 {
                     (*it)->pressKey(evt.key.code, evt.type == sf::Event::KeyPressed);
                 }
+            }
+
+            if (evt.type == sf::Event::MouseButtonPressed)
+            {
+                //john.goTo(vec2i(evt.mouseButton.x/32, evt.mouseButton.y/32));
             }
         }
 
@@ -203,6 +220,8 @@ void Game::mainLoop()
         shadowTex.display();
         m_win.draw(sf::Sprite(shadowTex.getTexture()), states);
 
+        m_tilemap.drawLayer(m_win, LAYER_TEST, timeElapsed);
+
 
         //screen.copyScreen(m_win);
         //m_win.draw(sf::Sprite(screen), lightEffect);
@@ -220,16 +239,9 @@ void Game::registerEntity(Entity& e)
     m_entities.push_back(&e);
 }
 
-bool Game::isCollision(int x, int y, TileType t)
+const TileMap& Game::getTileMap() const
 {
-    // collision, seulement avec la map pour le moment
-    return m_tilemap.isCollision(x, y, t);
-}
-
-bool Game::isCollision(sf::IntRect r, TileType t)
-{
-    // collision, seulement avec la map pour le moment
-    return m_tilemap.isCollision(r, t);
+    return m_tilemap;
 }
 
 void Game::destroyTileAt(int x, int y)

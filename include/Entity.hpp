@@ -14,6 +14,7 @@ class Entity
         virtual void draw(sf::RenderTarget& win, int elapsedTime) = 0;
         virtual void update(float frameTime);
 
+        vec2f getPosition() const;
         void setPosition(vec2i pos);
         void setPosition(vec2f pos);
 

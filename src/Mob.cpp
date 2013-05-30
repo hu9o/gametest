@@ -36,7 +36,7 @@ Mob::Mob(Game& game) : Entity(game)
     //m_ignoreLadder = false;
     //m_hanging = false;
     m_time = 0;
-    state = ST_JUMP;
+    m_state = ST_JUMP;
     m_dir = 1;
 }
 
@@ -50,18 +50,18 @@ void Mob::draw(sf::RenderTarget& win, int elapsedTime)
     int image = 0;
     int t = (elapsedTime % 400) / 200;
 
-    if (state == ST_DEAD)
+    if (m_state == ST_DEAD)
     {
         image = 8;
         m_sprite.setRotation(90);
     }
-    if (state == ST_CLIMB)
+    if (m_state == ST_CLIMB)
         image = 4 + t;
-    else if (state == ST_HANG)
+    else if (m_state == ST_HANG)
         image = 6;
     else
     {
-        if (state == ST_STAND)
+        if (m_state == ST_STAND)
         {
             image = 0 + (m_speedX)? t : 0;
         }
@@ -91,19 +91,21 @@ void Mob::draw(sf::RenderTarget& win, int elapsedTime)
 
 void Mob::update(float frameTime)
 {
-    if (state == ST_DEAD)
+    const TileMap& map = m_game.getTileMap();
+
+    if (m_state == ST_DEAD)
     {/*
         m_speedY = ((m_inWater)?  m_waterJumpStr : m_jumpStr) / 2;
         m_pos.y += m_speedY * frameTime;
 
         m_speedY += m_accelY * (m_inWater? 0.02 : 1) * frameTime;*/
     }
-    else if (state == ST_STAND || state == ST_JUMP)
+    else if (m_state == ST_STAND || m_state == ST_JUMP)
     {
         // dans l'eau?
         bool wasInWater = m_inWater;
-        m_inWater = m_game.isCollision(m_pos.x, m_pos.y - 8, TILE_WATER);
-        m_canBreathe = !m_inWater || !m_game.isCollision(m_pos.x, m_pos.y - 14, TILE_WATER);
+        m_inWater = map.isCollision(m_pos.x, m_pos.y - 8, TILE_WATER);
+        m_canBreathe = !m_inWater || !map.isCollision(m_pos.x, m_pos.y - 14, TILE_WATER);
 
         // la vitesse baisse quand on arrive dans l'eau
         if (m_inWater && !wasInWater)
@@ -123,7 +125,7 @@ void Mob::update(float frameTime)
                 {
                     m_oxygen = 0;
                     damage(m_drowningDamage);
-                    if (state == ST_DEAD)
+                    if (m_state == ST_DEAD)
                         return;
                 }
             }
@@ -132,22 +134,22 @@ void Mob::update(float frameTime)
         }
 
         // pics?
-        if (m_game.isCollision(getBoundingBox(), TILE_SPIKE))
+        if (map.isCollision(getBoundingBox(), TILE_SPIKE))
         {
             damage(m_maxLife);
-            if (state == ST_DEAD)
+            if (m_state == ST_DEAD)
                 return;
         }
 
         // grimpe?
         if ((isActionPressed(ACT_UP)
-             && m_game.isCollision(m_pos.x - m_size.x/2, m_pos.y - 1, TILE_LADDER)
-             && m_game.isCollision(m_pos.x + m_size.x/2, m_pos.y - 1, TILE_LADDER))
+             && map.isCollision(m_pos.x - m_size.x/2, m_pos.y - 1, TILE_LADDER)
+             && map.isCollision(m_pos.x + m_size.x/2, m_pos.y - 1, TILE_LADDER))
           || (isActionPressed(ACT_DOWN)
-              && m_game.isCollision(m_pos.x - m_size.x/2, m_pos.y + 1, TILE_LADDER)
-              && m_game.isCollision(m_pos.x + m_size.x/2 , m_pos.y + 1, TILE_LADDER)))
+              && map.isCollision(m_pos.x - m_size.x/2, m_pos.y + 1, TILE_LADDER)
+              && map.isCollision(m_pos.x + m_size.x/2 , m_pos.y + 1, TILE_LADDER)))
         {
-            state = ST_CLIMB;
+            m_state = ST_CLIMB;
             return;
         }
 
@@ -171,9 +173,9 @@ void Mob::update(float frameTime)
         m_pos.x += m_speedX * (m_inWater? m_waterSpeedCoeff : 1) * frameTime;
 
         // collisions X
-        if (m_game.isCollision(getBoundingBox()))
+        if (map.isCollision(getBoundingBox()))
         {
-            while (m_game.isCollision(getBoundingBox()))
+            while (map.isCollision(getBoundingBox()))
             {
                 m_pos.x -= (m_speedX > 0)? 0.1 : -0.1;
             }
@@ -196,7 +198,7 @@ void Mob::update(float frameTime)
 
         m_onTheGround = false;
 
-        if (m_game.isCollision(getBoundingBox()))
+        if (map.isCollision(getBoundingBox()))
         {
             m_onTheGround = true;
             m_ignoreLadder = false;
@@ -209,7 +211,7 @@ void Mob::update(float frameTime)
             bool addRest = true;
             for (i = m_speedY; positiveSpeed? (i >= 1) : (i <= -1); i -= signe)
             {
-                if (m_game.isCollision(getBoundingBox()))
+                if (map.isCollision(getBoundingBox()))
                 {
                     addRest = false;
                     break;
@@ -224,43 +226,43 @@ void Mob::update(float frameTime)
         }
         */}
 
-        state = ST_JUMP;
+        m_state = ST_JUMP;
         if (m_speedY > 0)
         {
             for (float i = m_speedY * frameTime; i > 0; i -= 0.1)
             {
                 m_pos.y += 0.1;
 
-                if (m_game.isCollision(getBoundingBox())
-                    || (m_game.isCollision(m_pos.x, m_pos.y-1, TILE_LADDER)
-                        && !m_game.isCollision(m_pos.x, m_pos.y-2, TILE_LADDER)))
+                if (map.isCollision(getBoundingBox())
+                    || (map.isCollision(m_pos.x, m_pos.y-1, TILE_LADDER)
+                        && !map.isCollision(m_pos.x, m_pos.y-2, TILE_LADDER)))
                 {
                     m_pos.y -= 0.1;
-                    state = ST_STAND;
+                    m_state = ST_STAND;
                     m_ignoreLadder = false;
                     m_speedY = 0;
                     break;
                 }
                 else if (m_canHang)
                 {
-                    if ((m_game.isCollision(m_pos.x - m_size.x/2 - 1, m_pos.y - m_size.y + 2)
-                        && !m_game.isCollision(m_pos.x - m_size.x/2 - 1, m_pos.y - m_size.y + 1)
-                        && !m_game.isCollision(m_pos.x, m_pos.y + 3)
+                    if ((map.isCollision(m_pos.x - m_size.x/2 - 1, m_pos.y - m_size.y + 2)
+                        && !map.isCollision(m_pos.x - m_size.x/2 - 1, m_pos.y - m_size.y + 1)
+                        && !map.isCollision(m_pos.x, m_pos.y + 3)
                         && m_dir == -1
                         && isActionPressed(ACT_LEFT))
                         ||
-                        (m_game.isCollision(m_pos.x + m_size.x/2, m_pos.y - m_size.y + 2)
-                        && !m_game.isCollision(m_pos.x + m_size.x/2, m_pos.y - m_size.y + 1)
-                        && !m_game.isCollision(m_pos.x, m_pos.y + 3)
+                        (map.isCollision(m_pos.x + m_size.x/2, m_pos.y - m_size.y + 2)
+                        && !map.isCollision(m_pos.x + m_size.x/2, m_pos.y - m_size.y + 1)
+                        && !map.isCollision(m_pos.x, m_pos.y + 3)
                         && m_dir == 1
                         && isActionPressed(ACT_RIGHT)))
                     {
-                        state = ST_HANG;
+                        m_state = ST_HANG;
                         m_speedY = 0;
                         break;
                     }
                 }
-                else if (m_game.isCollision(m_pos.x + m_size.x/2 + 1, m_pos.y-1)
+                else if (map.isCollision(m_pos.x + m_size.x/2 + 1, m_pos.y-1)
                         )
                 {
                     m_speedY = 0;
@@ -274,10 +276,10 @@ void Mob::update(float frameTime)
             {
                 m_pos.y -= 0.1;
 
-                if (m_game.isCollision(getBoundingBox()))
+                if (map.isCollision(getBoundingBox()))
                 {
                     m_pos.y += 0.1;
-                    state = ST_STAND;
+                    m_state = ST_STAND;
                     m_ignoreLadder = false;
                     m_speedY = 0;
                     break;
@@ -286,14 +288,14 @@ void Mob::update(float frameTime)
         }
 
         // collision échelles
-        //if (state != ST_HANG && !m_ignoreLadder && m_game.isCollision(m_pos.x, m_pos.y, TILE_LADDER) && m_speedY > 0)
+        //if (m_state != ST_HANG && !m_ignoreLadder && map.isCollision(m_pos.x, m_pos.y, TILE_LADDER) && m_speedY > 0)
         //{
-        //    state = ST_STAND;
+        //    m_state = ST_STAND;
         //    m_pos.y -= m_speedY;
         //    m_speedY = 0;
         //}
     }
-    else if (state == ST_CLIMB)
+    else if (m_state == ST_CLIMB)
     {
         m_speedY = 0;
         m_speedX = 0;
@@ -308,11 +310,11 @@ void Mob::update(float frameTime)
             m_pos.y += 1.5 * frameTime;
         }
 
-        if (m_game.isCollision(getBoundingBox()))
+        if (map.isCollision(getBoundingBox()))
             m_pos = lastpos;
 
-        if (!m_game.isCollision(m_pos.x, m_pos.y + 1, TILE_LADDER))
-            state = ST_JUMP;
+        if (!map.isCollision(m_pos.x, m_pos.y + 1, TILE_LADDER))
+            m_state = ST_JUMP;
     }
 
     Entity::update(frameTime);
@@ -320,23 +322,23 @@ void Mob::update(float frameTime)
 
 void Mob::actionPressed(Action act, bool pressed)
 {
-    if (pressed && state != ST_DEAD)
+    if (pressed && m_state != ST_DEAD)
     {
-        if (act == ACT_JUMP && (state == ST_STAND || state == ST_HANG || (m_inWater && m_canSwim)))
+        if (act == ACT_JUMP && (m_state == ST_STAND || m_state == ST_HANG || (m_inWater && m_canSwim)))
         {
             m_speedY = (m_inWater)? (m_canBreathe? m_leaveWaterJumpStr : m_waterJumpStr) : m_jumpStr;
-            state = ST_JUMP;
+            m_state = ST_JUMP;
         }
-        if (act == ACT_JUMP && state == ST_CLIMB)
+        if (act == ACT_JUMP && m_state == ST_CLIMB)
         {
-            state = ST_JUMP;
+            m_state = ST_JUMP;
             m_ignoreLadder = true;
         }
-        if (act == ACT_DOWN && state == ST_HANG)
-            state = ST_JUMP;
+        if (act == ACT_DOWN && m_state == ST_HANG)
+            m_state = ST_JUMP;
 
-        if (act == ACT_JUMP && state == ST_HANG)
-            state = ST_JUMP;
+        if (act == ACT_JUMP && m_state == ST_HANG)
+            m_state = ST_JUMP;
 
         if (m_debug && act == ACT_1)
         {
@@ -396,7 +398,7 @@ void Mob::damage(int pv)
 
 void Mob::die()
 {
-    state = ST_DEAD;
+    m_state = ST_DEAD;
     cout << "aargh" << endl;
 }
 

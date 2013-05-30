@@ -231,28 +231,32 @@ void ResourceManager::setKeyValue(string key, js::Value& val)
 
 Controls& ResourceManager::getControlsByName(std::string name)
 {
-    const js::Value& layouts = m_settings["keylayouts"];
+    // pas déjà chargé
+    if (m_controls.find(name) == m_controls.end())
+    {
+        const js::Value& layouts = m_settings["keylayouts"];
 
-    assert(layouts.HasMember(name.c_str()));
-    const js::Value& layout = layouts[name.c_str()];
+        assert(layouts.HasMember(name.c_str()));
+        const js::Value& layout = layouts[name.c_str()];
 
-    assert(layout.HasMember("up") && layout["up"].IsInt());
-    assert(layout.HasMember("down") && layout["down"].IsInt());
-    assert(layout.HasMember("left") && layout["left"].IsInt());
-    assert(layout.HasMember("right") && layout["right"].IsInt());
-    assert(layout.HasMember("jump") && layout["jump"].IsInt());
-    assert(layout.HasMember("act1") && layout["act1"].IsInt());
-    assert(layout.HasMember("act2") && layout["act2"].IsInt());
+        assert(layout.HasMember("up") && layout["up"].IsInt());
+        assert(layout.HasMember("down") && layout["down"].IsInt());
+        assert(layout.HasMember("left") && layout["left"].IsInt());
+        assert(layout.HasMember("right") && layout["right"].IsInt());
+        assert(layout.HasMember("jump") && layout["jump"].IsInt());
+        assert(layout.HasMember("act1") && layout["act1"].IsInt());
+        assert(layout.HasMember("act2") && layout["act2"].IsInt());
 
-    KeySet keyset = {static_cast<key>(layout["up"].GetInt()),
-                     static_cast<key>(layout["down"].GetInt()),
-                     static_cast<key>(layout["left"].GetInt()),
-                     static_cast<key>(layout["right"].GetInt()),
-                     static_cast<key>(layout["jump"].GetInt()),
-                     static_cast<key>(layout["act1"].GetInt()),
-                     static_cast<key>(layout["act2"].GetInt())};
+        KeySet keyset = {static_cast<key>(layout["up"].GetInt()),
+                         static_cast<key>(layout["down"].GetInt()),
+                         static_cast<key>(layout["left"].GetInt()),
+                         static_cast<key>(layout["right"].GetInt()),
+                         static_cast<key>(layout["jump"].GetInt()),
+                         static_cast<key>(layout["act1"].GetInt()),
+                         static_cast<key>(layout["act2"].GetInt())};
 
-    m_controls[name] = new Controls(keyset);
+        m_controls[name] = new Controls(keyset);
+    }
 
     return *(m_controls[name]);
 }
@@ -266,14 +270,23 @@ void ResourceManager::createPlayers(Game& game, TileMap& tilemap, std::list<Play
     for (js::SizeType i=0; i<pls.Size(); ++i)
     {
         const js::Value& pl = pls[i];
-        bool enabled = pl["enabled"].GetBool();
+        std::string type = pl["control"].GetString();
+        Player* p;
 
-        cout << ' ' << pl["name"].GetString() << " : " << (enabled? "enabled" : "disabled") << endl;
-
-        if (!enabled)
+        if (type == "keyboard")
+        {
+            p = new Player();
+        }
+        else if (type == "bot")
+        {
+            // à implémenter...
             continue;
+        }
+        else
+        {
+            continue;
+        }
 
-        Player* p = new Player();
         Human* h = new Human(game);
 
         h->setSkin(pl["skin"].GetString());

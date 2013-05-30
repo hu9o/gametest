@@ -65,7 +65,7 @@
 1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
 	"Controls.hpp"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
+1369896952 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
 	"Entity.hpp"
 	"Game.hpp"
 
@@ -90,10 +90,11 @@
 	"Entity.h"
 	"Controllable.h"
 
-1369687442 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1369897504 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Player.hpp"
+	"Zombie.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
 	"common.h"
@@ -110,15 +111,15 @@
 1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
 	"Human.hpp"
 
-1369686313 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1369895593 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"
 
-1369687355 source:c:\users\hugo\documents\github\gametest\src\player.cpp
+1369864539 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.hpp"
 
-1369687572 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1369864622 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
 	"TileMap.hpp"
 
@@ -133,7 +134,7 @@
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1369896528 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 	<math.h>
@@ -155,7 +156,7 @@
 1369677048 c:\users\hugo\documents\github\gametest\include\autotile.hpp
 	"Tile.hpp"
 
-1369677015 c:\users\hugo\documents\github\gametest\include\tile.hpp
+1369866048 c:\users\hugo\documents\github\gametest\include\tile.hpp
 	"common.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\common.hpp
@@ -166,7 +167,7 @@
 	"rapidjson/document.h"
 	"rapidjson/filestream.h"
 
-1369677017 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
+1369896582 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	<list>
@@ -181,24 +182,24 @@
 1369677052 c:\users\hugo\documents\github\gametest\include\controls.hpp
 	"common.hpp"
 
-1369677061 c:\users\hugo\documents\github\gametest\include\entity.hpp
+1369896951 c:\users\hugo\documents\github\gametest\include\entity.hpp
 	"common.hpp"
 
-1369677071 c:\users\hugo\documents\github\gametest\include\game.hpp
+1369894734 c:\users\hugo\documents\github\gametest\include\game.hpp
 	"common.hpp"
 	"TileMap.hpp"
 	"Player.hpp"
 	<list>
 
-1369677047 c:\users\hugo\documents\github\gametest\include\player.hpp
+1369864511 c:\users\hugo\documents\github\gametest\include\player.hpp
 	"common.hpp"
 	"Human.hpp"
 	"Controls.hpp"
 
-1369686322 c:\users\hugo\documents\github\gametest\include\human.hpp
+1369861925 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
 
-1369686315 c:\users\hugo\documents\github\gametest\include\mob.hpp
+1369895706 c:\users\hugo\documents\github\gametest\include\mob.hpp
 	"Entity.hpp"
 	"Controllable.hpp"
 
@@ -216,4 +217,20 @@
 
 1369677009 c:\users\hugo\documents\github\gametest\include\settings.hpp
 	"common.hpp"
+
+1369861996 source:c:\users\hugo\documents\github\gametest\src\bot.cpp
+	"Bot.h"
+
+1369862033 c:\users\hugo\documents\github\gametest\include\bot.hpp
+	"Mob.hpp"
+
+1369897227 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+	"Zombie.hpp"
+	"Game.hpp"
+
+1369896930 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+	"Mob.hpp"
+	"TileMap.hpp"
+
+1369888998 c:\users\hugo\documents\github\gametest\include\pathfindingtest.inl
 

@@ -22,6 +22,11 @@ void Entity::update(float frameTime)
         m_pos.x += 400;
 }
 
+vec2f Entity::getPosition() const
+{
+    return m_pos;
+}
+
 void Entity::setPosition(vec2i pos)
 {
     m_pos.x = pos.x;

@@ -37,8 +37,8 @@
 	"keys" :
 	{
 		"m-light-enabled" : true,
-		"m-light-min" : 32,
-		"m-light-disp-void" : 32,
+		"m-light-min" : 16,
+		"m-light-disp-void" : 24,
 		"m-light-disp-solid" : 255,
 		"m-light-disp-water" : 48
 	}

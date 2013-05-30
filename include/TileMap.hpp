@@ -16,14 +16,21 @@ class TileMap
         void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
         void update();
 
-        bool withinBounds(int x, int y);
-        Tile* getTileAt(int x, int y);
+        bool withinBounds(int x, int y) const;
+        Tile* getTileAt(vec2i v) const;
+        Tile* getTileAt(int x, int y) const;
 
         vec2i getStartPosition();
 
-        bool isCollision(int x, int y, TileType t = TILE_SOLID);
-        bool isCollision(sf::IntRect rect, TileType t = TILE_SOLID);
+        bool isCollision(int x, int y, TileType t = TILE_SOLID) const;
+        bool isCollision(sf::IntRect rect, TileType t = TILE_SOLID) const;
         void destroyTileAt(int x, int y);
+
+        bool tileAtHasType(int x, int y, TileType type) const;
+
+
+        mutable std::vector<vec2i> test_graph;
+        void test_displayGraph(sf::RenderTarget& win);
 
     protected:
         Tile*** m_tilemap;
@@ -33,7 +40,7 @@ class TileMap
         std::list<Tile*> m_lightSources;
 
         std::vector<vec2i> m_startPositions;
-        void test_displayShadow(sf::RenderTarget& win);
+        //void test_displayShadow(sf::RenderTarget& win);
 
         void deleteTile(Tile* t);
 

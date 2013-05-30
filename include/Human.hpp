@@ -7,8 +7,6 @@
 class Human : public Mob
 {
     public:
-        static const int MAX_LIFE = 100;
-
         Human(Game& game);
         virtual ~Human();
 

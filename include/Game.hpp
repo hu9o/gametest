@@ -20,8 +20,8 @@ class Game
 
         void registerEntity(Entity& e);
 
-        bool isCollision(int x, int y, TileType t = TILE_SOLID);
-        bool isCollision(sf::IntRect r, TileType t = TILE_SOLID);
+        const TileMap& getTileMap() const;
+
         void destroyTileAt(int x, int y);
 
     protected:
