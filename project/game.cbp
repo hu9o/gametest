@@ -68,6 +68,7 @@
 		<Unit filename="../include/Tile.hpp" />
 		<Unit filename="../include/TileMap.hpp" />
 		<Unit filename="../include/Tileset.hpp" />
+		<Unit filename="../include/Zombie.hpp" />
 		<Unit filename="../include/common.hpp" />
 		<Unit filename="../include/rapidjson/document.h" />
 		<Unit filename="../include/rapidjson/filestream.h" />
@@ -94,6 +95,7 @@
 		<Unit filename="../src/Tile.cpp" />
 		<Unit filename="../src/TileMap.cpp" />
 		<Unit filename="../src/Tileset.cpp" />
+		<Unit filename="../src/Zombie.cpp" />
 		<Unit filename="../src/main.cpp" />
 		<Extensions>
 			<code_completion />

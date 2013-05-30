@@ -90,7 +90,7 @@
 	"Entity.h"
 	"Controllable.h"
 
-1369897504 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1369909766 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Player.hpp"
@@ -111,7 +111,7 @@
 1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
 	"Human.hpp"
 
-1369895593 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1369907841 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"
@@ -119,7 +119,7 @@
 1369864539 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.hpp"
 
-1369864622 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1369910260 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
 	"TileMap.hpp"
 
@@ -129,24 +129,25 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\settings.h
 	"common.h"
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
+1369907841 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
 	"Tile.hpp"
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 
-1369896528 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1369907841 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 	<math.h>
 
-1369677071 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
+1369910215 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
 	"Tileset.hpp"
 	"ResourceManager.hpp"
 
-1369677038 source:c:\users\hugo\documents\github\gametest\src\main.cpp
+1369907841 source:c:\users\hugo\documents\github\gametest\src\main.cpp
 	<time.h>
 	<SFML/Graphics.hpp>
 	"GameMenu.hpp"
+	"ResourceManager.hpp"
 
 1369677010 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
 	"PlayerHUD.hpp"
@@ -156,7 +157,7 @@
 1369677048 c:\users\hugo\documents\github\gametest\include\autotile.hpp
 	"Tile.hpp"
 
-1369866048 c:\users\hugo\documents\github\gametest\include\tile.hpp
+1369903799 c:\users\hugo\documents\github\gametest\include\tile.hpp
 	"common.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\common.hpp
@@ -185,7 +186,7 @@
 1369896951 c:\users\hugo\documents\github\gametest\include\entity.hpp
 	"common.hpp"
 
-1369894734 c:\users\hugo\documents\github\gametest\include\game.hpp
+1369907267 c:\users\hugo\documents\github\gametest\include\game.hpp
 	"common.hpp"
 	"TileMap.hpp"
 	"Player.hpp"
@@ -203,7 +204,7 @@
 	"Entity.hpp"
 	"Controllable.hpp"
 
-1369687452 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+1369908377 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	"Controls.hpp"

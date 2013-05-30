@@ -9,6 +9,7 @@
 
 namespace rm
 {
+    /*
     struct GenericKeyValue
     {
         static GenericKeyValue* newGenericKeyValue(js::Value&);
@@ -34,7 +35,7 @@ namespace rm
         void setValue(T val) { value = val; };
         T getValue() { return value; };
     };
-
+    */
 
     void init();
 

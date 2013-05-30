@@ -5,6 +5,7 @@ using namespace std;
 
 namespace rm
 {
+    /*
     GenericKeyValue::GenericKeyValue() {}
 
     bool GenericKeyValue::getBool() { return dynamic_cast<KeyValue<bool>*>(this)->getValue(); }
@@ -29,7 +30,7 @@ namespace rm
     GenericKeyValue* GenericKeyValue::newGenericKeyValue(int val) { return new KeyValue<int>(val); }
     GenericKeyValue* GenericKeyValue::newGenericKeyValue(float val) { return new KeyValue<float>(val); }
     GenericKeyValue* GenericKeyValue::newGenericKeyValue(string val) { return new KeyValue<string>(val); }
-
+    */
 
 
     void setTheme(std::string name)
@@ -113,7 +114,7 @@ namespace rm
     void setTileset(std::string name)
     {
         cout << "Chargement du tileset \"" << name << "\"" << endl;
-        m_tileset.loadFromFile(string("map/tileset/") + name + ".json");
+        m_tileset.loadFromFile(rm::getKeyValueString("d-tilesets") + name + ".json");
     }
 
     void init()

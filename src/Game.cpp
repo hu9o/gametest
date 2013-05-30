@@ -144,9 +144,12 @@ void Game::mainLoop()
 
     // Shader
     sf::Shader shader;
-    shader.loadFromFile(rm::getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
-    shader.setParameter("texture", sf::Shader::CurrentTexture);
-    shader.setParameter("blur_radius", 0.01);
+    if (rm::getKeyValueBool("g-smooth-shadows"))
+    {
+        shader.loadFromFile(rm::getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
+        shader.setParameter("texture", sf::Shader::CurrentTexture);
+        shader.setParameter("blur_radius", 0.01);
+    }
 
 
     sf::RenderTexture shadowTex;
@@ -214,7 +217,8 @@ void Game::mainLoop()
         m_tilemap.drawLayer(m_win, LAYER_WATER, timeElapsed);
 
         sf::RenderStates states;
-        states.shader = &shader;
+        if (rm::getKeyValueBool("g-smooth-shadows"))
+            states.shader = &shader;
         shadowTex.clear(sf::Color::Transparent);
         m_tilemap.drawLayer(shadowTex, LAYER_SHADOW, timeElapsed);
         shadowTex.display();
