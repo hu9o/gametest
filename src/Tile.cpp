@@ -35,6 +35,7 @@ void Tile::init()
     m_solidLightDisp = rm.getKeyValueInt("m-light-disp-solid");
     m_waterLightDisp = rm.getKeyValueInt("m-light-disp-water");
     m_enableLighting = rm.getKeyValueBool("m-light-enabled") && m_minBrightness < 255;
+    m_sunlight = rm.getKeyValueInt("m-light-sun");
 
     m_brightness = 0;
     m_transparent = false; // TODO: gérer transparence
@@ -282,13 +283,19 @@ void Tile::setLightEmitted(int light)
 }
 int Tile::getLightEmitted()
 {
+    // directement exposé au soleil ?
+    int i = m_pos.y;
+    while (i>=0 && m_map.getTileAt(m_pos.x, i) && !m_map.getTileAt(m_pos.x, i)->hasType(TILE_SOLID)) i--;
+
+    int lightEmitted = (i==-1)? max(m_lightEmitted, m_sunlight) : m_lightEmitted;
+
     if (m_nextTile)
         if (m_nextTile->m_transparent)
-            return max(m_lightEmitted, m_nextTile->getLightEmitted());
+            return max(lightEmitted, m_nextTile->getLightEmitted());
         else
             return m_nextTile->getLightEmitted();
     else
-        return m_lightEmitted;
+        return lightEmitted;
 }
 
 vec2i Tile::getPosition()

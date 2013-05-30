@@ -63,6 +63,7 @@
 		"m-light-disp-void" : 24,
 		"m-light-disp-solid" : 64,
 		"m-light-disp-water" : 48,
+		"m-light-sun" : 192,
 		"m-nb-zombies" : 1
 	}
 

@@ -8,17 +8,17 @@
 	"tilemap" :
 	[
 		". . . . . . . . . . . . . . . . . . . . . . . . . ",
-		". . . . . . . . . . . . . . . . . . . . . . . . . ",
+		". . . . . . . . . . . .@. . . . . . . . . . . . . ",
 		". ( Z ) . . . . . . . . B B . . . . . . . . . . . ",
-		". . & . . . . . . . . . . . . . . . . . . ( Z ) . ",
+		". . & . . .@. . . . . . . . . . . .@. . . ( Z ) . ",
 		". . & . . . j j . . . t . . t . . . j j . . & . . ",
-		". . & . . . . . i . . t . j t j . i . . . . & n@. ",
+		". . & . . . . . i . . t . j t j . i . . .@. & n@. ",
 		". n@& . . . . . l . j t j j t j . l . . . j j j . ",
 		". j j j . . . . t E t t t t t t E t . . . . j . . ",
 		". j j . . . . j t H t . . . . t H t . . . . s . . ",
-		". s . . . . j j . H t . . . . t H j j . . . s . . ",
+		". s . . . . j j . H t . . . . t H j j .@. . s . . ",
 		". s . . T . . . . H t . B B . t H . . . T . . . . ",
-		". . . . K . i j .@H t . . . . t H .@i . K . . . . ",
+		". . .@. K@. i j .@H t . . . . t H .@i . K . . . . ",
 		". . . t t t j j t t t t . . t t t j j t t t . . . ",
 		"~ ~ ~ ~ t j j t t t j j ~ ~ t t j j t t t ~ ~ ~ ~ ",
 		"- - - - - j - j j - j j - - j j - j j - -s- - - - ",
@@ -38,9 +38,10 @@
 	{
 		"m-light-enabled" : true,
 		"m-light-min" : 16,
-		"m-light-disp-void" : 24,
+		"m-light-disp-void" : 32,
 		"m-light-disp-solid" : 255,
-		"m-light-disp-water" : 48
+		"m-light-disp-water" : 48,
+		"m-light-sun" : 192
 	}
 
 }
