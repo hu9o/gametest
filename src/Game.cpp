@@ -5,14 +5,14 @@
 
 using namespace std;
 
-Game::Game(sf::RenderWindow& win) : m_win(win), m_resman(ResourceManager::getInstance())
+Game::Game(sf::RenderWindow& win) : m_win(win)
 {
 
 }
 
 Game::~Game()
 {
-    m_debugMode = m_resman.getKeyValueBool("g-debug");
+    m_debugMode = rm::getKeyValueBool("g-debug");
 }
 
 void Game::run()
@@ -26,7 +26,7 @@ void Game::loadFromFile(string path)
 
     FILE* handle;
 
-    string fullpath(m_resman.getKeyValueString("d-maps"));
+    string fullpath(rm::getKeyValueString("d-maps"));
     fullpath += path;
 
     handle = fopen(fullpath.c_str(), "r");
@@ -46,7 +46,7 @@ void Game::loadFromFile(string path)
 
 	js::Value keys;
 	keys = json["keys"];
-	string overloadable = m_resman.getKeyValueString("g-overloadable-keys-map");
+	string overloadable = rm::getKeyValueString("g-overloadable-keys-map");
 
     js::Value::MemberIterator itr = keys.MemberBegin();
     while(itr != keys.MemberEnd())
@@ -65,9 +65,9 @@ void Game::loadFromFile(string path)
 
         if (authorized && name[1] == '-')
         {
-            if (m_resman.hasKeyValue(name))
+            if (rm::hasKeyValue(name))
             {
-                m_resman.setKeyValue(name, itr->value);
+                rm::setKeyValue(name, itr->value);
                 cout << " Clé: " << name << endl;
             }
             else
@@ -82,10 +82,10 @@ void Game::loadFromFile(string path)
 
     // carte
 	assert(json.HasMember("tileset") && json["background"].IsString());
-    ResourceManager::getInstance().setTileset(json["tileset"].GetString());
+    rm::setTileset(json["tileset"].GetString());
 
 	assert(json.HasMember("background") && json["background"].IsString());
-	sf::Texture& bgtex = m_resman.getTexture(m_resman.getKeyValueString("d-backgrounds") + json["background"].GetString());
+	sf::Texture& bgtex = rm::getTexture(rm::getKeyValueString("d-backgrounds") + json["background"].GetString());
 	bgtex.setRepeated(true);
 	m_bg.setTexture(bgtex);
 	m_bg.setTextureRect(sf::IntRect(0, 0, 400, 300));
@@ -101,10 +101,10 @@ void Game::mainLoop()
     cout << "Début de la boucle" << endl;
 
     // Réglages
-    m_win.setFramerateLimit(m_resman.getKeyValueInt("g-framerate-limit"));
+    m_win.setFramerateLimit(rm::getKeyValueInt("g-framerate-limit"));
     cout << "Début de la boucle" << endl;
     m_win.setKeyRepeatEnabled(false);
-    bool framerateAdjust = m_resman.getKeyValueBool("g-framerate-adjust");
+    bool framerateAdjust = rm::getKeyValueBool("g-framerate-adjust");
     // doubletaille
     sf::View view = m_win.getView();
     view.zoom(0.5);
@@ -118,7 +118,7 @@ void Game::mainLoop()
     {
         lightEffect.setParameter("framebuffer", sf::Shader::CurrentTexture);
         lightEffect.setParameter("color", 1.f, 1.f, 1.f);
-        bool okay = lightEffect.loadFromFile(m_resman.getDirectory("post-fx") + "colorize.sfx", sf::Shader::Fragment);
+        bool okay = lightEffect.loadFromFile(rm::getDirectory("post-fx") + "colorize.sfx", sf::Shader::Fragment);
         assert(okay);
 
         lightEffect.bind();
@@ -128,13 +128,13 @@ void Game::mainLoop()
     sf::Clock clock;
 
     // Map
-    loadFromFile(m_resman.getKeyValueString("g-default-map"));
+    loadFromFile(rm::getKeyValueString("g-default-map"));
 
     // Joueurs et persos
-    m_resman.createPlayers(*this, m_tilemap, m_players);
+    rm::createPlayers(*this, m_tilemap, m_players);
 
     // Zombies
-    for (int i=m_resman.getKeyValueInt("m-nb-zombies"); i>0; i--)
+    for (int i=rm::getKeyValueInt("m-nb-zombies"); i>0; i--)
     {
         Zombie* z = new Zombie(*this);
         z->setSkin("zombie");
@@ -144,7 +144,7 @@ void Game::mainLoop()
 
     // Shader
     sf::Shader shader;
-    shader.loadFromFile(m_resman.getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
+    shader.loadFromFile(rm::getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
     shader.setParameter("texture", sf::Shader::CurrentTexture);
     shader.setParameter("blur_radius", 0.01);
 

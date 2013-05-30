@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TileMap::TileMap() : m_tileset(ResourceManager::getInstance().getTileset())
+TileMap::TileMap() : m_tileset(rm::getTileset())
 {
     //m_tileset.loadFromFile("map/tiles.json");
 }
@@ -253,7 +253,7 @@ bool TileMap::isCollision(sf::IntRect rect, TileType t) const
 
 void TileMap::test_displayGraph(sf::RenderTarget& win)
 {
-    sf::Sprite mark(ResourceManager::getInstance().getTileset().getTexture());
+    sf::Sprite mark(rm::getTileset().getTexture());
     mark.setTextureRect(sf::IntRect(102, 142, 10, 10));
     int i, j;
 
@@ -279,7 +279,7 @@ void TileMap::destroyTileAt(int x, int y)
         Tile*& t = m_tilemap[y][x];
 
         deleteTile(t);
-        t = ResourceManager::getInstance().getTileset().makeTileFromChar(*this, c);
+        t = rm::getTileset().makeTileFromChar(*this, c);
 
         t->setBrightness(0);
         t->setPosition(x, y);
@@ -313,7 +313,7 @@ void TileMap::update()
         // boucle sur les caractères de la ligne
         for (int j = 0; j < m_tilemapSize.x; j++)
         {
-            m_tilemap[i][j]->setBrightness(ResourceManager::getInstance().getKeyValueInt("m-light-min"));
+            m_tilemap[i][j]->setBrightness(rm::getKeyValueInt("m-light-min"));
         }
     }
 

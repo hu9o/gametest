@@ -27,9 +27,9 @@ void Tileset::loadFromFile(string path)
 	assert(json.IsObject());
 
 	// On charge la texture du tileset
-    string texturePath(ResourceManager::getInstance().getKeyValueString("d-tilesets"));
+    string texturePath(rm::getKeyValueString("d-tilesets"));
     texturePath += json["texture"].GetString();
-    m_texture = &ResourceManager::getInstance().getTexture(texturePath);
+    m_texture = &rm::getTexture(texturePath);
 
     // Taille des tuiles
     m_tileSize = json["tilesize"].GetInt();

@@ -26,7 +26,6 @@ class Game
 
     protected:
         sf::RenderWindow& m_win;
-        ResourceManager& m_resman;
 
         js::Document json;
         TileMap m_tilemap;
