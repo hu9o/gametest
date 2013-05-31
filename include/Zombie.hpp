@@ -10,8 +10,11 @@ class Zombie : public Mob
         Zombie(Game& game);
         virtual ~Zombie();
 
-        void goTo(vec2i targetPos);
         virtual void update(float frameTime);
+
+        void goTo(vec2i targetPos);
+        void wander();
+        void seekAir();
         bool isIdle() const;
         void setTarget(const Entity& e);
 
@@ -19,8 +22,9 @@ class Zombie : public Mob
         std::vector<vec2i> m_path;
         sf::Clock changePathClock;
         const Entity* m_target;
+        bool m_wandering;
 
-        std::vector<vec2i> findPath(vec2i sourcePos, vec2i targetPos) const;
+        std::vector<vec2i> findPath(vec2i sourcePos, vec2i targetPos, int wander=0, bool seekAir=false) const;
 
         struct Node
         {
@@ -28,9 +32,15 @@ class Zombie : public Mob
              : parent(_p), x(_x), y(_y), c(_c)
             {
                 if (parent != NULL)
+                {
                     target = parent->target;
+                    distance = parent->distance + 1;
+                }
                 else
+                {
                     target = NULL;
+                    distance = 0;
+                }
             }
 
             int getF() { return g+getH(); }
@@ -46,6 +56,7 @@ class Zombie : public Mob
             Tile* c;
             int g;
             int cost;
+            int distance;
         };
 
     private:

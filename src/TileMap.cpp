@@ -166,6 +166,12 @@ void TileMap::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
         test_displayGraph(win);
 }
 
+
+vec2i TileMap::getSize() const
+{
+    return m_tilemapSize;
+}
+
 Tile* TileMap::getTileAt(vec2i v) const
 {
     getTileAt(v.x, v.y);

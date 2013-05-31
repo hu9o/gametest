@@ -16,6 +16,7 @@ class TileMap
         void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
         void update();
 
+        vec2i getSize() const;
         bool withinBounds(int x, int y) const;
         Tile* getTileAt(vec2i v) const;
         Tile* getTileAt(int x, int y) const;

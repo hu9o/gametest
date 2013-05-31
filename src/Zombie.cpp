@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 #include "Game.hpp"
 
-Zombie::Zombie(Game& game) : Mob(game), m_target(NULL)
+Zombie::Zombie(Game& game) : Mob(game), m_target(NULL), m_wandering(false)
 {
     //ctor
 }
@@ -14,6 +14,30 @@ Zombie::~Zombie()
 void Zombie::goTo(vec2i targetPos)
 {
     m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), targetPos);
+    m_wandering = false;
+}
+
+void Zombie::wander()
+{
+    vec2i pos(rand() % m_game.getTileMap().getSize().x,
+              rand() % m_game.getTileMap().getSize().y);
+
+    if (!m_game.getTileMap().tileAtHasType(pos.x, pos.y, TILE_WATER))
+    {
+        if (rand()%4==0)
+            m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), pos, 4);
+
+        m_wandering = true;
+    }
+}
+
+void Zombie::seekAir()
+{
+    vec2i pos(rand() % m_game.getTileMap().getSize().x,
+              rand() % m_game.getTileMap().getSize().y);
+
+    m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), pos, 0, true);
+    m_wandering = false;
 }
 
 bool Zombie::isIdle() const
@@ -26,9 +50,10 @@ void Zombie::setTarget(const Entity& e)
     m_target = &e;
 }
 
+
 void Zombie::update(float frameTime)
 {
-    if (!m_state != ST_DEAD)
+    if (m_state != ST_DEAD)
     {
         bool actLeft = false;
         bool actRight = false;
@@ -36,9 +61,20 @@ void Zombie::update(float frameTime)
         bool actUp = false;
         bool actDown = false;
 
-        if (m_target && changePathClock.getElapsedTime().asSeconds() > 1)
+        if (changePathClock.getElapsedTime().asMilliseconds() >= 1000)
         {
-            goTo(vec2i(m_target->getPosition().x/16, m_target->getPosition().y/16-.8));
+            // Si on manque d'oxygène ou si on ne poursuit personne, on remonte.
+            if (m_oxygen < 3 || (!m_canBreathe && m_wandering))
+            {
+                seekAir();
+            }
+            else if (m_target)
+            {
+                goTo(vec2i(m_target->getPosition().x/16, m_target->getPosition().y/16-.8));
+
+                if (isIdle()) // Cible hors de portée, on erre
+                    wander();
+            }
             changePathClock.restart();
         }
 
@@ -118,10 +154,11 @@ void Zombie::update(float frameTime)
         pressAction(ACT_DOWN, actDown);
     }
 
+    // update, en réduisant la vitesse si wander
     Mob::update(frameTime);
 }
 
-std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
+std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander, bool seekAir) const
 {
     /**
       * On s'arrête si la liste fermée est vide (pas de chemin)
@@ -132,6 +169,9 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
       *
       * Amélioration: utiliser une liste triée pour avoir le plus petit F en 1er?
       * ou garder trace du plus petit F pour ne pas avoir à boucler
+      *
+      * EDIT : si seekAir, on n'atteint pas le but, juste une case d'air.
+      * EDIT : sinon, si wander>0, on n'atteint pas le but non plus, on parcourt seulement wander cases.
       */
 
     const TileMap& map = m_game.getTileMap();
@@ -178,6 +218,11 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
             }
         }
 
+        if (!seekAir && wander && current->distance >= wander)
+        {
+            target = *current;
+            break;
+        }
 
         /// déplace 'current' dans la liste fermée
 
@@ -225,12 +270,20 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
 
                 if ((i || j) && notInClosed && !currentCase->hasType(TILE_SOLID) && !currentCase->hasType(TILE_SPIKE))
                 {
-                    // nage
-                    if (currentCase->hasType(TILE_WATER))
+                    // si c'est la cible, on fonce !
+                    if ((current->x+i == target.x && current->y+j == target.y)
+                        || (seekAir && !currentCase->hasType(TILE_WATER)))
                     {
-                        if ((!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
-                                        && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)))
-                            ok = true;
+                        ok = true;
+                    }
+                    // nage
+                    else if (currentCase->hasType(TILE_WATER))
+                    {
+                        // pas errer dans l'eau, ça tue.
+                        if (seekAir || !wander)
+                            if ((!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
+                                                       && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)))
+                                ok = true;
                     }
                     // tombe
                     else if (!map.tileAtHasType(current->x, current->y+1, TILE_SOLID)
@@ -247,7 +300,7 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
                         // saute à gauche ou à droite
                         if (j==-1 && i!=0 && !map.tileAtHasType(current->x, current->y, TILE_LADDER)
                                         && !map.tileAtHasType(current->x, current->y-1, TILE_SOLID)
-                                        && !map.tileAtHasType(current->x+i, current->y-1, TILE_SOLID)
+                                        && !map.tileAtHasType(current->x+i, current->y+j, TILE_SOLID)
                                         && map.tileAtHasType(current->x+i, current->y, TILE_SOLID))
                             ok = true;
 
@@ -261,11 +314,13 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
                             ok = true;
 
                         // échelle
-                        if (i==0 && j!=0 && currentCase->hasType(TILE_LADDER))
+                        if (i==0 && j!=0 && (currentCase->hasType(TILE_LADDER) || map.tileAtHasType(current->x, current->y-j, TILE_LADDER)))
                             ok = true;
 
                         // saut simple
-                        if (i==0 && j==-1 && !map.tileAtHasType(current->x, current->y+j, TILE_SOLID))
+                        if (i==0 && j==-1 && !map.tileAtHasType(current->x, current->y-1, TILE_SOLID)
+                                          &&   (map.tileAtHasType(current->x, current->y+1, TILE_SOLID)
+                                            ||  map.tileAtHasType(current->x, current->y, TILE_WATER)))
                             ok = true;
 
                         // tombe
@@ -324,7 +379,8 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos) const
 
         }
 
-        if (current->x == target.x && current->y == target.y)
+        if ((current->x == target.x && current->y == target.y)
+            || (seekAir && !map.tileAtHasType(current->x, current->y, TILE_WATER) && !map.tileAtHasType(current->x, current->y, TILE_SOLID)))
         {
             target = *current;
             break;
