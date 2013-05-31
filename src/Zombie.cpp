@@ -13,7 +13,7 @@ Zombie::~Zombie()
 
 void Zombie::goTo(vec2i targetPos)
 {
-    m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), targetPos);
+    m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), targetPos);
     m_wandering = false;
 }
 
@@ -25,7 +25,7 @@ void Zombie::wander()
     if (!m_game.getTileMap().tileAtHasType(pos.x, pos.y, TILE_WATER))
     {
         if (rand()%4==0)
-            m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), pos, 4);
+            m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, 4);
 
         m_wandering = true;
     }
@@ -36,7 +36,7 @@ void Zombie::seekAir()
     vec2i pos(rand() % m_game.getTileMap().getSize().x,
               rand() % m_game.getTileMap().getSize().y);
 
-    m_path = findPath(vec2i(m_pos.x/16, m_pos.y/16-.8), pos, 0, true);
+    m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, 0, true);
     m_wandering = false;
 }
 
@@ -55,6 +55,7 @@ void Zombie::update(float frameTime)
 {
     if (m_state != ST_DEAD)
     {
+        const TileMap& map = m_game.getTileMap();
         bool actLeft = false;
         bool actRight = false;
         bool actJump = false;
@@ -70,7 +71,7 @@ void Zombie::update(float frameTime)
             }
             else if (m_target)
             {
-                goTo(vec2i(m_target->getPosition().x/16, m_target->getPosition().y/16-.8));
+                goTo(map.toTileCoords(m_target->getPosition().x, m_target->getPosition().y-16));
 
                 if (isIdle()) // Cible hors de portée, on erre
                     wander();
@@ -80,9 +81,9 @@ void Zombie::update(float frameTime)
 
         if (!m_path.empty())
         {
-            vec2i currPos(m_pos.x/16, m_pos.y/16-.8);
+            vec2i currPos(map.toTileCoords(m_pos.x, m_pos.y-16));
             vec2i nextPos(m_path.back());
-            const TileMap& map = m_game.getTileMap();
+            vec2i nextPosAbs(map.fromTileCoords(.5+nextPos.x, 1.+nextPos.y));
 
             // saute si sur une échelle et but hors de l'échelle
             if (false && map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) && !map.tileAtHasType(nextPos.x, nextPos.y, TILE_LADDER))
@@ -109,11 +110,11 @@ void Zombie::update(float frameTime)
             {
                 if (true)
                 {
-                    if (nextPos.x*16+8 < m_pos.x)// && map.tileAtHasType(nextPos.x, nextPos.y+1, TILE_SOLID))
+                    if (nextPosAbs.x < m_pos.x)// && map.tileAtHasType(nextPos.x, nextPos.y+1, TILE_SOLID))
                     {
                         actLeft = true;
                     }
-                    if (nextPos.x*16+8 > m_pos.x)// && map.tileAtHasType(nextPos.x, nextPos.y+1, TILE_SOLID))
+                    if (nextPosAbs.x > m_pos.x)// && map.tileAtHasType(nextPos.x, nextPos.y+1, TILE_SOLID))
                     {
                         actRight = true;
                     }
@@ -121,9 +122,9 @@ void Zombie::update(float frameTime)
 
                 if (map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) || m_state == ST_CLIMB)
                 {
-                    if (nextPos.y*16+17 < m_pos.y+1)
+                    if (nextPosAbs.y < m_pos.y)
                         actUp = true;
-                    else if (nextPos.y*16+17 > m_pos.y+1)
+                    else if (nextPosAbs.y > m_pos.y)
                         actDown = true;
                 }
                 else if (nextPos.y == currPos.y-1)
@@ -134,11 +135,11 @@ void Zombie::update(float frameTime)
                     actDown = true;
             }
 
-            if (false && m_pos.x < (float)(nextPos.x)*16+12 && m_pos.x > (float)(nextPos.x)*16+4)
+            if (false && m_pos.x < nextPosAbs.x+4 && m_pos.x > nextPosAbs.x-4)
             {
-                if (m_pos.x < nextPos.x*16+8)
+                if (m_pos.x < nextPosAbs.x)
                     m_pos.x += 2;
-                if (m_pos.x > nextPos.x*16+8)
+                if (m_pos.x > nextPosAbs.x)
                     m_pos.x -= 2;
             }
 
@@ -187,18 +188,17 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
      * << ')' << std::endl;
      */
 
-    std::vector<Node*> open, closed;
+    std::list<Node*> open, closed;
     //Node* openLowest = NULL;
 
     open.push_back(&source);
     //openLowest = &source;
     source.g = 0;
 
-    bool loop = true;
-    while (!open.empty() && loop)
+    while (!open.empty())
     {
-        std::vector<Node*>::iterator it;
-        std::vector<Node*>::iterator currentIt;
+        std::list<Node*>::iterator it;
+        std::list<Node*>::iterator currentIt;
         Node* current = NULL;
 
         /// On prend l'élément qui a le plus petit F
@@ -250,9 +250,8 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
 
                 for (it = closed.begin(); it!=closed.end() && notInClosed; ++it)
                 {
-                    if ((*it)->x == current->x+i &&
-                        (*it)->y == current->y+j)
-                    notInClosed = false;
+                    if ((*it)->x == current->x+i && (*it)->y == current->y+j)
+                        notInClosed = false;
                 }
 
                 /*
@@ -343,12 +342,12 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
 
         /// Boucle sur les voisins...
 
-        for (it = neighbors.begin(); it != neighbors.end(); ++it)
+        for (std::vector<Node*>::iterator jt = neighbors.begin(); jt != neighbors.end(); ++jt)
         {
-            Node* neigh = *it;
+            Node* neigh = *jt;
             bool found = false;
 
-            std::vector<Node*>::iterator open_n;
+            std::list<Node*>::iterator open_n;
             for (open_n = open.begin(); open_n != open.end(); ++open_n)
             {
                 if ((*open_n)->x == neigh->x &&
@@ -364,19 +363,17 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
 
             if (found)
             {
-                if (neigh->g > (*open_n)->g)
+                if ((*open_n)->g > neigh->g)
                 {
-                    neigh->g = (*open_n)->g;
-                    neigh->parent = current;
-                    delete neigh;
+                    (*open_n)->g = neigh->g;
+                    (*open_n)->parent = current;
                 }
-
+                delete neigh;
             }
             else
             {
                 open.push_back(neigh);
             }
-
         }
 
         if ((current->x == target.x && current->y == target.y)
@@ -404,6 +401,13 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
 
         node = node->parent;
     }
+
+    /// Libérer la mémoire
+    for (std::list<Node*>::iterator it = closed.begin(); it != closed.end(); ++it)
+        delete *it;
+    for (std::list<Node*>::iterator it = open.begin(); it != open.end(); ++it)
+        delete *it;
+
 
     /// Retire le premier noeud.
     if (foundPath)

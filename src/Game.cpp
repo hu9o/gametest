@@ -108,7 +108,7 @@ void Game::mainLoop()
     bool framerateAdjust = rm::getKeyValueBool("g-framerate-adjust");
     // doubletaille
     sf::View view = m_win.getView();
-    view.zoom(0.5);
+    view.zoom(1/rm::getKeyValueFloat("g-zoom-factor"));
     view.setCenter(200, 150);
     m_win.setView(view);
     m_usePostFX = sf::Shader::isAvailable();

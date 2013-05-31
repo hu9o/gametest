@@ -29,6 +29,13 @@ class TileMap
 
         bool tileAtHasType(int x, int y, TileType type) const;
 
+        inline vec2i toTileCoords(float x, float y) const { return vec2i(x/m_tileSize, y/m_tileSize); }
+        inline vec2i fromTileCoords(float x, float y) const { return vec2i(x*m_tileSize, y*m_tileSize); }
+        inline vec2i toTileCoords(vec2i pos) const { return pos/m_tileSize; }
+        inline vec2i fromTileCoords(vec2i pos) const { return pos*m_tileSize; }
+        inline vec2f toTileCoords(vec2f pos) const { return vec2f(pos.x/m_tileSize, pos.y/m_tileSize); }
+        inline vec2f fromTileCoords(vec2f pos) const { return vec2f(pos.x*m_tileSize, pos.y*m_tileSize); }
+
 
         mutable std::vector<vec2i> test_graph;
         void test_displayGraph(sf::RenderTarget& win);

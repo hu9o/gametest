@@ -25,13 +25,14 @@
 
 	"keys" :
 	{
+		"g-zoom-factor" : 2,
 		"g-framerate-limit" : 30,
 		"g-framerate-adjust" : true,
-		"g-debug" : true,
 		"g-smooth-shadows" : true,
 		"g-default-map" : "floatingtemple.json",
 		"g-default-mode" : "defaultmode.json",
 		"g-overloadable-keys-map" : "mp",
+		"g-debug" : true,
 		
 		"d-resources" : "resources/",
 		"d-skins" : "resources/skin/",
