@@ -322,7 +322,7 @@ void TileMap::update()
         // boucle sur les caractères de la ligne
         for (int j = 0; j < m_tilemapSize.x; j++)
         {
-            m_tilemap[i][j]->setBrightness(rm::getKeyValueInt("m-light-min"));
+            m_tilemap[i][j]->setBrightness(rm::getKeyValue<int>("m-light-min"));
         }
     }
 

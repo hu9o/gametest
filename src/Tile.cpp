@@ -28,12 +28,12 @@ void Tile::init()
 
     // attention, il faut régler à zéro la lum. minimale dès le début;
     // impossible de mettre une luminosié inférieure par la suite
-    m_minBrightness = rm::getKeyValueInt("m-light-min");
-    m_voidLightDisp = rm::getKeyValueInt("m-light-disp-void");
-    m_solidLightDisp = rm::getKeyValueInt("m-light-disp-solid");
-    m_waterLightDisp = rm::getKeyValueInt("m-light-disp-water");
-    m_enableLighting = rm::getKeyValueBool("m-light-enabled") && m_minBrightness < 255;
-    m_sunlight = rm::getKeyValueInt("m-light-sun");
+    m_minBrightness = rm::getKeyValue<int>("m-light-min");
+    m_voidLightDisp = rm::getKeyValue<int>("m-light-disp-void");
+    m_solidLightDisp = rm::getKeyValue<int>("m-light-disp-solid");
+    m_waterLightDisp = rm::getKeyValue<int>("m-light-disp-water");
+    m_enableLighting = rm::getKeyValue<bool>("m-light-enabled") && m_minBrightness < 255;
+    m_sunlight = rm::getKeyValue<int>("m-light-sun");
 
     m_brightness = 0;
     m_transparent = false; // TODO: gérer transparence

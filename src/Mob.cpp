@@ -6,28 +6,28 @@ using namespace std;
 
 Mob::Mob(Game& game) : Entity(game)
 {
-    m_canSwim = rm::getKeyValueBool("p-can-swim");
-    m_canHang = rm::getKeyValueBool("p-can-hang");
-    m_size.x = rm::getKeyValueInt("p-size-w");
-    m_size.y = rm::getKeyValueInt("p-size-h");
-    m_maxLife = rm::getKeyValueInt("p-life");
-    m_maxOxygen = rm::getKeyValueInt("p-oxygen");
-    m_drowningDamage = rm::getKeyValueInt("p-drown-damage");
+    m_canSwim = rm::getKeyValue<bool>("p-can-swim");
+    m_canHang = rm::getKeyValue<bool>("p-can-hang");
+    m_size.x = rm::getKeyValue<int>("p-size-w");
+    m_size.y = rm::getKeyValue<int>("p-size-h");
+    m_maxLife = rm::getKeyValue<int>("p-life");
+    m_maxOxygen = rm::getKeyValue<int>("p-oxygen");
+    m_drowningDamage = rm::getKeyValue<int>("p-drown-damage");
     m_life = m_maxLife;
     m_oxygen = m_maxOxygen;
     m_speedX = 0;
-    m_accelX = rm::getKeyValueFloat("p-accel-x");
-    m_maxSpeedX = rm::getKeyValueFloat("p-speed-x");
-    m_maxSpeedY = rm::getKeyValueFloat("p-speed-y");
-    m_waterSpeedCoeff = rm::getKeyValueFloat("p-speed-water-coeff");
-    //m_waterMaxSpeedX = rm::getKeyValueFloat("p-speed-water-x");
-    //m_waterMaxSpeedY = rm::getKeyValueFloat("p-speed-water-y");
+    m_accelX = rm::getKeyValue<float>("p-accel-x");
+    m_maxSpeedX = rm::getKeyValue<float>("p-speed-x");
+    m_maxSpeedY = rm::getKeyValue<float>("p-speed-y");
+    m_waterSpeedCoeff = rm::getKeyValue<float>("p-speed-water-coeff");
+    //m_waterMaxSpeedX = rm::getKeyValue<float>("p-speed-water-x");
+    //m_waterMaxSpeedY = rm::getKeyValue<float>("p-speed-water-y");
     m_speedY = 0;
-    m_accelY = rm::getKeyValueFloat("p-accel-y");
-    m_jumpStr = -rm::getKeyValueFloat("p-jump-str");
-    m_waterJumpStr = -rm::getKeyValueFloat("p-jump-str-water");
-    m_leaveWaterJumpStr = -rm::getKeyValueFloat("p-jump-str-leave-water");
-    m_debug = rm::getKeyValueBool("g-debug");
+    m_accelY = rm::getKeyValue<float>("p-accel-y");
+    m_jumpStr = -rm::getKeyValue<float>("p-jump-str");
+    m_waterJumpStr = -rm::getKeyValue<float>("p-jump-str-water");
+    m_leaveWaterJumpStr = -rm::getKeyValue<float>("p-jump-str-leave-water");
+    m_debug = rm::getKeyValue<bool>("g-debug");
     //m_onTheGround = false;
     //m_ladderState = false;
     //m_inWater = false;
@@ -36,6 +36,7 @@ Mob::Mob(Game& game) : Entity(game)
     m_time = 0;
     m_state = ST_JUMP;
     m_dir = 1;
+    m_skinVariation = 0;
 }
 
 Mob::~Mob()
@@ -74,7 +75,7 @@ void Mob::draw(sf::RenderTarget& win, int elapsedTime)
     }
 
     m_sprite.setTextureRect(sf::IntRect(image * m_size.x,
-                                        0 * m_size.y,
+                                        m_skinVariation * m_size.y,
                                         m_size.x,
                                         m_size.y));
 
@@ -367,9 +368,11 @@ void Mob::actionPressed(Action act, bool pressed)
 void Mob::setSkin(string name)
 {
     // charge une nouvelle texture pour le sprite
-    string path = rm::getKeyValueString("d-skins") + name + ".png";
+    string path = rm::getKeyValue<std::string>("d-skins") + name + ".png";
+    sf::Texture& tex = rm::getTexture(path);
 
-    m_sprite.setTexture(rm::getTexture(path));
+    m_sprite.setTexture(tex);
+    m_skinVariation = rand() % (tex.getSize().y / m_size.y);
 }
 
 void Mob::setPosition(vec2i pos)

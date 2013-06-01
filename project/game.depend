@@ -90,7 +90,7 @@
 	"Entity.h"
 	"Controllable.h"
 
-1370109028 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1370120358 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Events.hpp"
@@ -112,7 +112,7 @@
 1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
 	"Human.hpp"
 
-1369960017 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1370118824 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"
@@ -120,7 +120,7 @@
 1369864539 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.hpp"
 
-1369910260 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1370120213 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
 	"TileMap.hpp"
 
@@ -130,17 +130,17 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\settings.h
 	"common.h"
 
-1369907841 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
+1370118806 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
 	"Tile.hpp"
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 
-1369986045 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1370118806 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 	<math.h>
 
-1369910215 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
+1370118806 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
 	"Tileset.hpp"
 	"ResourceManager.hpp"
 
@@ -201,11 +201,11 @@
 1369861925 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
 
-1369959975 c:\users\hugo\documents\github\gametest\include\mob.hpp
+1370115716 c:\users\hugo\documents\github\gametest\include\mob.hpp
 	"Entity.hpp"
 	"Controllable.hpp"
 
-1369944442 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+1370120062 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	"Controls.hpp"
@@ -226,11 +226,11 @@
 1369862033 c:\users\hugo\documents\github\gametest\include\bot.hpp
 	"Mob.hpp"
 
-1369983885 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+1370127340 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 
-1369980110 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+1370125430 c:\users\hugo\documents\github\gametest\include\zombie.hpp
 	"Mob.hpp"
 	"TileMap.hpp"
 

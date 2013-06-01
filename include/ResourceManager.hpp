@@ -39,28 +39,30 @@ namespace rm
 
     void init();
 
-    void setTheme(std::string name);
-    sf::Texture& getThemedTexture(std::string path);
-    sf::Texture& getTexture(std::string path);
+    void setTheme(const std::string& name);
+    sf::Texture& getThemedTexture(const std::string& path);
+    sf::Texture& getTexture(const std::string& path);
 
     Tileset& getTileset();
-    void setTileset(std::string name);
+    void setTileset(const std::string& name);
 
     //std::string getDirectory(std::string name);
-    bool hasKeyValue(std::string key);
-    js::Value& getKeyValue(std::string key);
-    void setKeyValue(std::string key, js::Value& val);
+    bool hasKeyValue(const std::string& key);
+    js::Value& getKeyJsValue(const std::string& key);
+    void setKeyJsValue(const std::string& key, js::Value& val);
 
-    bool getKeyValueBool(std::string key);
-    int getKeyValueInt(std::string key);
-    float getKeyValueFloat(std::string key);
-    std::string getKeyValueString(std::string key);
+    template<typename T> T getKeyValue(const std::string& key);
+    template<> inline bool getKeyValue<bool>(const std::string& key) { return getKeyJsValue(key).GetBool(); }
+    template<> inline int getKeyValue<int>(const std::string& key) { return getKeyJsValue(key).GetInt(); }
+    template<> inline float getKeyValue<float>(const std::string& key) { return getKeyJsValue(key).GetDouble(); }
+    template<> inline double getKeyValue<double>(const std::string& key) { return getKeyJsValue(key).GetDouble(); }
+    template<> inline std::string getKeyValue<std::string>(const std::string& key) { return getKeyJsValue(key).GetString(); }
 
-    Controls& getControlsByName(std::string name);
+    Controls& getControlsByName(const std::string& name);
     void createPlayers(Game& game, TileMap& tilemap, std::list<Player*>& players);
 
 
-    static sf::Texture* _getTexture(std::string path);
+    static sf::Texture* _getTexture(const std::string& path);
 
     static std::map<std::string, sf::Texture*> m_textures;
     static std::map<std::string, js::Value*> m_keys;

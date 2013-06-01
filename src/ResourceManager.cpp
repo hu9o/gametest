@@ -33,16 +33,16 @@ namespace rm
     */
 
 
-    void setTheme(std::string name)
+    void setTheme(const std::string& name)
     {
         m_theme = name;
     }
 
-    sf::Texture& getThemedTexture(string path)
+    sf::Texture& getThemedTexture(const std::string& path)
     {
         // on va chercher le fichier dans le thème sélectionné
         sf::Texture* tex;
-        string gfxDir = getKeyValueString("d-graphics");
+        string gfxDir = getKeyValue<std::string>("d-graphics");
 
         string filepath(gfxDir);
         filepath += m_theme + "/" + path;
@@ -63,7 +63,7 @@ namespace rm
         return *tex;
     }
 
-    sf::Texture& getTexture(string path)
+    sf::Texture& getTexture(const std::string& path)
     {
         // le chargement doit réussir
         sf::Texture* tex = _getTexture(path);
@@ -72,7 +72,7 @@ namespace rm
         return *tex;
     }
 
-    sf::Texture* _getTexture(string path)
+    sf::Texture* _getTexture(const std::string& path)
     {
         cout << "Demande l'image \"" << path << "\"" << endl;
 
@@ -111,10 +111,10 @@ namespace rm
         return m_tileset;
     }
 
-    void setTileset(std::string name)
+    void setTileset(const std::string& name)
     {
         cout << "Chargement du tileset \"" << name << "\"" << endl;
-        m_tileset.loadFromFile(rm::getKeyValueString("d-tilesets") + name + ".json");
+        m_tileset.loadFromFile(rm::getKeyValue<std::string>("d-tilesets") + name + ".json");
     }
 
     void init()
@@ -143,7 +143,7 @@ namespace rm
         js::Value::MemberIterator itr = keys.MemberBegin();
         while(itr != keys.MemberEnd())
         {
-            setKeyValue(itr->name.GetString(), itr->value);
+            setKeyJsValue(itr->name.GetString(), itr->value);
             ++itr;
         }
 
@@ -182,12 +182,12 @@ namespace rm
     //    return dirs[cname].GetString();
     //}
 
-    bool hasKeyValue(string key)
+    bool hasKeyValue(const std::string& key)
     {
         return m_keys.find(key) != m_keys.end();
     }
 
-    js::Value& getKeyValue(string key)
+    js::Value& getKeyJsValue(const std::string& key)
     {
         map<string, js::Value*>::iterator it = m_keys.find(key);
         assert(it != m_keys.end());
@@ -195,18 +195,13 @@ namespace rm
         return *it->second;
     }
 
-    bool getKeyValueBool(std::string key)           { return getKeyValue(key).GetBool(); }
-    int getKeyValueInt(std::string key)             { return getKeyValue(key).GetInt(); }
-    float getKeyValueFloat(std::string key)         { return getKeyValue(key).GetDouble(); }
-    std::string getKeyValueString(std::string key)  { return getKeyValue(key).GetString(); }
-
     // TODO: ATTENTION! Est-ce raisonnable de passer un pointeur sur la valeur passée? Si ça devient NULL?
-    void setKeyValue(string key, js::Value& val)
+    void setKeyJsValue(const std::string& key, js::Value& val)
     {
         m_keys[key] = &val;
     }
 
-    Controls& getControlsByName(std::string name)
+    Controls& getControlsByName(const std::string& name)
     {
         // pas déjà chargé
         if (m_controls.find(name) == m_controls.end())

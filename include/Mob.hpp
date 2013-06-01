@@ -55,6 +55,7 @@ class Mob : public Entity, public Controllable
         bool m_ignoreLadder;
         //bool m_hanging;
         int m_dir;
+        int m_skinVariation;
         //weapon
         //controllable
         //holdable

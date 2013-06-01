@@ -27,7 +27,7 @@ void Tileset::loadFromFile(string path)
 	assert(json.IsObject());
 
 	// On charge la texture du tileset
-    string texturePath(rm::getKeyValueString("d-tilesets"));
+    string texturePath(rm::getKeyValue<std::string>("d-tilesets"));
     texturePath += json["texture"].GetString();
     m_texture = &rm::getTexture(texturePath);
 
