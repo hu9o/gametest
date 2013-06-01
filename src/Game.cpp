@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "ResourceManager.hpp"
-#include "Player.hpp"
+#include "Events.hpp"
+#include "Zombie.hpp"
 #include "Zombie.hpp"
 
 using namespace std;
@@ -144,16 +145,20 @@ void Game::mainLoop()
     }
 
     // Shader
-    sf::Shader shader;
-    if (rm::getKeyValueBool("g-smooth-shadows"))
+    sf::Shader blur, quake;
+    if (m_usePostFX)
     {
-        shader.loadFromFile(rm::getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
-        shader.setParameter("texture", sf::Shader::CurrentTexture);
-        shader.setParameter("blur_radius", 0.01);
+        blur.loadFromFile(rm::getKeyValueString("d-resources")+"blur.frag", sf::Shader::Fragment);
+        blur.setParameter("texture", sf::Shader::CurrentTexture);
+        blur.setParameter("blur_radius", 0.01);
+
+        quake.loadFromFile(rm::getKeyValueString("d-resources")+"wave.frag", sf::Shader::Fragment);
+        quake.setParameter("texture", sf::Shader::CurrentTexture);
     }
 
 
-    sf::RenderTexture shadowTex;
+    sf::RenderTexture shadowTex, screenTex;
+    screenTex.create(m_win.getSize().x, m_win.getSize().y, 32);
     shadowTex.create(m_win.getSize().x, m_win.getSize().y, 32);
 
     // Boucle
@@ -173,6 +178,8 @@ void Game::mainLoop()
         frameTime = (float)(clock.getElapsedTime().asMilliseconds() - timeElapsed) / 40;
         timeElapsed = clock.getElapsedTime().asMilliseconds();
 
+        quake.setParameter("time", timeElapsed);
+
         while (m_win.pollEvent(evt))
         {
             if (evt.type == sf::Event::Closed || (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::Escape))
@@ -184,57 +191,56 @@ void Game::mainLoop()
                 {
                     (*it)->pressKey(evt.key.code, evt.type == sf::Event::KeyPressed);
                 }
+
+                if (evt.type == sf::Event::KeyReleased && rm::getKeyValueBool("g-debug") && evt.key.code == sf::Keyboard::Space)
+                    evt::wakeTheDead(*this);
             }
 
             if (evt.type == sf::Event::MouseButtonPressed)
             {
                 //john.goTo(vec2i(evt.mouseButton.x/32, evt.mouseButton.y/32));
+                quake.setParameter("origin", (float)(evt.mouseButton.x)/1600-.25, (float)(evt.mouseButton.y)/1200-.25);
             }
         }
 
         m_win.clear();
+        screenTex.clear();
 
         // Ordre d'affichage: background, backtiles, player, fronttiles, water, overlay
 
-        m_win.draw(m_bg);
+        screenTex.draw(m_bg);
 
         // Affiche la carte
         // on la décale de 24px vers le bas
         //view.move(0, -12);
 
         // couche 1
-        m_tilemap.drawLayer(m_win, LAYER_BACK, timeElapsed);
+        m_tilemap.drawLayer(screenTex, LAYER_BACK, timeElapsed);
 
         // affiche les entités
         for (list<Entity*>::iterator it = m_entities.begin(); it != m_entities.end(); it++)
         {
             (*it)->update(framerateAdjust? frameTime : 1);
-            (*it)->draw(m_win, timeElapsed);
+            (*it)->draw(screenTex, timeElapsed);
         }
 
         // couches 2, 3 et 4
-        m_tilemap.drawLayer(m_win, LAYER_FRONT, timeElapsed);
-        m_tilemap.drawLayer(m_win, LAYER_OVERLAY, timeElapsed);
-        m_tilemap.drawLayer(m_win, LAYER_WATER, timeElapsed);
+        m_tilemap.drawLayer(screenTex, LAYER_FRONT, timeElapsed);
+        m_tilemap.drawLayer(screenTex, LAYER_OVERLAY, timeElapsed);
+        m_tilemap.drawLayer(screenTex, LAYER_WATER, timeElapsed);
 
-        sf::RenderStates states;
-        if (rm::getKeyValueBool("g-smooth-shadows"))
-            states.shader = &shader;
+        //sf::RenderStates states;
+        //states.shader = &shader;
         shadowTex.clear(sf::Color::Transparent);
         m_tilemap.drawLayer(shadowTex, LAYER_SHADOW, timeElapsed);
         shadowTex.display();
-        m_win.draw(sf::Sprite(shadowTex.getTexture()), states);
+        screenTex.draw(sf::Sprite(shadowTex.getTexture()), (m_usePostFX && rm::getKeyValueBool("g-smooth-shadows"))? &blur : NULL);
 
-        m_tilemap.drawLayer(m_win, LAYER_TEST, timeElapsed);
+        m_tilemap.drawLayer(screenTex, LAYER_TEST, timeElapsed);
 
-
-        //screen.copyScreen(m_win);
-        //m_win.draw(sf::Sprite(screen), lightEffect);
-
-
+        screenTex.display();
+        m_win.draw(sf::Sprite(screenTex.getTexture()), false? &quake : NULL);
         m_win.display();
-
-        //cout << frameTime << endl;
     }
 
 }
@@ -247,6 +253,10 @@ void Game::registerEntity(Entity& e)
 const TileMap& Game::getTileMap() const
 {
     return m_tilemap;
+}
+const std::list<Player*>& Game::getPlayers() const
+{
+    return m_players;
 }
 
 void Game::destroyTileAt(int x, int y)

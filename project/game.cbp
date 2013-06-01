@@ -57,6 +57,7 @@
 		<Unit filename="../include/Controllable.hpp" />
 		<Unit filename="../include/Controls.hpp" />
 		<Unit filename="../include/Entity.hpp" />
+		<Unit filename="../include/Events.hpp" />
 		<Unit filename="../include/Game.hpp" />
 		<Unit filename="../include/GameMenu.hpp" />
 		<Unit filename="../include/Human.hpp" />
@@ -84,6 +85,7 @@
 		<Unit filename="../src/Controllable.cpp" />
 		<Unit filename="../src/Controls.cpp" />
 		<Unit filename="../src/Entity.cpp" />
+		<Unit filename="../src/Events.cpp" />
 		<Unit filename="../src/Game.cpp" />
 		<Unit filename="../src/GameMenu.cpp" />
 		<Unit filename="../src/Human.cpp" />

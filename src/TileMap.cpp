@@ -79,6 +79,9 @@ void TileMap::loadFromJson(const js::Value& map)
 
             if (t->getLightEmitted() > 0)
                 m_lightSources.push_back(t);
+
+            if (line[j*2] == 'N')
+                test_tombstonesPositions.push_back(vec2i(j, i));
         }
     }
 
@@ -339,6 +342,3 @@ bool TileMap::tileAtHasType(int x, int y, TileType type) const
 
     return t? t->hasType(type) : false;
 }
-
-
-

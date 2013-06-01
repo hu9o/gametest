@@ -90,10 +90,11 @@
 	"Entity.h"
 	"Controllable.h"
 
-1369938876 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1370109028 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
-	"Player.hpp"
+	"Events.hpp"
+	"Zombie.hpp"
 	"Zombie.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
@@ -111,7 +112,7 @@
 1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
 	"Human.hpp"
 
-1369907841 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1369960017 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"
@@ -134,7 +135,7 @@
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 
-1369907841 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1369986045 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 	<math.h>
@@ -168,7 +169,7 @@
 	"rapidjson/document.h"
 	"rapidjson/filestream.h"
 
-1369896582 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
+1369984908 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	<list>
@@ -186,7 +187,7 @@
 1369896951 c:\users\hugo\documents\github\gametest\include\entity.hpp
 	"common.hpp"
 
-1369907267 c:\users\hugo\documents\github\gametest\include\game.hpp
+1369986401 c:\users\hugo\documents\github\gametest\include\game.hpp
 	"common.hpp"
 	"TileMap.hpp"
 	"Player.hpp"
@@ -200,7 +201,7 @@
 1369861925 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
 
-1369895706 c:\users\hugo\documents\github\gametest\include\mob.hpp
+1369959975 c:\users\hugo\documents\github\gametest\include\mob.hpp
 	"Entity.hpp"
 	"Controllable.hpp"
 
@@ -225,13 +226,23 @@
 1369862033 c:\users\hugo\documents\github\gametest\include\bot.hpp
 	"Mob.hpp"
 
-1369950282 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+1369983885 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 
-1369896930 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+1369980110 c:\users\hugo\documents\github\gametest\include\zombie.hpp
 	"Mob.hpp"
 	"TileMap.hpp"
 
 1369888998 c:\users\hugo\documents\github\gametest\include\pathfindingtest.inl
+
+1369988070 source:c:\users\hugo\documents\github\gametest\src\events.cpp
+	"Events.hpp"
+	"Zombie.hpp"
+
+1369970619 c:\users\hugo\documents\github\gametest\include\events.h
+	"Game.hpp"
+
+1369987018 c:\users\hugo\documents\github\gametest\include\events.hpp
+	"Game.hpp"
 

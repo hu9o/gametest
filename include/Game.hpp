@@ -21,8 +21,10 @@ class Game
         void registerEntity(Entity& e);
 
         const TileMap& getTileMap() const;
+        const std::list<Player*>& getPlayers() const;
 
         void destroyTileAt(int x, int y);
+        void spawnZombieAt(int x, int y);
 
     protected:
         sf::RenderWindow& m_win;
