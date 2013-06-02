@@ -30,16 +30,40 @@ void Zombie::goTo(vec2i targetPos)
 
 void Zombie::wander()
 {
-    vec2i pos(rand() % m_game.getTileMap().getSize().x,
-              rand() % m_game.getTileMap().getSize().y);
+    vec2i tileCoords = m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16);
+    int mapWidth = m_game.getTileMap().getSize().x;
 
-    if (!m_game.getTileMap().tileAtHasType(pos.x, pos.y, TILE_WATER))
+    if (s_useGraph)
     {
-        if (rand()%4==0)
-            m_path = findPath(m_game.getTileMap(), m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, PATH_WANDER);
+        int nextPos = tileCoords.x + tileCoords.y*mapWidth;
+        int dist = (rand()%4==0)? 6:0;
 
-        m_wandering = true;
+        do
+        {
+            std::map<int, GraphNode>::iterator it = s_graph.find(nextPos);
+            if (it == s_graph.end()) break;
+
+            const std::vector<int>& neighsPos = it->second.neighboursPos;
+            if (neighsPos.empty()) break;
+
+            nextPos = neighsPos[rand() % neighsPos.size()];
+            m_path.push_back(vec2i(nextPos%mapWidth, nextPos/mapWidth));
+        }
+        while (dist--); // sorry for that
     }
+    else
+    {
+        vec2i pos(rand() % m_game.getTileMap().getSize().x,
+                  rand() % m_game.getTileMap().getSize().y);
+
+        if (!m_game.getTileMap().tileAtHasType(pos.x, pos.y, TILE_WATER))
+        {
+            if (rand()%4==0)
+                m_path = findPath(m_game.getTileMap(), tileCoords, pos, PATH_WANDER);
+        }
+    }
+
+    m_wandering = true;
 }
 
 void Zombie::seekAir()
