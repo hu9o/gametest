@@ -32,6 +32,8 @@
 		"g-default-map" : "floatingtemple.json",
 		"g-default-mode" : "defaultmode.json",
 		"g-overloadable-keys-map" : "mp",
+		"g-zombie-graph" : true,
+		"g-zombie-max-path-length" : 20,
 		"g-debug" : true,
 		
 		"d-resources" : "resources/",

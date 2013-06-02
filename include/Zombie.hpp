@@ -18,13 +18,25 @@ class Zombie : public Mob
         bool isIdle() const;
         void setTarget(const Entity& e);
 
+        static void updateGraphAt(const TileMap& map, int tileX, int tileY);
+
     protected:
         std::vector<vec2i> m_path;
         sf::Clock changePathClock;
         const Entity* m_target;
         bool m_wandering;
 
-        std::vector<vec2i> findPath(vec2i sourcePos, vec2i targetPos, int wander=0, bool seekAir=false) const;
+        // optimisation (ou pas ?)
+        enum FindPathAction { PATH_FIND, PATH_WANDER, PATH_SEEK_AIR };
+        struct GraphNode
+        {
+            int pos; // x + y*width
+            std::vector<int> neighboursPos;
+        };
+        static std::map<int, GraphNode> s_graph;
+        static bool s_useGraph;
+        static std::vector<vec2i> findPath(const TileMap& map, vec2i sourcePos, vec2i targetPos, FindPathAction action);
+
 
         struct Node
         {

@@ -1,8 +1,8 @@
 #include <time.h>
 #include <SFML/Graphics.hpp>
 
-#include "GameMenu.hpp"
 #include "ResourceManager.hpp"
+#include "GameMenu.hpp"
 
 int main()
 {

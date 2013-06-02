@@ -1,9 +1,14 @@
 #include "Zombie.hpp"
 #include "Game.hpp"
+#include "ResourceManager.hpp"
+
+
+std::map<int, Zombie::GraphNode> Zombie::s_graph;
+bool Zombie::s_useGraph = false;
 
 Zombie::Zombie(Game& game) : Mob(game), m_target(NULL), m_wandering(false)
 {
-    //ctor
+    s_useGraph = rm::getKeyValue<bool>("g-zombie-graph");
 }
 
 Zombie::~Zombie()
@@ -13,8 +18,14 @@ Zombie::~Zombie()
 
 void Zombie::goTo(vec2i targetPos)
 {
-    m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), targetPos);
-    m_wandering = false;
+    // Beaucoup de copies de vector...
+    std::vector<vec2i> newPath = findPath(m_game.getTileMap(), m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), targetPos, PATH_FIND);
+
+    if (!newPath.empty())
+    {
+        m_path = newPath;
+        m_wandering = false;
+    }
 }
 
 void Zombie::wander()
@@ -25,7 +36,7 @@ void Zombie::wander()
     if (!m_game.getTileMap().tileAtHasType(pos.x, pos.y, TILE_WATER))
     {
         if (rand()%4==0)
-            m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, 4);
+            m_path = findPath(m_game.getTileMap(), m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, PATH_WANDER);
 
         m_wandering = true;
     }
@@ -36,7 +47,7 @@ void Zombie::seekAir()
     vec2i pos(rand() % m_game.getTileMap().getSize().x,
               rand() % m_game.getTileMap().getSize().y);
 
-    m_path = findPath(m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, 0, true);
+    m_path = findPath(m_game.getTileMap(), m_game.getTileMap().toTileCoords(m_pos.x, m_pos.y-16), pos, PATH_SEEK_AIR);
     m_wandering = false;
 }
 
@@ -71,6 +82,7 @@ void Zombie::update(float frameTime)
             }
             else if (m_target)
             {
+
                 goTo(map.toTileCoords(m_target->getPosition().x, m_target->getPosition().y-16));
 
                 if (isIdle()) // Cible hors de portée, on erre
@@ -155,11 +167,10 @@ void Zombie::update(float frameTime)
         pressAction(ACT_DOWN, actDown);
     }
 
-    // update, en réduisant la vitesse si wander
     Mob::update(frameTime);
 }
 
-std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander, bool seekAir) const
+std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i targetPos, FindPathAction action)
 {
     /**
       * On s'arrête si la liste fermée est vide (pas de chemin)
@@ -171,11 +182,12 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
       * Amélioration: utiliser une liste triée pour avoir le plus petit F en 1er?
       * ou garder trace du plus petit F pour ne pas avoir à boucler
       *
-      * EDIT : si seekAir, on n'atteint pas le but, juste une case d'air.
-      * EDIT : sinon, si wander>0, on n'atteint pas le but non plus, on parcourt seulement wander cases.
+      * EDIT : si seekingAir, on n'atteint pas le but, juste une case d'air.
+      * EDIT : sinon, si 'wandering>0', on n'atteint pas le but non plus, on parcourt seulement 'wandering' cases.
       */
 
-    const TileMap& map = m_game.getTileMap();
+    int maxPathLength = rm::getKeyValue<int>("g-zombie-max-path-length");
+
     Node target(NULL, targetPos.x, targetPos.y, map.getTileAt(targetPos));
     Node source(NULL, sourcePos.x, sourcePos.y, map.getTileAt(targetPos));
 
@@ -218,7 +230,7 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
             }
         }
 
-        if (!seekAir && wander && current->distance >= wander)
+        if (sourcePos==targetPos || (action == PATH_WANDER && current->distance >= 4))
         {
             target = *current;
             break;
@@ -232,6 +244,12 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
         /// Recherche des voisins
 
         std::vector<Node*> neighbors;
+
+        int currentPosInGraph = current->x + current->y*map.getSize().x;
+        std::map<int, GraphNode>::const_iterator graphNodeIt = s_graph.find(currentPosInGraph);
+        bool nodeIsInGraph = (s_useGraph && graphNodeIt != s_graph.end());
+        std::vector<int> currentsNeighsInGraph;
+
         for (int i=-1; i<=1; i++)
         {
             for (int j=-1; j<=1; j++)
@@ -254,32 +272,41 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
                         notInClosed = false;
                 }
 
-                /*
-                if ( (current->x+i == target.x && current->y+j == target.y && skipLast) ||
-                       ((i || j) && notInClosed
-                        && isWalkable(current->x+i, current->y+j)
-                        && ( (!i || !j) || (isWalkable(current->x, current->y+j)
-                                            && isWalkable(current->x+i, current->y))
-                           )
-                       )
-                    )
-                */
 
                 bool ok = false;
+                //bool thisNodeIsInGraph = s_graph.find((current->x+i) + (current->y+j) * map.getSize().x) != s_graph.end();
 
-                if ((i || j) && notInClosed && !currentCase->hasType(TILE_SOLID) && !currentCase->hasType(TILE_SPIKE))
+                // si déjà dans le graphe, et pas encore parcouru
+                if ((i || j) && nodeIsInGraph && action == PATH_FIND)
                 {
-                    // si c'est la cible, on fonce !
-                    if ((current->x+i == target.x && current->y+j == target.y)
-                        || (seekAir && !currentCase->hasType(TILE_WATER)))
+                    if (notInClosed)
                     {
-                        ok = true;
+                        const std::vector<int>& neighsPos = graphNodeIt->second.neighboursPos;
+
+                        for (std::vector<int>::const_iterator neighIt=neighsPos.begin(); neighIt != neighsPos.end(); ++neighIt)
+                        {
+                            if (*neighIt == (current->x+i) + (current->y+j) * map.getSize().x)
+                            {
+                                ok = true;
+                            }
+                        }
                     }
-                    // nage
-                    else if (currentCase->hasType(TILE_WATER))
+                }
+                // condition pour ajouter au graphe, pas aux voisins !
+                else if ((i || j) && !currentCase->hasType(TILE_SOLID) && !currentCase->hasType(TILE_SPIKE))
+                {
+                    //// si c'est la cible, on fonce !
+                    //if ((current->x+i == target.x && current->y+j == target.y)
+                    //    || (action == PATH_SEEK_AIR && !currentCase->hasType(TILE_WATER)))
+                    //{
+                    //    ok = true;
+                    //}
+                    //// nage
+                    //else
+                    if (map.tileAtHasType(current->x, current->y, TILE_WATER))
                     {
                         // pas errer dans l'eau, ça tue.
-                        if (seekAir || !wander)
+                        if (action != PATH_WANDER)
                             if ((!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
                                                        && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)))
                                 ok = true;
@@ -331,14 +358,27 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
 
                 if (ok)
                 {
-                    Node* c = new Node(current, current->x+i, current->y+j, currentCase);
+                    if (s_useGraph)
+                        currentsNeighsInGraph.push_back((current->x+i) + (current->y+j) * map.getSize().x);
 
-                    c->g = current->g + ((i && j)? 14:10); //*currentCase->getCost();
+                    // pas encore parcouru, pas trop loin, on l'ajoute
+                    if (notInClosed && (!maxPathLength || current->distance < maxPathLength))
+                    {
+                        Node* c = new Node(current, current->x+i, current->y+j, currentCase);
 
-                    neighbors.push_back(c);
+                        c->g = current->g + ((i && j)? 14:10); //*currentCase->getCost();
+
+                        neighbors.push_back(c);
+                    }
                 }
             }
         }
+
+        if (s_useGraph && !nodeIsInGraph && action == PATH_FIND)
+        {
+            s_graph[currentPosInGraph] = GraphNode{currentPosInGraph, currentsNeighsInGraph};
+        }
+
 
         /// Boucle sur les voisins...
 
@@ -377,7 +417,7 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
         }
 
         if ((current->x == target.x && current->y == target.y)
-            || (seekAir && !map.tileAtHasType(current->x, current->y, TILE_WATER) && !map.tileAtHasType(current->x, current->y, TILE_SOLID)))
+            || (action == PATH_SEEK_AIR && !map.tileAtHasType(current->x, current->y, TILE_WATER) && !map.tileAtHasType(current->x, current->y, TILE_SOLID)))
         {
             target = *current;
             break;
@@ -416,5 +456,11 @@ std::vector<vec2i> Zombie::findPath(vec2i sourcePos, vec2i targetPos, int wander
     /// Si un chemin a été trouvé, le renvoie. Sinon renvoie une liste vide.
     //map.test_graph = foundPath? res : std::vector<vec2i>();
     return foundPath? res : std::vector<vec2i>();
+}
+
+void Zombie::updateGraphAt(const TileMap& map, int tileX, int tileY)
+{
+    // Peut être une façon moins radicale ?
+    s_graph.clear();
 }
 

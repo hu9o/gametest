@@ -2,7 +2,6 @@
 #include "ResourceManager.hpp"
 #include "Events.hpp"
 #include "Zombie.hpp"
-#include "Zombie.hpp"
 
 using namespace std;
 
@@ -140,7 +139,7 @@ void Game::mainLoop()
     {
         Zombie* z = new Zombie(*this);
         z->setSkin("zombie");
-        z->setPosition(m_tilemap.getStartPosition());
+        z->setPosition(m_tilemap.fromTileCoords(m_tilemap.test_tombstonesPositions.front()));
         z->setTarget(*m_players.front()->getHuman());
     }
 

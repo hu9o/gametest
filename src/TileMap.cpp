@@ -1,5 +1,6 @@
 #include "TileMap.hpp"
 #include "ResourceManager.hpp"
+#include "Zombie.hpp"
 #include <math.h>
 
 using namespace std;
@@ -295,6 +296,7 @@ void TileMap::destroyTileAt(int x, int y)
         t->setMapInfo(m_tileset.getTexture(), m_tileSize);
         t->setLayer(LAYER_BACK);
 
+        Zombie::updateGraphAt(*this, x, y);
         update();
     }
 }
