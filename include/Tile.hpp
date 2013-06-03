@@ -41,7 +41,7 @@ class Tile
         void setBrightness(int b);
         int getBrightness();
 
-        void setLightEmitted(int light);
+        //void setLightEmitted(int light);
         int getLightEmitted();
         vec2i getPosition();
 
@@ -50,7 +50,8 @@ class Tile
 
         virtual std::string getName();
         //virtual TileType getType();
-        bool hasType(TileType t);
+        bool hasTile(const Tile* t) const;
+        bool hasType(TileType t) const;
 
     protected:
         TileMap& m_map;

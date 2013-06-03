@@ -90,7 +90,7 @@
 	"Entity.h"
 	"Controllable.h"
 
-1370136556 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1370291966 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Events.hpp"
@@ -129,12 +129,12 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\settings.h
 	"common.h"
 
-1370118806 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
+1370296392 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
 	"Tile.hpp"
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 
-1370138291 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+1370296386 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
 	"TileMap.hpp"
 	"ResourceManager.hpp"
 	"Zombie.hpp"
@@ -158,7 +158,7 @@
 1369677048 c:\users\hugo\documents\github\gametest\include\autotile.hpp
 	"Tile.hpp"
 
-1369903799 c:\users\hugo\documents\github\gametest\include\tile.hpp
+1370295128 c:\users\hugo\documents\github\gametest\include\tile.hpp
 	"common.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\common.hpp
@@ -226,7 +226,7 @@
 1369862033 c:\users\hugo\documents\github\gametest\include\bot.hpp
 	"Mob.hpp"
 
-1370145786 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+1370156318 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"

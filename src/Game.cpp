@@ -195,10 +195,11 @@ void Game::mainLoop()
                     evt::wakeTheDead(*this);
             }
 
-            if (evt.type == sf::Event::MouseButtonPressed)
+            if (evt.type == sf::Event::MouseButtonPressed && rm::getKeyValue<bool>("g-debug"))
             {
                 //john.goTo(vec2i(evt.mouseButton.x/32, evt.mouseButton.y/32));
                 quake.setParameter("origin", (float)(evt.mouseButton.x)/1600-.25, (float)(evt.mouseButton.y)/1200-.25);
+                destroyTileAt(evt.mouseButton.x/2, evt.mouseButton.y/2);
             }
         }
 

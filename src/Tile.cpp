@@ -34,6 +34,7 @@ void Tile::init()
     m_waterLightDisp = rm::getKeyValue<int>("m-light-disp-water");
     m_enableLighting = rm::getKeyValue<bool>("m-light-enabled") && m_minBrightness < 255;
     m_sunlight = rm::getKeyValue<int>("m-light-sun");
+    m_lightEmitted = 0;
 
     m_brightness = 0;
     m_transparent = false; // TODO: gérer transparence
@@ -143,6 +144,13 @@ void Tile::updateSprite()
         int b = getLightEmitted();
         const int NB_NEIGH = 8;
 
+
+        //directement exposé au soleil ?
+        int i = m_pos.y;
+        while (i>=0 && m_map.getTileAt(m_pos.x, i) && !m_map.getTileAt(m_pos.x, i)->hasType(TILE_SOLID) && !m_map.getTileAt(m_pos.x, i)->hasType(TILE_WATER)) i--;
+        b = (i==-1)? max(b, m_sunlight) : b;
+
+
         // Liste les voisins
         Tile* neighbours[NB_NEIGH] = {m_map.getTileAt(m_pos.x-1, m_pos.y),
                                 m_map.getTileAt(m_pos.x, m_pos.y-1),
@@ -169,12 +177,13 @@ void Tile::updateSprite()
                 {
                     bool diagonaleLibre = true;
 
-                    if (i >= 4) // pour que la lumière le passe en diagonale que si les blocs "droits" ne la bloquent pas.
+
+                    if (i >= 4) // pour que la lumière ne passe en diagonale que si les blocs "droits" ne la bloquent pas.
                     {
                         Tile* ta = neighbours[((i-4) & 0b10)];
                         Tile* tb = neighbours[((i-4) & 0b01)*2 + 1];
 
-                        diagonaleLibre = !(tb && tb->hasType(TILE_SOLID)) || !(tb && tb->hasType(TILE_SOLID));
+                        diagonaleLibre = !(ta && ta->hasType(TILE_SOLID)) || !(tb && tb->hasType(TILE_SOLID));
                     }
 
                     if (diagonaleLibre)
@@ -191,6 +200,8 @@ void Tile::updateSprite()
         // Applique en tenant compte de la luminosité minimale
         if (b < m_minBrightness)
             b = m_minBrightness;
+        if (b > 255)
+            b = 255;
 
         setBrightness(b);
 
@@ -218,7 +229,19 @@ std::string Tile::getName()
 //    return m_type;
 //}
 
-bool Tile::hasType(TileType t)
+bool Tile::hasTile(const Tile* t) const
+{
+    if (m_nextTile == NULL)
+    {
+        return (this == t);
+    }
+    else
+    {
+        return (this == t) || m_nextTile->hasTile(t);
+    }
+}
+
+bool Tile::hasType(TileType t) const
 {
     if (m_nextTile == NULL)
     {
@@ -272,28 +295,28 @@ int Tile::getBrightness()
         return m_brightness;
 }
 
-void Tile::setLightEmitted(int light)
+/*void Tile::setLightEmitted(int light)
 {
     if (m_nextTile)
         m_nextTile->setLightEmitted(light);
     else
         m_lightEmitted = light;
-}
+}*/
 int Tile::getLightEmitted()
 {
-    // directement exposé au soleil ?
-    int i = m_pos.y;
-    while (i>=0 && m_map.getTileAt(m_pos.x, i) && !m_map.getTileAt(m_pos.x, i)->hasType(TILE_SOLID)) i--;
-
-    int lightEmitted = (i==-1)? max(m_lightEmitted, m_sunlight) : m_lightEmitted;
+    if (m_lightEmitted > 255)
+    {
+        std::cout << "argh" << std::endl;
+        exit(-1);
+    }
 
     if (m_nextTile)
         if (m_nextTile->m_transparent)
-            return max(lightEmitted, m_nextTile->getLightEmitted());
+            return max(m_lightEmitted, m_nextTile->getLightEmitted());
         else
             return m_nextTile->getLightEmitted();
     else
-        return lightEmitted;
+        return m_lightEmitted;
 }
 
 vec2i Tile::getPosition()

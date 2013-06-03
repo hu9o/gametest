@@ -282,11 +282,13 @@ void TileMap::destroyTileAt(int x, int y)
     y /= m_tileSize;
 
     char c = '.';
-    std::cin >> c;
+    //std::cin >> c;
 
     if (withinBounds(x, y))
     {
         Tile*& t = m_tilemap[y][x];
+
+        c = t->hasType(TILE_SOLID)? '.':'j';
 
         deleteTile(t);
         t = rm::getTileset().makeTileFromChar(*this, c);
@@ -306,8 +308,10 @@ void TileMap::deleteTile(Tile* t)
 
     while (it != m_lightSources.end())
     {
-        if (*it == t)
+        if (t->hasTile(*it))
+        {
             it = m_lightSources.erase(it);
+        }
 
         it++;
     }
@@ -319,22 +323,25 @@ void TileMap::update()
 {
     cout << "update" << endl;
 
+    // éteint tout
     for (int i = 0; i < m_tilemapSize.y; i++)
     {
-        // boucle sur les caractères de la ligne
         for (int j = 0; j < m_tilemapSize.x; j++)
         {
             m_tilemap[i][j]->setBrightness(rm::getKeyValue<int>("m-light-min"));
         }
     }
 
-    for (int i = 0; i < m_tilemapSize.y; i++)
+    // soleil
+    for (int j = 0; j < m_tilemapSize.x; j++)
     {
-        // boucle sur les caractères de la ligne
-        for (int j = 0; j < m_tilemapSize.x; j++)
-        {
-            m_tilemap[i][j]->update();
-        }
+        m_tilemap[0][j]->update();
+    }
+
+    // sources de lumière
+    for (std::list<Tile*>::const_iterator it = m_lightSources.begin(); it != m_lightSources.end(); ++it)
+    {
+        (*it)->update();
     }
 }
 
