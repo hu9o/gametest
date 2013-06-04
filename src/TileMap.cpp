@@ -218,10 +218,11 @@ vec2i TileMap::getStartPosition()
 bool TileMap::isCollision(int x, int y, TileType t) const
 {
     // warp
-    if (x >= 400)
-        x -= 400;
+    int mapWidth = m_tilemapSize.x * m_tileSize;
+    if (x >= mapWidth)
+        x -= mapWidth;
     if (x < 0)
-        x += 400;
+        x += mapWidth;
 
     x /= m_tileSize;
     y /= m_tileSize;

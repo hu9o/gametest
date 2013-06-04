@@ -7,7 +7,6 @@ using namespace std;
 
 Game::Game(sf::RenderWindow& win) : m_win(win)
 {
-
 }
 
 Game::~Game()
@@ -106,11 +105,9 @@ void Game::mainLoop()
     cout << "Début de la boucle" << endl;
     m_win.setKeyRepeatEnabled(false);
     bool framerateAdjust = rm::getKeyValue<bool>("g-framerate-adjust");
+    vec2u winSize = m_win.getSize();
     // doubletaille
     sf::View view = m_win.getView();
-    view.zoom(1/rm::getKeyValue<float>("g-zoom-factor"));
-    view.setCenter(200, 150);
-    m_win.setView(view);
     m_usePostFX = sf::Shader::isAvailable();
     //sf::Shader lightEffect;
     //sf::Sprite screen;
@@ -155,10 +152,14 @@ void Game::mainLoop()
         quake.setParameter("texture", sf::Shader::CurrentTexture);
     }
 
+    // Vue
+    vec2i mapSize = m_tilemap.fromTileCoords(m_tilemap.getSize());
+    view.move(-((int)winSize.x-mapSize.x)/2, -((int)winSize.y-mapSize.y)/2);
+    view.zoom(1/rm::getKeyValue<float>("g-zoom-factor"));
 
     sf::RenderTexture shadowTex, screenTex;
-    screenTex.create(m_win.getSize().x, m_win.getSize().y, 32);
-    shadowTex.create(m_win.getSize().x, m_win.getSize().y, 32);
+    screenTex.create(winSize.x, winSize.y, 32);
+    shadowTex.create(winSize.x, winSize.y, 32);
 
     // Boucle
     int timeElapsed = clock.getElapsedTime().asMilliseconds();
@@ -170,8 +171,6 @@ void Game::mainLoop()
         sf::Event evt;
         sf::Clock tick;
 
-
-        view.setCenter(200, 150);
         m_win.setView(view);
 
         frameTime = (float)(clock.getElapsedTime().asMilliseconds() - timeElapsed) / 40;
@@ -199,7 +198,9 @@ void Game::mainLoop()
             {
                 //john.goTo(vec2i(evt.mouseButton.x/32, evt.mouseButton.y/32));
                 quake.setParameter("origin", (float)(evt.mouseButton.x)/1600-.25, (float)(evt.mouseButton.y)/1200-.25);
-                destroyTileAt(evt.mouseButton.x/2, evt.mouseButton.y/2);
+
+                vec2f realCoords = m_win.mapPixelToCoords(vec2i(evt.mouseButton.x, evt.mouseButton.y));
+                destroyTileAt(realCoords.x, realCoords.y);
             }
         }
 

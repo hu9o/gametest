@@ -15,6 +15,7 @@ namespace js = rapidjson;
 typedef unsigned int uint;
 typedef sf::Vector2i vec2i;
 typedef sf::Vector2f vec2f;
+typedef sf::Vector2u vec2u;
 typedef std::string  str;
 
 #endif // COMMON_H_INCLUDED

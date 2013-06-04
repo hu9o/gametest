@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 #include "Game.hpp"
+#include "ResourceManager.hpp"
 
 using namespace std;
 
@@ -15,11 +16,13 @@ Entity::~Entity()
 
 void Entity::update(float frameTime)
 {
-    if (m_pos.x >= 400)
-        m_pos.x -= 400;
+    int mapWidth = m_game.getTileMap().fromTileCoords(m_game.getTileMap().getSize()).x;
+
+    if (m_pos.x >= mapWidth)
+        m_pos.x -= mapWidth;
 
     if (m_pos.x < 0)
-        m_pos.x += 400;
+        m_pos.x += mapWidth;
 }
 
 vec2f Entity::getPosition() const
@@ -47,11 +50,12 @@ void Entity::drawSprite(sf::RenderTarget& win)
 
     // Le dessine de l'autre côté de la fenêtre
     vec2f lastPos = m_sprite.getPosition();
+    int mapWidth = m_game.getTileMap().fromTileCoords(m_game.getTileMap().getSize()).x;
 
-    if (lastPos.x > 400/2)
-        m_sprite.setPosition(lastPos.x - 400, lastPos.y);
+    if (lastPos.x > mapWidth/2)
+        m_sprite.setPosition(lastPos.x - mapWidth, lastPos.y);
     else
-        m_sprite.setPosition(lastPos.x + 400, lastPos.y);
+        m_sprite.setPosition(lastPos.x + mapWidth, lastPos.y);
 
     win.draw(m_sprite);
 
