@@ -158,9 +158,9 @@ void Zombie::update(float frameTime)
 
                 if (map.tileAtHasType(currPos.x, currPos.y, TILE_LADDER) || m_state == ST_CLIMB)
                 {
-                    if (nextPosAbs.y < m_pos.y)
+                    if (nextPosAbs.y+1 < m_pos.y)
                         actUp = true;
-                    else if (nextPosAbs.y > m_pos.y)
+                    else if (nextPosAbs.y+1 > m_pos.y)
                         actDown = true;
                 }
                 else if (nextPos.y == currPos.y-1)

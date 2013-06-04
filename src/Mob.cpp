@@ -142,8 +142,8 @@ void Mob::update(float frameTime)
 
         // grimpe?
         if ((isActionPressed(ACT_UP)
-             && map.isCollision(m_pos.x - m_size.x/2, m_pos.y - 1, TILE_LADDER)
-             && map.isCollision(m_pos.x + m_size.x/2, m_pos.y - 1, TILE_LADDER))
+             && map.isCollision(m_pos.x - m_size.x/2, m_pos.y - m_size.y, TILE_LADDER)
+             && map.isCollision(m_pos.x + m_size.x/2, m_pos.y - m_size.y, TILE_LADDER))
           || (isActionPressed(ACT_DOWN)
               && map.isCollision(m_pos.x - m_size.x/2, m_pos.y + 1, TILE_LADDER)
               && map.isCollision(m_pos.x + m_size.x/2 , m_pos.y + 1, TILE_LADDER)))
@@ -312,7 +312,8 @@ void Mob::update(float frameTime)
         if (map.isCollision(getBoundingBox()))
             m_pos = lastpos;
 
-        if (!map.isCollision(m_pos.x, m_pos.y + 1, TILE_LADDER))
+        if (!map.isCollision(getBoundingBox(), TILE_LADDER)
+         || (isActionPressed(ACT_DOWN) && map.isCollision(m_pos.x, m_pos.y+1, TILE_SOLID)))
             m_state = ST_JUMP;
     }
 
