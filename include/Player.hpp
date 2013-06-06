@@ -10,13 +10,13 @@ class PlayerGui;
 class Player
 {
     public:
-        Player(const std::string& name);
+        Player(const str& name);
         virtual ~Player();
 
         void setControls(Controls& ctrls);
         void setHuman(Human* h);
         const Human* getHuman() const;
-        void drawGui(sf::RenderTarget& target) const;
+        void drawAndUpdateGui(sf::RenderTarget& target);
 
         bool pressKey(sf::Keyboard::Key k, bool pressed);
 

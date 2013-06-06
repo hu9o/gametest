@@ -79,7 +79,7 @@ void AutoTile::drawLayer(sf::RenderTarget& win, int layer, int elapsedTime)
     }
 }
 
-std::string AutoTile::getName()
+str AutoTile::getName()
 {
     return m_autoTileInfo.name;
 }

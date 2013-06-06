@@ -10,11 +10,12 @@ class PlayerGui
         PlayerGui(const Player& p);
         virtual ~PlayerGui();
 
+        void update();
         void draw(sf::RenderTarget& target) const;
 
     protected:
         const Player& m_player;
-        sf::Sprite m_baseSprite;
+        sf::Sprite m_baseSprite, m_healthSprite;
         sf::Text m_playerNameText;
         int m_guiIndex;
 

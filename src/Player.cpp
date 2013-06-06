@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Player::Player(const std::string& name) : m_name(name), m_gui(*this)
+Player::Player(const str& name) : m_name(name), m_gui(*this)
 {
     //ctor
 }
@@ -20,6 +20,7 @@ void Player::setControls(Controls& ctrls)
 void Player::setHuman(Human* h)
 {
     m_perso = h;
+    m_gui.update();
 }
 
 const Human* Player::getHuman() const
@@ -27,9 +28,10 @@ const Human* Player::getHuman() const
     return m_perso;
 }
 
-void Player::drawGui(sf::RenderTarget& target) const
+void Player::drawAndUpdateGui(sf::RenderTarget& target)
 {
-    return m_gui.draw(target);
+    m_gui.update();
+    m_gui.draw(target);
 }
 
 bool Player::pressKey(sf::Keyboard::Key k, bool pressed)

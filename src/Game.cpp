@@ -19,13 +19,13 @@ void Game::run()
     mainLoop();
 }
 
-void Game::loadFromFile(string path)
+void Game::loadFromFile(const str& path)
 {
     cout << "Chargement du niveau" << endl;
 
     FILE* handle;
 
-    string fullpath(rm::getKeyValue<std::string>("d-maps"));
+    str fullpath(rm::getKeyValue<str>("d-maps"));
     fullpath += path;
 
     handle = fopen(fullpath.c_str(), "r");
@@ -45,12 +45,12 @@ void Game::loadFromFile(string path)
     {
         js::Value keys;
         keys = json["keys"];
-        string overloadable = rm::getKeyValue<std::string>("g-overloadable-keys-map");
+        str overloadable = rm::getKeyValue<str>("g-overloadable-keys-map");
 
         js::Value::MemberIterator itr = keys.MemberBegin();
         while(itr != keys.MemberEnd())
         {
-            string name = itr->name.GetString();
+            str name = itr->name.GetString();
             bool authorized = false;
 
             for (uint i=0; i<overloadable.length(); i++)
@@ -85,7 +85,7 @@ void Game::loadFromFile(string path)
     rm::setTileset(json["tileset"].GetString());
 
 	assert(json.HasMember("background") && json["background"].IsString());
-	sf::Texture& bgtex = rm::getTexture(rm::getKeyValue<std::string>("d-backgrounds") + json["background"].GetString());
+	sf::Texture& bgtex = rm::getTexture(rm::getKeyValue<str>("d-backgrounds") + json["background"].GetString());
 	bgtex.setRepeated(true);
 	m_bg.setTexture(bgtex);
 
@@ -125,7 +125,7 @@ void Game::mainLoop()
     sf::Clock clock;
 
     // Map
-    loadFromFile(rm::getKeyValue<std::string>("g-default-map"));
+    loadFromFile(rm::getKeyValue<str>("g-default-map"));
 
     // Joueurs et persos
     rm::createPlayers(*this, m_tilemap, m_players);
@@ -143,11 +143,11 @@ void Game::mainLoop()
     sf::Shader blur, quake;
     if (m_usePostFX)
     {
-        blur.loadFromFile(rm::getKeyValue<std::string>("d-resources")+"blur.frag", sf::Shader::Fragment);
+        blur.loadFromFile(rm::getKeyValue<str>("d-resources")+"blur.frag", sf::Shader::Fragment);
         blur.setParameter("texture", sf::Shader::CurrentTexture);
-        blur.setParameter("blur_radius", 0.01);
+        blur.setParameter("blur_radius", 0.005);
 
-        quake.loadFromFile(rm::getKeyValue<std::string>("d-resources")+"wave.frag", sf::Shader::Fragment);
+        quake.loadFromFile(rm::getKeyValue<str>("d-resources")+"wave.frag", sf::Shader::Fragment);
         quake.setParameter("texture", sf::Shader::CurrentTexture);
     }
 
@@ -233,7 +233,7 @@ void Game::mainLoop()
         shadowTex.clear(sf::Color::Transparent);
         m_tilemap.drawLayer(shadowTex, LAYER_SHADOW, timeElapsed);
         shadowTex.display();
-        screenTex.draw(sf::Sprite(shadowTex.getTexture()), (m_usePostFX && !rm::getKeyValue<bool>("g-smooth-shadows"))? &blur : NULL);
+        screenTex.draw(sf::Sprite(shadowTex.getTexture()), (m_usePostFX && rm::getKeyValue<bool>("g-smooth-shadows"))? &blur : NULL);
 
         m_tilemap.drawLayer(screenTex, LAYER_TEST, timeElapsed);
 
@@ -246,7 +246,7 @@ void Game::mainLoop()
         m_win.setView(m_win.getDefaultView());
         for (std::list<Player*>::iterator it=m_players.begin(); it != m_players.end(); ++it)
         {
-            (*it)->drawGui(m_win);
+            (*it)->drawAndUpdateGui(m_win);
         }
 
         m_win.display();

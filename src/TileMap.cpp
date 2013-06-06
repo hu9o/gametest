@@ -21,7 +21,7 @@ void TileMap::loadFromJson(const js::Value& map)
 
     // on prend la longueur de la première ligne comme longueur de référence
     js::SizeType i = 0;
-    string line = map[i].GetString();
+    str line = map[i].GetString();
     uint lineSize = line.size();
     uint mapWidth = lineSize/2;
 

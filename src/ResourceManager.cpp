@@ -5,18 +5,18 @@ using namespace std;
 
 namespace rm
 {
-    void setTheme(const std::string& name)
+    void setTheme(const str& name)
     {
         m_theme = name;
     }
 
-    sf::Texture& getThemedTexture(const std::string& path)
+    sf::Texture& getThemedTexture(const str& path)
     {
         // on va chercher le fichier dans le thème sélectionné
         sf::Texture* tex;
-        string gfxDir = getKeyValue<std::string>("d-graphics");
+        str gfxDir = getKeyValue<str>("d-graphics");
 
-        string filepath(gfxDir);
+        str filepath(gfxDir);
         filepath += m_theme + "/" + path;
 
         tex = _getTexture(filepath);
@@ -24,7 +24,7 @@ namespace rm
         if (tex == NULL)
         {
             // fichier introuvable, on va chercher dans 'default'
-            string filepath = gfxDir;
+            str filepath = gfxDir;
             filepath += "default/" + path;
 
             // le fichier doit être présent dans 'default'
@@ -35,7 +35,7 @@ namespace rm
         return *tex;
     }
 
-    sf::Texture& getTexture(const std::string& path)
+    sf::Texture& getTexture(const str& path)
     {
         // le chargement doit réussir
         sf::Texture* tex = _getTexture(path);
@@ -44,11 +44,11 @@ namespace rm
         return *tex;
     }
 
-    sf::Texture* _getTexture(const std::string& path)
+    sf::Texture* _getTexture(const str& path)
     {
         cout << "Demande l'image \"" << path << "\"" << endl;
 
-        map<string, sf::Texture*>::iterator it = m_textures.find(path);
+        map<str, sf::Texture*>::iterator it = m_textures.find(path);
 
         if (it == m_textures.end())
         {
@@ -83,13 +83,13 @@ namespace rm
         return m_tileset;
     }
 
-    void setTileset(const std::string& name)
+    void setTileset(const str& name)
     {
         cout << "Chargement du tileset \"" << name << "\"" << endl;
-        m_tileset.loadFromFile(rm::getKeyValue<std::string>("d-tilesets") + name + ".json");
+        m_tileset.loadFromFile(rm::getKeyValue<str>("d-tilesets") + name + ".json");
     }
 
-    sf::Text getText(const std::string& content, int size)
+    sf::Text getText(const str& content, int size)
     {
         sf::Text txt(content, m_font);
         txt.setCharacterSize(size);
@@ -101,7 +101,7 @@ namespace rm
 
     void init()
     {
-        string path = "conf.json";
+        str path = "conf.json";
 
         // On charge le fichier json
 
@@ -152,10 +152,10 @@ namespace rm
     //
     //    }
         m_font = sf::Font();
-        m_font.loadFromFile(getKeyValue<std::string>("d-resources")+getKeyValue<std::string>("g-font"));
+        m_font.loadFromFile(getKeyValue<str>("d-resources")+getKeyValue<str>("g-font"));
     }
 
-    //string getDirectory(string name)
+    //str getDirectory(str name)
     //{
     //    const js::Value& dirs = m_settings["directories"];
     //    const char* cname = name.c_str();
@@ -165,26 +165,26 @@ namespace rm
     //    return dirs[cname].GetString();
     //}
 
-    bool hasKeyValue(const std::string& key)
+    bool hasKeyValue(const str& key)
     {
         return m_keys.find(key) != m_keys.end();
     }
 
-    js::Value& getKeyJsValue(const std::string& key)
+    js::Value& getKeyJsValue(const str& key)
     {
-        map<string, js::Value*>::iterator it = m_keys.find(key);
+        map<str, js::Value*>::iterator it = m_keys.find(key);
         assert(it != m_keys.end());
 
         return *it->second;
     }
 
     // TODO: ATTENTION! Est-ce raisonnable de passer un pointeur sur la valeur passée? Si ça devient NULL?
-    void setKeyJsValue(const std::string& key, js::Value& val)
+    void setKeyJsValue(const str& key, js::Value& val)
     {
         m_keys[key] = &val;
     }
 
-    Controls& getControlsByName(const std::string& name)
+    Controls& getControlsByName(const str& name)
     {
         // pas déjà chargé
         if (m_controls.find(name) == m_controls.end())
@@ -225,7 +225,7 @@ namespace rm
         for (js::SizeType i=0; i<pls.Size(); ++i)
         {
             const js::Value& pl = pls[i];
-            std::string type = pl["control"].GetString();
+            str type = pl["control"].GetString();
             Player* p;
 
             if (type == "keyboard")

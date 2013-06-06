@@ -4,22 +4,33 @@
 #include "Entity.hpp"
 #include "Controllable.hpp"
 
+enum MobStatus { STAT_NULL=0, STAT_IMMUNE=0x1, STAT_DEAD=0x2, STAT_POISON=0x4, STAT_SLOW=0x8, STAT_APNEA=0x10 };
+
+struct MobInfos
+{
+    int life, maxLife;
+    int oxygen, maxOxygen;
+    MobStatus status;
+};
+
 class Mob : public Entity, public Controllable
 {
     public:
-        enum State {ST_STAND, ST_JUMP, ST_CLIMB, ST_HANG, ST_DEAD};
-
         Mob(Game& game);
         virtual ~Mob();
 
         virtual void draw(sf::RenderTarget& win, int elapsedTime);
         virtual void update(float frameTime);
 
-        void setSkin(std::string name);
+        void setSkin(str name);
         void setPosition(vec2i pos);
         void damage(int pv);
 
+        MobInfos getInfos() const;
+
     protected:
+        enum State {ST_STAND, ST_JUMP, ST_CLIMB, ST_HANG, ST_DEAD};
+
         vec2i m_size;
 
         int m_life;
@@ -48,10 +59,10 @@ class Mob : public Entity, public Controllable
 
         // STANDING / FLYING / CLIMBING / SWIMMING / HANGING
         State m_state;
+        MobStatus m_status;
         //bool m_onTheGround;
         //bool m_ladderState;
         bool m_inWater;
-        bool m_canBreathe;
         bool m_ignoreLadder;
         //bool m_hanging;
         int m_dir;
@@ -63,6 +74,15 @@ class Mob : public Entity, public Controllable
         virtual void actionPressed(Action act, bool pressed);
         sf::IntRect getBoundingBox();
         void die();
+
+        inline void setStatus(MobStatus s, bool set)
+        {
+            if (set)
+                m_status = (MobStatus)(m_status | s);
+            else
+                m_status = (MobStatus)(m_status & ~s);
+        };
+        inline bool hasStatus(MobStatus s) { return (m_status&s) != 0; }
 
     private:
 };

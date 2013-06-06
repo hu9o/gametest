@@ -13,7 +13,7 @@ Tileset::~Tileset()
     //dtor
 }
 
-void Tileset::loadFromFile(string path)
+void Tileset::loadFromFile(str path)
 {
     // On charge le fichier json
     js::Document json;
@@ -27,7 +27,7 @@ void Tileset::loadFromFile(string path)
 	assert(json.IsObject());
 
 	// On charge la texture du tileset
-    string texturePath(rm::getKeyValue<std::string>("d-tilesets"));
+    str texturePath(rm::getKeyValue<str>("d-tilesets"));
     texturePath += json["texture"].GetString();
     m_texture = &rm::getTexture(texturePath);
 
@@ -48,7 +48,7 @@ void Tileset::loadFromFile(string path)
         assert(tileValue.HasMember("char") && tileValue["char"].IsString());
         assert(tileValue.HasMember("tile") && tileValue["tile"].IsString());
 
-        string ch = tileValue["char"].GetString();
+        str ch = tileValue["char"].GetString();
 
         assert(ch.size() == 1);
         m_namesByChar[ch[0]] = tileValue["tile"].GetString();
@@ -164,7 +164,7 @@ void Tileset::loadFromFile(string path)
         const js::Value& tileValue = autotiles[i];
         assert(tileValue.IsObject());
 
-        string voidTile = "void";
+        str voidTile = "void";
 
         AutoTileData* tileData = new AutoTileData;
 
@@ -217,12 +217,12 @@ void Tileset::loadFromFile(string path)
     cout << "Tileset chargé" << endl;
 }
 
-TileInfo* Tileset::getTileInfoFromName(string s)
+TileInfo* Tileset::getTileInfoFromName(str s)
 {
     // trouve la tuile correspondant au nom
 
-    std::map<string, TileInfo*>::iterator it;
-    std::map<string, RandomTileData*>::iterator it2;
+    std::map<str, TileInfo*>::iterator it;
+    std::map<str, RandomTileData*>::iterator it2;
 
     // Cherche dans les tuiles normales
     it = m_normalTiles.find(s);
@@ -253,7 +253,7 @@ TileInfo* Tileset::getTileInfoFromName(string s)
     return NULL;
 }
 
-TileInfo& Tileset::getExistingTileInfoFromName(string s)
+TileInfo& Tileset::getExistingTileInfoFromName(str s)
 {
     TileInfo* tileInfo = getTileInfoFromName(s);
     assert(tileInfo != NULL);
@@ -261,12 +261,12 @@ TileInfo& Tileset::getExistingTileInfoFromName(string s)
     return *tileInfo;
 }
 
-string Tileset::getTileNameFromChar(char c)
+str Tileset::getTileNameFromChar(char c)
 {
     // il faut que le caractère soit dans la map
 
     // trouve le nom de la tuile
-    std::map<char, string>::iterator it = m_namesByChar.find(c);
+    std::map<char, str>::iterator it = m_namesByChar.find(c);
     if (it == m_namesByChar.end())
     {
         cout << "ERREUR: Tuile '" << c << "' introuvable." << endl;
@@ -284,7 +284,7 @@ Tile* Tileset::makeTileFromChar(TileMap& map, char c)
     if (c == ' ')
         return NULL;
 
-    string name = getTileNameFromChar(c);
+    str name = getTileNameFromChar(c);
 
     // Cherche dans les tuiles normales/aléatoires
 
@@ -300,7 +300,7 @@ Tile* Tileset::makeTileFromChar(TileMap& map, char c)
 
     // Si ça n'y est pas...
 
-    std::map<std::string, AutoTileData*>::iterator it;
+    std::map<str, AutoTileData*>::iterator it;
     it = m_autoTiles.find(name);
     if (it != m_autoTiles.end())
     {

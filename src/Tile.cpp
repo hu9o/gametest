@@ -219,7 +219,7 @@ void Tile::updateSprite()
     }
 }
 
-std::string Tile::getName()
+str Tile::getName()
 {
     return m_name;
 }
@@ -253,9 +253,9 @@ bool Tile::hasType(TileType t) const
     }
 }
 
-TileType Tile::getTypeByString(std::string s)
+TileType Tile::getTypeByString(str s)
 {
-    static std::map<std::string, TileType> tileTypesByString;
+    static std::map<str, TileType> tileTypesByString;
 
     if (tileTypesByString.size() == 0)
     {

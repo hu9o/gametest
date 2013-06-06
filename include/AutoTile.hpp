@@ -6,7 +6,7 @@
 
 struct AutoTileInfo
 {
-    std::string name;
+    str name;
     TileType type;
     TileInfo top, bot, mid, one, over, under;
 };
@@ -24,7 +24,7 @@ class AutoTile : public Tile
 
         virtual void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
 
-        virtual std::string getName();
+        virtual str getName();
         virtual TileType getType();
 
     protected:

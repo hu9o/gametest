@@ -11,7 +11,7 @@ class TileMap;
 
 struct TileInfo
 {
-    std::string name;
+    str name;
     TileType type;
     int x;
     int y;
@@ -30,7 +30,7 @@ class Tile
         Tile(TileMap& map, TileInfo tileInfo);
         virtual ~Tile();
 
-        static TileType getTypeByString(std::string s);
+        static TileType getTypeByString(str s);
 
         void loadFromTileInfo(TileInfo tileInfo);
         void setPosition(int x, int y);
@@ -48,7 +48,7 @@ class Tile
         virtual void drawLayer(sf::RenderTarget& win, int layer, int elapsedTime);
         virtual void update();
 
-        virtual std::string getName();
+        virtual str getName();
         //virtual TileType getType();
         bool hasTile(const Tile* t) const;
         bool hasType(TileType t) const;
@@ -72,7 +72,7 @@ class Tile
         int m_solidLightDisp;
         int m_waterLightDisp;
 
-        std::string m_name;
+        str m_name;
         TileType m_type;
         Layer m_layer;
 

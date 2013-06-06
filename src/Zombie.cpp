@@ -100,7 +100,7 @@ void Zombie::update(float frameTime)
         if (changePathClock.getElapsedTime().asMilliseconds() >= 1000)
         {
             // Si on manque d'oxygène ou si on ne poursuit personne, on remonte.
-            if (m_oxygen < 3 || (!m_canBreathe && m_wandering))
+            if (m_oxygen < 3 || (hasStatus(STAT_APNEA) && m_wandering))
             {
                 seekAir();
             }

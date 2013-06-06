@@ -7,7 +7,7 @@
 
 struct RandomTileData
 {
-    std::string name;
+    str name;
     int totalProbas;
     std::vector<TileInfo> tiles;
     std::vector<int> probas;
@@ -15,8 +15,8 @@ struct RandomTileData
 
 struct AutoTileData
 {
-    std::string name;
-    std::string top, bot, mid, one, over, under;
+    str name;
+    str top, bot, mid, one, over, under;
 };
 
 class Tileset
@@ -25,7 +25,7 @@ class Tileset
         Tileset();
         virtual ~Tileset();
 
-        void loadFromFile(std::string path);
+        void loadFromFile(str path);
         Tile* makeTileFromChar(TileMap& map, char c);
         void addToTileFromChar(Tile& t, char c);
 
@@ -33,18 +33,18 @@ class Tileset
         int getTileSize();
 
     protected:
-        std::map<char, std::string> m_namesByChar;
-        std::map<std::string, TileInfo*> m_normalTiles;
-        std::map<std::string, RandomTileData*> m_randomTiles;
-        std::map<std::string, AutoTileData*> m_autoTiles;
+        std::map<char, str> m_namesByChar;
+        std::map<str, TileInfo*> m_normalTiles;
+        std::map<str, RandomTileData*> m_randomTiles;
+        std::map<str, AutoTileData*> m_autoTiles;
 
         sf::Texture* m_texture;
         int m_tileSize;
 
 
-        TileInfo* getTileInfoFromName(std::string s);
-        std::string getTileNameFromChar(char c);
-        TileInfo& getExistingTileInfoFromName(std::string s);
+        TileInfo* getTileInfoFromName(str s);
+        str getTileNameFromChar(char c);
+        TileInfo& getExistingTileInfoFromName(str s);
 
     private:
 };

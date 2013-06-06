@@ -16,7 +16,7 @@ class Game
         virtual ~Game();
 
         void run();
-        void loadFromFile(std::string path);
+        void loadFromFile(const str& path);
 
         void registerEntity(Entity& e);
 

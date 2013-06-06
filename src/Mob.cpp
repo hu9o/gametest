@@ -35,6 +35,7 @@ Mob::Mob(Game& game) : Entity(game)
     //m_hanging = false;
     m_time = 0;
     m_state = ST_JUMP;
+    m_status = STAT_NULL;
     m_dir = 1;
     m_skinVariation = 0;
 }
@@ -64,7 +65,7 @@ void Mob::draw(sf::RenderTarget& win, int elapsedTime)
         {
             image = 0 + (m_speedX)? t : 0;
         }
-        else if (!m_canBreathe)
+        else if (hasStatus(STAT_APNEA))
         {
             image = 7;
         }
@@ -104,20 +105,21 @@ void Mob::update(float frameTime)
         // dans l'eau?
         bool wasInWater = m_inWater;
         m_inWater = map.isCollision(m_pos.x, m_pos.y - 8, TILE_WATER);
-        m_canBreathe = !m_inWater || !map.isCollision(m_pos.x, m_pos.y - 14, TILE_WATER);
+
+        setStatus(STAT_APNEA, m_inWater && map.isCollision(m_pos.x, m_pos.y - 14, TILE_WATER));
 
         // la vitesse baisse quand on arrive dans l'eau
         if (m_inWater && !wasInWater)
             m_speedY *= 0.2;
 
-        if (m_canBreathe)
+        if (!hasStatus(STAT_APNEA))
             m_oxygen = m_maxOxygen;
 
         // à chaque seconde
         m_time += frameTime*40;
         if (m_time >= 1000)
         {
-            if (!m_canBreathe)
+            if (hasStatus(STAT_APNEA))
             {
                 m_oxygen -= 1;
                 if (m_oxygen < 0)
@@ -326,7 +328,7 @@ void Mob::actionPressed(Action act, bool pressed)
     {
         if (act == ACT_JUMP && (m_state == ST_STAND || m_state == ST_HANG || (m_inWater && m_canSwim)))
         {
-            m_speedY = (m_inWater)? (m_canBreathe? m_leaveWaterJumpStr : m_waterJumpStr) : m_jumpStr;
+            m_speedY = (m_inWater)? ((!hasStatus(STAT_APNEA))? m_leaveWaterJumpStr : m_waterJumpStr) : m_jumpStr;
             m_state = ST_JUMP;
         }
         if (act == ACT_JUMP && m_state == ST_CLIMB)
@@ -366,10 +368,10 @@ void Mob::actionPressed(Action act, bool pressed)
     }
 }
 
-void Mob::setSkin(string name)
+void Mob::setSkin(str name)
 {
     // charge une nouvelle texture pour le sprite
-    string path = rm::getKeyValue<std::string>("d-skins") + name + ".png";
+    str path = rm::getKeyValue<str>("d-skins") + name + ".png";
     sf::Texture& tex = rm::getTexture(path);
 
     m_sprite.setTexture(tex);
@@ -399,10 +401,16 @@ void Mob::damage(int pv)
 void Mob::die()
 {
     m_state = ST_DEAD;
+    setStatus(STAT_DEAD, true);
     cout << "aargh" << endl;
 }
 
 sf::IntRect Mob::getBoundingBox()
 {
     return sf::IntRect(m_pos.x - m_size.x/2, m_pos.y - m_size.y, m_size.x - 1, m_size.y - 1);
+}
+
+MobInfos Mob::getInfos() const
+{
+    return {m_life, m_maxLife, m_oxygen, m_maxOxygen, m_status};
 }
