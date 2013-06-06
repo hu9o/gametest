@@ -5,34 +5,6 @@ using namespace std;
 
 namespace rm
 {
-    /*
-    GenericKeyValue::GenericKeyValue() {}
-
-    bool GenericKeyValue::getBool() { return dynamic_cast<KeyValue<bool>*>(this)->getValue(); }
-    int GenericKeyValue::getInt() { return dynamic_cast<KeyValue<int>*>(this)->getValue(); }
-    float GenericKeyValue::getFloat() { return dynamic_cast<KeyValue<float>*>(this)->getValue(); }
-    string GenericKeyValue::getString() { return dynamic_cast<KeyValue<string>*>(this)->getValue(); }
-
-    GenericKeyValue* GenericKeyValue::newGenericKeyValue(js::Value& val)
-    {
-        if (val.IsBool())
-            return newGenericKeyValue(val.GetBool());
-        else if (val.IsInt())
-            return newGenericKeyValue(val.GetInt());
-        else if (val.IsDouble())
-            return newGenericKeyValue((float)val.GetDouble());
-        else if (val.IsString())
-            return newGenericKeyValue(val.GetString());
-        else
-            assert(0);
-    }
-    GenericKeyValue* GenericKeyValue::newGenericKeyValue(bool val) { return new KeyValue<bool>(val); }
-    GenericKeyValue* GenericKeyValue::newGenericKeyValue(int val) { return new KeyValue<int>(val); }
-    GenericKeyValue* GenericKeyValue::newGenericKeyValue(float val) { return new KeyValue<float>(val); }
-    GenericKeyValue* GenericKeyValue::newGenericKeyValue(string val) { return new KeyValue<string>(val); }
-    */
-
-
     void setTheme(const std::string& name)
     {
         m_theme = name;
@@ -117,6 +89,16 @@ namespace rm
         m_tileset.loadFromFile(rm::getKeyValue<std::string>("d-tilesets") + name + ".json");
     }
 
+    sf::Text getText(const std::string& content, int size)
+    {
+        sf::Text txt(content, m_font);
+        txt.setCharacterSize(size);
+        txt.setStyle(sf::Text::Regular);
+        txt.setColor(sf::Color::Black);
+
+        return txt;
+    }
+
     void init()
     {
         string path = "conf.json";
@@ -169,7 +151,8 @@ namespace rm
     //        ++itr;
     //
     //    }
-
+        m_font = sf::Font();
+        m_font.loadFromFile(getKeyValue<std::string>("d-resources")+getKeyValue<std::string>("g-font"));
     }
 
     //string getDirectory(string name)
@@ -247,7 +230,7 @@ namespace rm
 
             if (type == "keyboard")
             {
-                p = new Player();
+                p = new Player(pl["name"].GetString());
             }
             else if (type == "bot")
             {

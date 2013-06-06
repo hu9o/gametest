@@ -91,7 +91,7 @@
 	"Entity.h"
 	"Controllable.h"
 
-1370373754 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+1370485585 source:c:\users\hugo\documents\github\gametest\src\game.cpp
 	"Game.hpp"
 	"ResourceManager.hpp"
 	"Events.hpp"
@@ -117,10 +117,10 @@
 	"ResourceManager.hpp"
 	"Game.hpp"
 
-1369864539 source:c:\users\hugo\documents\github\gametest\src\player.cpp
+1370485592 source:c:\users\hugo\documents\github\gametest\src\player.cpp
 	"Player.hpp"
 
-1370120213 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1370481946 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
 	"TileMap.hpp"
 
@@ -151,8 +151,9 @@
 	"ResourceManager.hpp"
 	"GameMenu.hpp"
 
-1369677010 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
+1370481991 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
 	"PlayerHUD.hpp"
+	"ResourceManager.hpp"
 
 1369668211 c:\users\hugo\documents\github\gametest\include\playerhud.h
 
@@ -179,7 +180,7 @@
 	"common.hpp"
 	"AutoTile.hpp"
 
-1369677050 c:\users\hugo\documents\github\gametest\include\controllable.hpp
+1370383740 c:\users\hugo\documents\github\gametest\include\controllable.hpp
 	"Controls.hpp"
 
 1369677052 c:\users\hugo\documents\github\gametest\include\controls.hpp
@@ -194,10 +195,11 @@
 	"Player.hpp"
 	<list>
 
-1369864511 c:\users\hugo\documents\github\gametest\include\player.hpp
+1370485650 c:\users\hugo\documents\github\gametest\include\player.hpp
 	"common.hpp"
 	"Human.hpp"
 	"Controls.hpp"
+	"PlayerGui.hpp"
 
 1369861925 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
@@ -206,7 +208,7 @@
 	"Entity.hpp"
 	"Controllable.hpp"
 
-1370120062 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+1370481872 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	"Controls.hpp"
@@ -216,7 +218,8 @@
 1369677071 c:\users\hugo\documents\github\gametest\include\gamemenu.hpp
 	"common.hpp"
 
-1369668211 c:\users\hugo\documents\github\gametest\include\playerhud.hpp
+1370386574 c:\users\hugo\documents\github\gametest\include\playerhud.hpp
+	"common.hpp"
 
 1369677009 c:\users\hugo\documents\github\gametest\include\settings.hpp
 	"common.hpp"
@@ -247,4 +250,11 @@
 
 1369987018 c:\users\hugo\documents\github\gametest\include\events.hpp
 	"Game.hpp"
+
+1370485648 c:\users\hugo\documents\github\gametest\include\playergui.hpp
+	"common.hpp"
+
+1370485915 source:c:\users\hugo\documents\github\gametest\src\playergui.cpp
+	"PlayerGui.hpp"
+	"ResourceManager.hpp"
 

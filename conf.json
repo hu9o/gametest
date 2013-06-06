@@ -25,11 +25,12 @@
 
 	"keys" :
 	{
-		"g-zoom-factor" : 2,
+		"g-font" : "minecraftia.ttf",
+		"g-zoom-factor" : 1,
 		"g-framerate-limit" : 30,
 		"g-framerate-adjust" : true,
 		"g-smooth-shadows" : true,
-		"g-default-map" : "floatingtemple.json",
+		"g-default-map" : "floatingtemple2.json",
 		"g-default-mode" : "defaultmode.json",
 		"g-overloadable-keys-map" : "mp",
 		"g-zombie-graph" : true,
@@ -37,6 +38,7 @@
 		"g-debug" : true,
 		
 		"d-resources" : "resources/",
+		"d-interface" : "resources/interface/",
 		"d-skins" : "resources/skin/",
 		"d-backgrounds" : "resources/background/",
 		"d-maps" : "resources/map/",

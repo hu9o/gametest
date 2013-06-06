@@ -88,7 +88,6 @@ void Game::loadFromFile(string path)
 	sf::Texture& bgtex = rm::getTexture(rm::getKeyValue<std::string>("d-backgrounds") + json["background"].GetString());
 	bgtex.setRepeated(true);
 	m_bg.setTexture(bgtex);
-	m_bg.setTextureRect(sf::IntRect(0, 0, 400, 300));
 
 	assert(json.HasMember("tilemap"));
 	m_tilemap.loadFromJson(json["tilemap"]);
@@ -160,6 +159,7 @@ void Game::mainLoop()
     sf::RenderTexture shadowTex, screenTex;
     screenTex.create(winSize.x, winSize.y, 32);
     shadowTex.create(winSize.x, winSize.y, 32);
+	m_bg.setTextureRect(sf::IntRect(0, 0, winSize.x, winSize.y));
 
     // Boucle
     int timeElapsed = clock.getElapsedTime().asMilliseconds();
@@ -170,6 +170,7 @@ void Game::mainLoop()
     {
         sf::Event evt;
         sf::Clock tick;
+
 
         m_win.setView(view);
 
@@ -212,9 +213,6 @@ void Game::mainLoop()
         screenTex.draw(m_bg);
 
         // Affiche la carte
-        // on la décale de 24px vers le bas
-        //view.move(0, -12);
-
         // couche 1
         m_tilemap.drawLayer(screenTex, LAYER_BACK, timeElapsed);
 
@@ -235,12 +233,22 @@ void Game::mainLoop()
         shadowTex.clear(sf::Color::Transparent);
         m_tilemap.drawLayer(shadowTex, LAYER_SHADOW, timeElapsed);
         shadowTex.display();
-        screenTex.draw(sf::Sprite(shadowTex.getTexture()), (m_usePostFX && rm::getKeyValue<bool>("g-smooth-shadows"))? &blur : NULL);
+        screenTex.draw(sf::Sprite(shadowTex.getTexture()), (m_usePostFX && !rm::getKeyValue<bool>("g-smooth-shadows"))? &blur : NULL);
 
         m_tilemap.drawLayer(screenTex, LAYER_TEST, timeElapsed);
 
         screenTex.display();
         m_win.draw(sf::Sprite(screenTex.getTexture()), false? &quake : NULL);
+
+
+        // Affiche l'interface
+
+        m_win.setView(m_win.getDefaultView());
+        for (std::list<Player*>::iterator it=m_players.begin(); it != m_players.end(); ++it)
+        {
+            (*it)->drawGui(m_win);
+        }
+
         m_win.display();
     }
 

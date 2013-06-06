@@ -4,18 +4,23 @@
 #include "common.hpp"
 #include "Human.hpp"
 #include "Controls.hpp"
+#include "PlayerGui.hpp"
 
+class PlayerGui;
 class Player
 {
     public:
-        Player();
+        Player(const std::string& name);
         virtual ~Player();
 
         void setControls(Controls& ctrls);
         void setHuman(Human* h);
-        Human* getHuman();
+        const Human* getHuman() const;
+        void drawGui(sf::RenderTarget& target) const;
 
         bool pressKey(sf::Keyboard::Key k, bool pressed);
+
+        friend class PlayerGui;
 
     protected:
 
@@ -25,6 +30,7 @@ class Player
         int money;
         Human* m_perso;
         Controls m_ctrls;
+        PlayerGui m_gui;
 
     private:
 };

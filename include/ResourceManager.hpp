@@ -46,6 +46,8 @@ namespace rm
     Tileset& getTileset();
     void setTileset(const std::string& name);
 
+    sf::Text getText(const std::string& content, int size=16);
+
     //std::string getDirectory(std::string name);
     bool hasKeyValue(const std::string& key);
     js::Value& getKeyJsValue(const std::string& key);
@@ -70,6 +72,7 @@ namespace rm
     static std::string m_theme = "gfx/default";
     static Tileset m_tileset;
     static js::Document m_settings;
+    static sf::Font m_font;
 }
 
 #endif // RESOURCEMANAGER_H
