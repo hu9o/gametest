@@ -25,9 +25,9 @@ class Player
     protected:
 
         str m_name;
-        int m_score;
-        int team; //enum?
-        int money;
+        //int m_score;
+        //int m_team; //enum?
+        //int m_money;
         Human* m_perso;
         Controls m_ctrls;
         PlayerGui m_gui;

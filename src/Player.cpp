@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Player::Player(const str& name) : m_name(name), m_gui(*this)
+Player::Player(const str& name) : m_name(name), m_gui(*this), m_perso(NULL)
 {
     //ctor
 }

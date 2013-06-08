@@ -63,7 +63,7 @@
 		<Unit filename="../include/Human.hpp" />
 		<Unit filename="../include/Mob.hpp" />
 		<Unit filename="../include/Player.hpp" />
-		<Unit filename="../include/PlayerHUD.hpp" />
+		<Unit filename="../include/PlayerGui.hpp" />
 		<Unit filename="../include/ResourceManager.hpp" />
 		<Unit filename="../include/Settings.hpp" />
 		<Unit filename="../include/Tile.hpp" />
@@ -91,7 +91,7 @@
 		<Unit filename="../src/Human.cpp" />
 		<Unit filename="../src/Mob.cpp" />
 		<Unit filename="../src/Player.cpp" />
-		<Unit filename="../src/PlayerHUD.cpp" />
+		<Unit filename="../src/PlayerGui.cpp" />
 		<Unit filename="../src/ResourceManager.cpp" />
 		<Unit filename="../src/Settings.cpp" />
 		<Unit filename="../src/Tile.cpp" />

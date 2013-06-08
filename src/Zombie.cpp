@@ -49,7 +49,10 @@ void Zombie::wander()
             nextPos = neighsPos[rand() % neighsPos.size()];
             m_path.push_back(vec2i(nextPos%mapWidth, nextPos/mapWidth));
         }
-        while (dist--); // sorry for that
+        while (dist--);
+
+        if (m_path.size() == 1)
+            m_path.clear();
     }
     else
     {

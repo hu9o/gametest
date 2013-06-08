@@ -5,7 +5,7 @@ std::vector<PlayerGui*> PlayerGui::s_guis;
 
 PlayerGui::PlayerGui(const Player& p) : m_player(p), m_playerNameText(rm::getText(p.m_name, 8))
 {
-    const sf::Texture& tex = rm::getTexture(rm::getKeyValue<str>("d-interface")+"PlayerGui.png");
+    const sf::Texture& tex = rm::getTexture(rm::getKeyValue<str>("d-interface")+"playergui.png");
 
     m_baseSprite.setTexture(tex);
     m_baseSprite.setTextureRect(sf::IntRect(0, 0, 160, 35));
@@ -14,7 +14,8 @@ PlayerGui::PlayerGui(const Player& p) : m_player(p), m_playerNameText(rm::getTex
 
     m_guiIndex = s_guis.size();
     s_guis.push_back(this);
-    updateGuis();
+
+    update();
 }
 PlayerGui::~PlayerGui()
 {
@@ -48,4 +49,23 @@ void PlayerGui::draw(sf::RenderTarget& target) const
     target.draw(m_baseSprite);
     target.draw(m_playerNameText);
     target.draw(m_healthSprite);
+
+    // Affiche les "états" du jouer
+
+    sf::Sprite m_statusSprite(*m_baseSprite.getTexture());
+    sf::IntRect statusSpritePos(3, 45, 16, 16);
+    MobStatus status[3] = {STAT_POISON, STAT_DEAD, STAT_APNEA};
+
+    for (int i=0, k=0; i<3; ++i)
+    {
+        if (m_player.getHuman() && m_player.getHuman()->getInfos().status & status[i])
+        {
+            statusSpritePos.left = 3 + 19*i;
+            m_statusSprite.setTextureRect(statusSpritePos);
+            m_statusSprite.setPosition(200 * m_guiIndex + 20 + 140 - 19*k, 4);
+            ++k;
+
+            target.draw(m_statusSprite);
+        }
+    }
 }
