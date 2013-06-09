@@ -3,13 +3,13 @@
 	"AutoTile.hpp"
 	"TileMap.hpp"
 
-1369668211 c:\users\hugo\documents\github\gametest\include\autotile.h
-	"Tile.h"
+1370492342 c:\users\hugo\documents\github\gametest\include\autotile.hpp
+	"Tile.hpp"
 
-1369668211 c:\users\hugo\documents\github\gametest\include\tile.h
-	"common.h"
+1370492342 c:\users\hugo\documents\github\gametest\include\tile.hpp
+	"common.hpp"
 
-1369668211 c:\users\hugo\documents\github\gametest\include\common.h
+1370492296 c:\users\hugo\documents\github\gametest\include\common.hpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -44,133 +44,6 @@
 1369668211 c:\users\hugo\documents\github\gametest\include\rapidjson\filestream.h
 	<cstdio>
 
-1369668211 c:\users\hugo\documents\github\gametest\include\tilemap.h
-	"common.h"
-	"Tileset.h"
-	<list>
-
-1369668211 c:\users\hugo\documents\github\gametest\include\tileset.h
-	"common.h"
-	"AutoTile.h"
-
-1369677054 source:c:\users\hugo\documents\github\gametest\src\controllable.cpp
-	"Controllable.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\controllable.h
-	"Controls.h"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\controls.h
-	"common.h"
-
-1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
-	"Controls.hpp"
-
-1370368199 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
-	"Entity.hpp"
-	"Game.hpp"
-	"ResourceManager.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\entity.h
-	"common.h"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\game.h
-	"common.h"
-	"TileMap.h"
-	"Player.h"
-	<list>
-
-1369668211 c:\users\hugo\documents\github\gametest\include\player.h
-	"common.h"
-	"Human.h"
-	"Controls.h"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\human.h
-	"Mob.h"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\mob.h
-	"Entity.h"
-	"Controllable.h"
-
-1370653932 source:c:\users\hugo\documents\github\gametest\src\game.cpp
-	"Game.hpp"
-	"ResourceManager.hpp"
-	"Events.hpp"
-	"Zombie.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\resourcemanager.h
-	"common.h"
-	"Tileset.h"
-	"Controls.h"
-
-1369677053 source:c:\users\hugo\documents\github\gametest\src\gamemenu.cpp
-	"GameMenu.hpp"
-	"Game.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\gamemenu.h
-	"common.h"
-
-1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
-	"Human.hpp"
-
-1370660019 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
-	"Mob.hpp"
-	"ResourceManager.hpp"
-	"Game.hpp"
-
-1370660102 source:c:\users\hugo\documents\github\gametest\src\player.cpp
-	"Player.hpp"
-
-1370596146 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
-	"ResourceManager.hpp"
-	"TileMap.hpp"
-
-1369677016 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
-	"Settings.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\settings.h
-	"common.h"
-
-1370492342 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
-	"Tile.hpp"
-	"TileMap.hpp"
-	"ResourceManager.hpp"
-
-1370492511 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
-	"TileMap.hpp"
-	"ResourceManager.hpp"
-	"Zombie.hpp"
-	<math.h>
-
-1370492511 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
-	"Tileset.hpp"
-	"ResourceManager.hpp"
-
-1370596027 source:c:\users\hugo\documents\github\gametest\src\main.cpp
-	<time.h>
-	<SFML/Graphics.hpp>
-	"ResourceManager.hpp"
-	"GameMenu.hpp"
-
-1370481991 source:c:\users\hugo\documents\github\gametest\src\playerhud.cpp
-	"PlayerHUD.hpp"
-	"ResourceManager.hpp"
-
-1369668211 c:\users\hugo\documents\github\gametest\include\playerhud.h
-
-1370492342 c:\users\hugo\documents\github\gametest\include\autotile.hpp
-	"Tile.hpp"
-
-1370492342 c:\users\hugo\documents\github\gametest\include\tile.hpp
-	"common.hpp"
-
-1370492296 c:\users\hugo\documents\github\gametest\include\common.hpp
-	<iostream>
-	<cstdlib>
-	<cstdio>
-	<SFML/Graphics.hpp>
-	"rapidjson/document.h"
-	"rapidjson/filestream.h"
-
 1369984908 c:\users\hugo\documents\github\gametest\include\tilemap.hpp
 	"common.hpp"
 	"Tileset.hpp"
@@ -180,13 +53,24 @@
 	"common.hpp"
 	"AutoTile.hpp"
 
+1369677054 source:c:\users\hugo\documents\github\gametest\src\controllable.cpp
+	"Controllable.hpp"
+
 1370383740 c:\users\hugo\documents\github\gametest\include\controllable.hpp
 	"Controls.hpp"
 
 1369677052 c:\users\hugo\documents\github\gametest\include\controls.hpp
 	"common.hpp"
 
-1369896951 c:\users\hugo\documents\github\gametest\include\entity.hpp
+1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
+	"Controls.hpp"
+
+1370368199 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
+	"Entity.hpp"
+	"Game.hpp"
+	"ResourceManager.hpp"
+
+1370737787 c:\users\hugo\documents\github\gametest\include\entity.hpp
 	"common.hpp"
 
 1370492363 c:\users\hugo\documents\github\gametest\include\game.hpp
@@ -204,9 +88,12 @@
 1370489724 c:\users\hugo\documents\github\gametest\include\human.hpp
 	"Mob.hpp"
 
-1370495847 c:\users\hugo\documents\github\gametest\include\mob.hpp
+1370738372 c:\users\hugo\documents\github\gametest\include\mob.hpp
 	"Entity.hpp"
 	"Controllable.hpp"
+
+1370660577 c:\users\hugo\documents\github\gametest\include\playergui.hpp
+	"common.hpp"
 
 1370492342 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
@@ -215,46 +102,78 @@
 	"Player.hpp"
 	<list>
 
+1369988070 source:c:\users\hugo\documents\github\gametest\src\events.cpp
+	"Events.hpp"
+	"Zombie.hpp"
+
+1369987018 c:\users\hugo\documents\github\gametest\include\events.hpp
+	"Game.hpp"
+
+1370586341 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+	"Mob.hpp"
+	"TileMap.hpp"
+
+1370653932 source:c:\users\hugo\documents\github\gametest\src\game.cpp
+	"Game.hpp"
+	"ResourceManager.hpp"
+	"Events.hpp"
+	"Zombie.hpp"
+
+1369677053 source:c:\users\hugo\documents\github\gametest\src\gamemenu.cpp
+	"GameMenu.hpp"
+	"Game.hpp"
+
 1369677071 c:\users\hugo\documents\github\gametest\include\gamemenu.hpp
 	"common.hpp"
 
-1370386574 c:\users\hugo\documents\github\gametest\include\playerhud.hpp
-	"common.hpp"
+1369686319 source:c:\users\hugo\documents\github\gametest\src\human.cpp
+	"Human.hpp"
+
+1370596027 source:c:\users\hugo\documents\github\gametest\src\main.cpp
+	<time.h>
+	<SFML/Graphics.hpp>
+	"ResourceManager.hpp"
+	"GameMenu.hpp"
+
+1370660102 source:c:\users\hugo\documents\github\gametest\src\player.cpp
+	"Player.hpp"
+
+1370661192 source:c:\users\hugo\documents\github\gametest\src\playergui.cpp
+	"PlayerGui.hpp"
+	"ResourceManager.hpp"
+
+1370596146 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+	"ResourceManager.hpp"
+	"TileMap.hpp"
+
+1369677016 source:c:\users\hugo\documents\github\gametest\src\settings.cpp
+	"Settings.hpp"
 
 1369677009 c:\users\hugo\documents\github\gametest\include\settings.hpp
 	"common.hpp"
 
-1369861996 source:c:\users\hugo\documents\github\gametest\src\bot.cpp
-	"Bot.h"
+1370492342 source:c:\users\hugo\documents\github\gametest\src\tile.cpp
+	"Tile.hpp"
+	"TileMap.hpp"
+	"ResourceManager.hpp"
 
-1369862033 c:\users\hugo\documents\github\gametest\include\bot.hpp
-	"Mob.hpp"
+1370492511 source:c:\users\hugo\documents\github\gametest\src\tilemap.cpp
+	"TileMap.hpp"
+	"ResourceManager.hpp"
+	"Zombie.hpp"
+	<math.h>
+
+1370492511 source:c:\users\hugo\documents\github\gametest\src\tileset.cpp
+	"Tileset.hpp"
+	"ResourceManager.hpp"
 
 1370586415 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"
 
-1370586341 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+1370738416 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
-	"TileMap.hpp"
-
-1369888998 c:\users\hugo\documents\github\gametest\include\pathfindingtest.inl
-
-1369988070 source:c:\users\hugo\documents\github\gametest\src\events.cpp
-	"Events.hpp"
-	"Zombie.hpp"
-
-1369970619 c:\users\hugo\documents\github\gametest\include\events.h
-	"Game.hpp"
-
-1369987018 c:\users\hugo\documents\github\gametest\include\events.hpp
-	"Game.hpp"
-
-1370660577 c:\users\hugo\documents\github\gametest\include\playergui.hpp
-	"common.hpp"
-
-1370660080 source:c:\users\hugo\documents\github\gametest\src\playergui.cpp
-	"PlayerGui.hpp"
 	"ResourceManager.hpp"
+	"Game.hpp"
 

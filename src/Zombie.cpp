@@ -122,6 +122,12 @@ void Zombie::update(float frameTime)
         {
             vec2i currPos(map.toTileCoords(m_pos.x, m_pos.y-16));
             vec2i nextPos(m_path.back());
+
+            if (currPos.x > map.getSize().x-2 && nextPos.x < 2) // warp
+                nextPos.x += map.getSize().x;
+            if (currPos.x < 2 && nextPos.x > map.getSize().x-2) // warp
+                nextPos.x -= map.getSize().x;
+
             vec2i nextPosAbs(map.fromTileCoords(.5+nextPos.x, 1.+nextPos.y));
 
             // saute si sur une échelle et but hors de l'échelle
@@ -214,6 +220,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
       */
 
     int maxPathLength = rm::getKeyValue<int>("g-zombie-max-path-length");
+    vec2i mapSize = map.getSize();
 
     Node target(NULL, targetPos.x, targetPos.y, map.getTileAt(targetPos));
     Node source(NULL, sourcePos.x, sourcePos.y, map.getTileAt(targetPos));
@@ -288,20 +295,22 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
               */
 
                 bool notInClosed = true;
-                Tile* currentCase = map.getTileAt(current->x+i, current->y+j);
+                int currentxi = (current->x+i + mapSize.x)%mapSize.x;
+
+                Tile* currentCase = map.getTileAt(currentxi, current->y+j);
 
                 if (!currentCase)
                     continue;
 
                 for (it = closed.begin(); it!=closed.end() && notInClosed; ++it)
                 {
-                    if ((*it)->x == current->x+i && (*it)->y == current->y+j)
+                    if ((*it)->x == currentxi && (*it)->y == current->y+j)
                         notInClosed = false;
                 }
 
 
                 bool ok = false;
-                //bool thisNodeIsInGraph = s_graph.find((current->x+i) + (current->y+j) * map.getSize().x) != s_graph.end();
+                //bool thisNodeIsInGraph = s_graph.find((currentxi) + (current->y+j) * map.getSize().x) != s_graph.end();
 
                 // si déjà dans le graphe, et pas encore parcouru
                 if ((i || j) && nodeIsInGraph && action == PATH_FIND)
@@ -312,7 +321,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
 
                         for (std::vector<int>::const_iterator neighIt=neighsPos.begin(); neighIt != neighsPos.end(); ++neighIt)
                         {
-                            if (*neighIt == (current->x+i) + (current->y+j) * map.getSize().x)
+                            if (*neighIt == currentxi + (current->y+j) * map.getSize().x)
                             {
                                 ok = true;
                             }
@@ -323,7 +332,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
                 else if ((i || j) && !currentCase->hasType(TILE_SOLID) && !currentCase->hasType(TILE_SPIKE))
                 {
                     //// si c'est la cible, on fonce !
-                    //if ((current->x+i == target.x && current->y+j == target.y)
+                    //if ((currentxi == target.x && current->y+j == target.y)
                     //    || (action == PATH_SEEK_AIR && !currentCase->hasType(TILE_WATER)))
                     //{
                     //    ok = true;
@@ -335,7 +344,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
                         // pas errer dans l'eau, ça tue.
                         if (action != PATH_WANDER)
                             if ((!i || !j) || (!map.tileAtHasType(current->x, current->y+j, TILE_SOLID)
-                                                       && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID)))
+                                                       && !map.tileAtHasType(currentxi, current->y, TILE_SOLID)))
                                 ok = true;
                     }
                     // tombe
@@ -353,12 +362,12 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
                         // saute à gauche ou à droite
                         if (j==-1 && i!=0 && !map.tileAtHasType(current->x, current->y, TILE_LADDER)
                                         && !map.tileAtHasType(current->x, current->y-1, TILE_SOLID)
-                                        && !map.tileAtHasType(current->x+i, current->y+j, TILE_SOLID)
-                                        && map.tileAtHasType(current->x+i, current->y, TILE_SOLID))
+                                        && !map.tileAtHasType(currentxi, current->y+j, TILE_SOLID)
+                                        && map.tileAtHasType(currentxi, current->y, TILE_SOLID))
                             ok = true;
 
                         // gauche ou droite
-                        if (j==0 && i!=0 && !map.tileAtHasType(current->x+i, current->y, TILE_SOLID) &&
+                        if (j==0 && i!=0 && !map.tileAtHasType(currentxi, current->y, TILE_SOLID) &&
                                             (map.tileAtHasType(current->x, current->y+1, TILE_SOLID)
                                           || (map.tileAtHasType(current->x, current->y+1, TILE_LADDER)
                                            && !map.tileAtHasType(current->x, current->y, TILE_SOLID)
@@ -386,12 +395,12 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
                 if (ok)
                 {
                     if (s_useGraph)
-                        currentsNeighsInGraph.push_back((current->x+i) + (current->y+j) * map.getSize().x);
+                        currentsNeighsInGraph.push_back((currentxi) + (current->y+j) * map.getSize().x);
 
                     // pas encore parcouru, pas trop loin, on l'ajoute
                     if (notInClosed && (!maxPathLength || current->distance < maxPathLength))
                     {
-                        Node* c = new Node(current, current->x+i, current->y+j, currentCase);
+                        Node* c = new Node(current, currentxi, current->y+j, currentCase);
 
                         c->g = current->g + ((i && j)? 14:10); //*currentCase->getCost();
 
@@ -481,7 +490,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
         res.pop_back();
 
     /// Si un chemin a été trouvé, le renvoie. Sinon renvoie une liste vide.
-    //map.test_graph = foundPath? res : std::vector<vec2i>();
+    map.test_graph = foundPath? res : std::vector<vec2i>();
     return foundPath? res : std::vector<vec2i>();
 }
 
