@@ -3,8 +3,9 @@
 
 #include "Entity.hpp"
 #include "Controllable.hpp"
+#include <list>
 
-enum MobStatus { STAT_NULL=0, STAT_IMMUNE=0x1, STAT_DEAD=0x2, STAT_POISON=0x4, STAT_SLOW=0x8, STAT_APNEA=0x10 };
+enum MobStatus { STAT_NULL=0, STAT_IMMUNE=0x1, STAT_DEAD=0x2, STAT_POISON=0x4, STAT_SLOW=0x8, STAT_APNEA=0x10, STAT_UNDEAD=0x20 };
 
 struct MobInfos
 {
@@ -25,11 +26,17 @@ class Mob : public Entity, public Controllable
         void setSkin(str name);
         void setPosition(vec2i pos);
         void damage(int pv);
+        void poison(int time);
 
         MobInfos getInfos() const;
 
+        inline void setStatus(MobStatus s, bool set) { m_status = set? (MobStatus)(m_status | s) : (MobStatus)(m_status & ~s); };
+        inline bool hasStatus(MobStatus s) { return (m_status&s) != 0; }
+
     protected:
         enum State {ST_STAND, ST_JUMP, ST_CLIMB, ST_HANG, ST_DEAD};
+
+        static std::list<Mob*> s_mobs;
 
         vec2i m_size;
 
@@ -38,6 +45,7 @@ class Mob : public Entity, public Controllable
         int m_oxygen;
         int m_maxOxygen;
         int m_drowningDamage;
+        int m_poisonTime;
         bool m_canSwim;
         bool m_canHang;
         bool m_debug;
@@ -72,17 +80,12 @@ class Mob : public Entity, public Controllable
         //holdable
 
         virtual void actionPressed(Action act, bool pressed);
-        sf::IntRect getBoundingBox();
-        void die();
 
-        inline void setStatus(MobStatus s, bool set)
-        {
-            if (set)
-                m_status = (MobStatus)(m_status | s);
-            else
-                m_status = (MobStatus)(m_status & ~s);
-        };
-        inline bool hasStatus(MobStatus s) { return (m_status&s) != 0; }
+        sf::IntRect getBoundingBox();
+        bool isCollision();
+        bool isCollision(Mob& mob);
+
+        void die();
 
     private:
 };

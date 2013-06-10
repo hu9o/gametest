@@ -4,6 +4,8 @@
 
 using namespace std;
 
+std::list<Mob*> Mob::s_mobs;
+
 Mob::Mob(Game& game) : Entity(game)
 {
     m_canSwim = rm::getKeyValue<bool>("p-can-swim");
@@ -38,11 +40,14 @@ Mob::Mob(Game& game) : Entity(game)
     m_status = STAT_NULL;
     m_dir = 1;
     m_skinVariation = 0;
+    m_poisonTime = 0;
+
+    s_mobs.push_back(this);
 }
 
 Mob::~Mob()
 {
-    //dtor
+    s_mobs.remove(this);
 }
 
 void Mob::draw(sf::RenderTarget& win, int elapsedTime)
@@ -130,8 +135,16 @@ void Mob::update(float frameTime)
                         return;
                 }
             }
+            if (hasStatus(STAT_POISON))
+            {
+                damage(4);
+
+                if (m_poisonTime <= 0)
+                    setStatus(STAT_POISON, false);
+            }
 
             m_time -= 1000;
+            m_poisonTime -= 1000;
         }
 
         // pics?
@@ -398,6 +411,12 @@ void Mob::damage(int pv)
     cout << "ouch! " << m_life << endl;
 }
 
+void Mob::poison(int time)
+{
+    m_poisonTime = time;
+    setStatus(STAT_POISON, true);
+}
+
 void Mob::die()
 {
     m_state = ST_DEAD;
@@ -408,6 +427,15 @@ void Mob::die()
 sf::IntRect Mob::getBoundingBox()
 {
     return sf::IntRect(m_pos.x - m_size.x/2, m_pos.y - m_size.y, m_size.x - 1, m_size.y - 1);
+}
+
+bool Mob::isCollision(Mob& mob)
+{
+    sf::IntRect a = getBoundingBox();
+    sf::IntRect b = mob.getBoundingBox();
+
+    return a.left <= (b.left+b.width) && b.left <= (a.left+a.width)
+        && a.top <= (b.top+b.height) && b.top <= (a.top+a.height);
 }
 
 MobInfos Mob::getInfos() const

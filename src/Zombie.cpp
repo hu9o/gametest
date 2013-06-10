@@ -9,6 +9,7 @@ bool Zombie::s_useGraph = false;
 Zombie::Zombie(Game& game) : Mob(game), m_target(NULL), m_wandering(false)
 {
     s_useGraph = rm::getKeyValue<bool>("g-zombie-graph");
+    setStatus(STAT_UNDEAD, true);
 }
 
 Zombie::~Zombie()
@@ -99,6 +100,13 @@ void Zombie::update(float frameTime)
         bool actJump = false;
         bool actUp = false;
         bool actDown = false;
+
+        for (std::list<Mob*>::iterator it = s_mobs.begin(); it != s_mobs.end(); ++it)
+            if (isCollision(**it) && !(*it)->hasStatus(STAT_UNDEAD))
+            {
+                (*it)->damage(1);
+                (*it)->poison(4000);
+            }
 
         if (changePathClock.getElapsedTime().asMilliseconds() >= 1000)
         {

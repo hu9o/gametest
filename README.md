@@ -8,6 +8,7 @@ This is a platformer base, consisting of a tilemap with characters hanging aroun
 It relies heavily on external configuration files, which makes it easily moddable.
 
 Press *space* to wake the dead... they are not harmful, they just crave the company of the living.
+*EDIT : Actually they now bite and poison you :)*
 
 ![Screenshot of the game][screenshot]
 
