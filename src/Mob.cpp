@@ -138,6 +138,8 @@ void Mob::update(float frameTime)
             if (hasStatus(STAT_POISON))
             {
                 damage(4);
+                if (m_state == ST_DEAD)
+                    return;
 
                 if (m_poisonTime <= 0)
                     setStatus(STAT_POISON, false);
@@ -420,7 +422,7 @@ void Mob::poison(int time)
 void Mob::die()
 {
     m_state = ST_DEAD;
-    setStatus(STAT_DEAD, true);
+    m_status = STAT_DEAD;
     cout << "aargh" << endl;
 }
 

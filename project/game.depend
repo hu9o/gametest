@@ -110,7 +110,7 @@
 1369987018 c:\users\hugo\documents\github\gametest\include\events.hpp
 	"Game.hpp"
 
-1370586341 c:\users\hugo\documents\github\gametest\include\zombie.hpp
+1370916634 c:\users\hugo\documents\github\gametest\include\zombie.hpp
 	"Mob.hpp"
 	"TileMap.hpp"
 
@@ -168,12 +168,12 @@
 	"Tileset.hpp"
 	"ResourceManager.hpp"
 
-1370833873 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+1370917128 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"
 
-1370835997 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1370916440 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"

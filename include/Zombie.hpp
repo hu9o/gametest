@@ -25,6 +25,7 @@ class Zombie : public Mob
         sf::Clock changePathClock;
         const Entity* m_target;
         bool m_wandering;
+        float m_reloadTime;
 
         // optimisation (ou pas ?)
         enum FindPathAction { PATH_FIND, PATH_WANDER, PATH_SEEK_AIR };
