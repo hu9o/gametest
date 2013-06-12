@@ -160,6 +160,12 @@
 	],
     
     
+    "special-attributes" :
+    {
+        "tomb": "zombie-spawner"
+    },
+    
+    
     "images" :
     [
         {"name":"ruby", "x":112, "y":128, "w":8, "h":8, "centerx":4, "centery":4}

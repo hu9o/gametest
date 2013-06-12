@@ -18,6 +18,7 @@ struct TileInfo
     int nbframes; // les frames DOIVENT êtres consécutives
     int delay;
     int light;
+    std::vector<str> attributes;
 };
 
 class Tile
@@ -52,6 +53,7 @@ class Tile
         //virtual TileType getType();
         bool hasTile(const Tile* t) const;
         bool hasType(TileType t) const;
+        bool hasAttribute(str attr) const;
 
     protected:
         TileMap& m_map;
@@ -66,6 +68,7 @@ class Tile
         int m_sunlight;
         bool m_enableLighting;
         bool m_transparent;
+        std::vector<str> m_attributes;
 
         int m_minBrightness;
         int m_voidLightDisp;

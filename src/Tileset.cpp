@@ -214,43 +214,61 @@ void Tileset::loadFromFile(str path)
         cout << endl;
     }
 
+    // "attributs spéciaux"
+    js::Value& attributes = json["special-attributes"];
+    for (js::Value::ConstMemberIterator itr = attributes.MemberBegin(); itr != attributes.MemberEnd(); ++itr)
+        m_attributes[itr->name.GetString()] = itr->value.GetString();
+
+
     cout << "Tileset chargé" << endl;
 }
 
-TileInfo* Tileset::getTileInfoFromName(str s)
+TileInfo* Tileset::getTileInfoFromName(str name)
 {
     // trouve la tuile correspondant au nom
+    TileInfo* toReturn = NULL;
 
     std::map<str, TileInfo*>::iterator it;
     std::map<str, RandomTileData*>::iterator it2;
 
     // Cherche dans les tuiles normales
-    it = m_normalTiles.find(s);
+    it = m_normalTiles.find(name);
     if (it != m_normalTiles.end())
-        return it->second;
-
-    // Cherche dans les tuiles aléatoires
-    it2 = m_randomTiles.find(s);
-    if (it2 != m_randomTiles.end())
     {
-        // Trouvé! Sélectionne tuile au hasard, tenant compte des probas
-
-        RandomTileData* r = it2->second;
-        int n = (rand() % r->totalProbas) + 1;
-        int i = -1;
-
-        do
+        toReturn = it->second;
+    }
+    else
+    {
+        // Cherche dans les tuiles aléatoires
+        it2 = m_randomTiles.find(name);
+        if (it2 != m_randomTiles.end())
         {
-            i++;
-            n -= r->probas[i];
-        }
-        while (n > 0);
+            // Trouvé! Sélectionne tuile au hasard, tenant compte des probas
 
-        // ATTENTION! Pas sûr de pouvoir passer un pointeur sur une valeur retournée par std::vector::operator[]
-        return & r->tiles[i];
+            RandomTileData* r = it2->second;
+            int n = (rand() % r->totalProbas) + 1;
+            int i = -1;
+
+            do
+            {
+                i++;
+                n -= r->probas[i];
+            }
+            while (n > 0);
+
+            // ATTENTION! Pas sûr de pouvoir passer un pointeur sur une valeur retournée par std::vector::operator[]
+            toReturn = & r->tiles[i];
+        }
     }
 
-    return NULL;
+    if (toReturn)
+    {
+        std::map<str, str>::iterator it3 = m_attributes.find(name);
+        if (it3 != m_attributes.end())
+            toReturn->attributes.push_back(it3->second);
+    }
+
+    return toReturn;
 }
 
 TileInfo& Tileset::getExistingTileInfoFromName(str s)

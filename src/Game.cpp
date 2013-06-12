@@ -135,7 +135,7 @@ void Game::mainLoop()
     {
         Zombie* z = new Zombie(*this);
         z->setSkin("zombie");
-        z->setPosition(m_tilemap.fromTileCoords(m_tilemap.test_tombstonesPositions.front()));
+        z->setPosition(m_tilemap.fromTileCoords(m_tilemap.test_tombstones.front()->getPosition()));
         z->setTarget(*m_players.front()->getHuman());
     }
 

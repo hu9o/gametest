@@ -37,6 +37,7 @@ class Tileset
         std::map<str, TileInfo*> m_normalTiles;
         std::map<str, RandomTileData*> m_randomTiles;
         std::map<str, AutoTileData*> m_autoTiles;
+        std::map<str, str> m_attributes;
 
         sf::Texture* m_texture;
         int m_tileSize;

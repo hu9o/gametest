@@ -40,7 +40,7 @@ class TileMap
         mutable std::vector<vec2i> test_graph;
         void test_displayGraph(sf::RenderTarget& win);
 
-        std::vector<vec2i> test_tombstonesPositions;
+        std::list<Tile*> test_tombstones;
 
     protected:
         Tile*** m_tilemap;

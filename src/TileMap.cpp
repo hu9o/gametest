@@ -81,8 +81,8 @@ void TileMap::loadFromJson(const js::Value& map)
             if (t->getLightEmitted() > 0)
                 m_lightSources.push_back(t);
 
-            if (line[j*2] == 'N')
-                test_tombstonesPositions.push_back(vec2i(j, i));
+            if (t->hasAttribute("zombie-spawner"))
+                test_tombstones.push_back(t);
         }
     }
 
@@ -306,13 +306,19 @@ void TileMap::destroyTileAt(int x, int y)
 void TileMap::deleteTile(Tile* t)
 {
     list<Tile*>::iterator it = m_lightSources.begin();
-
     while (it != m_lightSources.end())
     {
         if (t->hasTile(*it))
-        {
             it = m_lightSources.erase(it);
-        }
+
+        it++;
+    }
+
+    it = test_tombstones.begin();
+    while (it != test_tombstones.end())
+    {
+        if (t->hasTile(*it))
+            it = test_tombstones.erase(it);
 
         it++;
     }

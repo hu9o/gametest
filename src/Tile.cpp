@@ -54,6 +54,8 @@ void Tile::loadFromTileInfo(TileInfo tileInfo)
 
     m_lightEmitted = tileInfo.light;
 
+    m_attributes = tileInfo.attributes;
+
     updateSprite();
 }
 
@@ -232,25 +234,23 @@ str Tile::getName()
 bool Tile::hasTile(const Tile* t) const
 {
     if (m_nextTile == NULL)
-    {
         return (this == t);
-    }
     else
-    {
         return (this == t) || m_nextTile->hasTile(t);
-    }
 }
 
 bool Tile::hasType(TileType t) const
 {
     if (m_nextTile == NULL)
-    {
         return (m_type == t);
-    }
     else
-    {
         return (m_type == t) || m_nextTile->hasType(t);
-    }
+}
+
+bool Tile::hasAttribute(str attr) const
+{
+    return (std::find(m_attributes.begin(), m_attributes.end(), attr) != m_attributes.end())
+        || (m_nextTile && m_nextTile->hasAttribute(attr));
 }
 
 TileType Tile::getTypeByString(str s)

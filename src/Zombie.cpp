@@ -511,7 +511,7 @@ std::vector<vec2i> Zombie::findPath(const TileMap& map, vec2i sourcePos, vec2i t
         res.pop_back();
 
     /// Si un chemin a été trouvé, le renvoie. Sinon renvoie une liste vide.
-    map.test_graph = foundPath? res : std::vector<vec2i>();
+    //map.test_graph = foundPath? res : std::vector<vec2i>();
     return foundPath? res : std::vector<vec2i>();
 }
 
