@@ -86,12 +86,12 @@ void Mob::draw(sf::RenderTarget& win, int elapsedTime)
                                         m_size.y));
 
     m_sprite.scale((m_sprite.getScale().x == m_dir)? 1 : -1, 1.f);
-
     m_sprite.setOrigin(m_size.x/2, m_size.y);
-
     m_sprite.setPosition((int)m_pos.x, (int)m_pos.y);
 
     drawSprite(win);
+
+    Entity::draw(win, elapsedTime);
 }
 
 void Mob::update(float frameTime)

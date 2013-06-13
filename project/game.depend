@@ -65,15 +65,15 @@
 1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
 	"Controls.hpp"
 
-1370368199 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
+1371095391 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
 	"Entity.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"
 
-1370832937 c:\users\hugo\documents\github\gametest\include\entity.hpp
+1371095160 c:\users\hugo\documents\github\gametest\include\entity.hpp
 	"common.hpp"
 
-1370492363 c:\users\hugo\documents\github\gametest\include\game.hpp
+1371094779 c:\users\hugo\documents\github\gametest\include\game.hpp
 	"common.hpp"
 	"TileMap.hpp"
 	"Player.hpp"
@@ -168,12 +168,12 @@
 	"Tileset.hpp"
 	"ResourceManager.hpp"
 
-1370918555 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
+1371095701 source:c:\users\hugo\documents\github\gametest\src\zombie.cpp
 	"Zombie.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"
 
-1370918504 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
+1371095121 source:c:\users\hugo\documents\github\gametest\src\mob.cpp
 	"Mob.hpp"
 	"ResourceManager.hpp"
 	"Game.hpp"

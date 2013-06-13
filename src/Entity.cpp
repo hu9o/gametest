@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Entity::Entity(Game& game) : m_game(game)
+Entity::Entity(Game& game) : m_game(game), m_bubbleSprite(rm::getTexture(rm::getKeyValue<str>("d-interface")+"bubbles.png"))
 {
     game.registerEntity(*this);
 }
@@ -23,6 +23,24 @@ void Entity::update(float frameTime)
 
     if (m_pos.x < 0)
         m_pos.x += mapWidth;
+
+    if (m_bubbleTime >= 0)
+        m_bubbleTime -= frameTime;
+}
+
+void Entity::draw(sf::RenderTarget& win, int elapsedTime)
+{
+    if (m_bubbleTime >= 0)
+    {
+        m_bubbleSprite.setPosition(m_pos.x-8, m_pos.y-16 - 16);
+        win.draw(m_bubbleSprite);
+    }
+}
+
+void Entity::displayBubble(int index)
+{
+    m_bubbleSprite.setTextureRect(sf::IntRect(index*16, 0, 16, 16));
+    m_bubbleTime = 20.f;
 }
 
 vec2f Entity::getPosition() const

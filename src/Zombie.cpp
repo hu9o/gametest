@@ -26,6 +26,9 @@ void Zombie::goTo(vec2i targetPos)
 
     if (!newPath.empty())
     {
+        if (m_wandering)
+            displayBubble(); // on a repéré le joueur !
+
         m_path = newPath;
         m_wandering = false;
     }
