@@ -44,40 +44,6 @@ namespace rm
         return *tex;
     }
 
-    sf::Texture* _getTexture(const str& path)
-    {
-        cout << "Demande l'image \"" << path << "\"" << endl;
-
-        map<str, sf::Texture*>::iterator it = m_textures.find(path);
-
-        if (it == m_textures.end())
-        {
-            cout << "Premier chargement" << endl;
-
-            sf::Texture* tex = new sf::Texture();
-
-            if (!tex->loadFromFile(path))
-            {
-                cout << "Introuvable, retourne NULL" << endl;
-                delete tex;
-                tex = NULL;
-            }
-            else
-            {
-                cout << "Image chargée" << endl;
-                m_textures[path] = tex;
-                tex->setSmooth(false);
-            }
-
-            return tex;
-        }
-        else
-        {
-            cout << "L'image est déjà chargée" << endl;
-            return it->second;
-        }
-    }
-
     Tileset& getTileset()
     {
         return m_tileset;
@@ -254,4 +220,41 @@ namespace rm
         }
     }
 
+}
+
+namespace
+{
+    sf::Texture* _getTexture(const str& path)
+    {
+        cout << "Demande l'image \"" << path << "\"" << endl;
+
+        map<str, sf::Texture*>::iterator it = m_textures.find(path);
+
+        if (it == m_textures.end())
+        {
+            cout << "Premier chargement" << endl;
+
+            sf::Texture* tex = new sf::Texture();
+
+            if (!tex->loadFromFile(path))
+            {
+                cout << "Introuvable, retourne NULL" << endl;
+                delete tex;
+                tex = NULL;
+            }
+            else
+            {
+                cout << "Image chargée" << endl;
+                m_textures[path] = tex;
+                tex->setSmooth(true);
+            }
+
+            return tex;
+        }
+        else
+        {
+            cout << "L'image est déjà chargée" << endl;
+            return it->second;
+        }
+    }
 }

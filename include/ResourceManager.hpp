@@ -63,16 +63,19 @@ namespace rm
     Controls& getControlsByName(const str& name);
     void createPlayers(Game& game, TileMap& tilemap, std::list<Player*>& players);
 
+}
 
-    static sf::Texture* _getTexture(const str& path);
+namespace
+{
+    sf::Texture* _getTexture(const str& path);
 
-    static std::map<str, sf::Texture*> m_textures;
-    static std::map<str, js::Value*> m_keys;
-    static std::map<str, Controls*> m_controls;
-    static str m_theme = "gfx/default";
-    static Tileset m_tileset;
-    static js::Document m_settings;
-    static sf::Font m_font;
+    std::map<str, sf::Texture*> m_textures;
+    std::map<str, js::Value*> m_keys;
+    std::map<str, Controls*> m_controls;
+    str m_theme = "gfx/default";
+    Tileset m_tileset;
+    js::Document m_settings;
+    sf::Font m_font;
 }
 
 #endif // RESOURCEMANAGER_H

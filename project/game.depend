@@ -65,7 +65,7 @@
 1369677071 source:c:\users\hugo\documents\github\gametest\src\controls.cpp
 	"Controls.hpp"
 
-1371095391 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
+1371096033 source:c:\users\hugo\documents\github\gametest\src\entity.cpp
 	"Entity.hpp"
 	"Game.hpp"
 	"ResourceManager.hpp"
@@ -96,7 +96,7 @@
 1370660577 c:\users\hugo\documents\github\gametest\include\playergui.hpp
 	"common.hpp"
 
-1370492342 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
+1373414321 c:\users\hugo\documents\github\gametest\include\resourcemanager.hpp
 	"common.hpp"
 	"Tileset.hpp"
 	"Controls.hpp"
@@ -143,7 +143,7 @@
 	"PlayerGui.hpp"
 	"ResourceManager.hpp"
 
-1370596146 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
+1371144982 source:c:\users\hugo\documents\github\gametest\src\resourcemanager.cpp
 	"ResourceManager.hpp"
 	"TileMap.hpp"
 
